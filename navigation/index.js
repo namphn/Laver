@@ -3,6 +3,7 @@ import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs"
 import Entypo from "react-native-vector-icons/Entypo"
+import IonIcon from 'react-native-vector-icons/FontAwesome'
 import { View } from 'react-native'
 
 import Welcome from '../screens/Welcome';
@@ -27,17 +28,17 @@ const tabBarOptions = {
         backgroundColor: "#343434",
         borderTopColor: "#343434",
         paddingBottom: 12
-    }
+    },
 }
 
 const TabBarIconContainer = (props) => {
     return (
         <View style={{
-            backgroundColor: props => props.foucused ? '#819ee5' : '#343434',
-            padding: 2,
-            borderRadius: 32,
+            backgroundColor: props.foucused ? '#819ee5' : '#343434',
+            padding: 1,
+            borderRadius: 23,
         }}>
-            {props.Children}
+            <Entypo name={props.name} size={24} color="#ffffff" />
         </View >
     )
 }
@@ -74,14 +75,12 @@ const TabNavScreen = () => {
                         }
 
                         return (
-                            <TabBarIconContainer foucused={focused}>
-                                <Entypo name={iconName} size={24} color="#ffffff" />
-                                <Text>sdasd</Text>
-                            </TabBarIconContainer>
+                            <TabBarIconContainer foucused={focused} name={iconName} />
                         )
                     }
                 }
             )}>
+
             <TabNav.Screen name="Home" component={Home} />
             <TabNav.Screen name="Explore" component={Explore} />
             <TabNav.Screen name="Profile" component={Profile} />
@@ -99,5 +98,4 @@ export default Navigation = () => {
             </AppStack.Navigator>
         </NavigationContainer>
     )
-
 }
