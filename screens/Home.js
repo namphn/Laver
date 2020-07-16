@@ -1,10 +1,8 @@
 import React from 'react'
 import { Text } from '../components'
 
-export default function Setting() {
+export default function Home() {
     return (
-
-            <Text bold center >Setting</Text>
-
+        <Text bold center >Home</Text>
     )
 }

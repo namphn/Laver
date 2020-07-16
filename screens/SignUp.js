@@ -1,10 +1,10 @@
 import React from 'react'
 import { Text } from '../components'
 
-export default function Setting() {
+export default function SignUp() {
     return (
-
-            <Text bold center >Setting</Text>
-
+ 
+            <Text bold center >SignUp</Text>
+ 
     )
 }
