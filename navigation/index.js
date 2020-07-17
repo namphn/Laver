@@ -15,6 +15,7 @@ import Home from '../screens/Home';
 import Post from '../screens/Post';
 import Setting from '../screens/Setting';
 import Profile from '../screens/Profile';
+import HomeIcon from '../icons/HomeIcon'
 
 import { theme } from '../constants';
 
@@ -25,7 +26,7 @@ const TabNav = createBottomTabNavigator();
 const tabBarOptions = {
     showLabel: false,
     style: {
-        backgroundColor: "#343434",
+        backgroundColor: theme.colors.white,
         borderTopColor: "#343434",
         paddingBottom: 12
     },
@@ -34,11 +35,12 @@ const tabBarOptions = {
 const TabBarIconContainer = (props) => {
     return (
         <View style={{
-            backgroundColor: props.foucused ? '#819ee5' : '#343434',
             padding: 1,
             borderRadius: 23,
         }}>
-            <Entypo name={props.name} size={24} color="#ffffff" />
+            {/* <Entypo name={props.name} size={24} color="#ffffff" /> */}
+            <HomeIcon active={props.focused}/>
+            {props.focused}
         </View >
     )
 }
@@ -75,7 +77,7 @@ const TabNavScreen = () => {
                         }
 
                         return (
-                            <TabBarIconContainer foucused={focused} name={iconName} />
+                            <TabBarIconContainer focused={focused} name={iconName} />
                         )
                     }
                 }
