@@ -1,23 +1,34 @@
 import React from 'react'
-import Svg, { Circle, G, Path } from 'react-native-svg'
+import Svg, { Circle, G, Path, Rect } from 'react-native-svg'
 import { theme } from '../constants'
 
 
 export default function HomeIcon(props) {
     return (
-        <Svg width={18} height={24} viewBox="0 0 18 20">
+        <Svg
+            width={theme.sizes.ICON_SIZE}
+            height={theme.sizes.ICON_SIZE}
+            viewBox="0 0 24 24">
             <G
-                transform="translate(1 1)"
+                fill={props.active ? theme.colors.primary : 'none'}
                 stroke={props.active ? theme.colors.primary : theme.colors.border}
                 strokeWidth={2}
-                fill={props.active ? theme.colors.primary : 'none'}
+                strokeLinecap="round"
                 fillRule="evenodd"
-                strokeLinecap='round'
-                strokeLinejoin='round'
-            >
-                <Path d='M16 18v-2a4 4 0 00-4-4H4a4 4 0 00-4 4v2' />
-                <Circle cx={8} cy={4} r={4} />
+                strokeLinejoin="round"
+                className="prefix__feather prefix__feather-home">
+                <Path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z" />
+                <Path d="M9 22V12h6v10" />
             </G>
-        </Svg>
+            <Rect
+                x="10"
+                y="14"
+                width="4"
+                height="9"
+                fill="white"
+                strokeWidth="1"
+                
+            />
+        </Svg >
     )
 }

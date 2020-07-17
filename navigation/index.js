@@ -6,16 +6,20 @@ import Entypo from "react-native-vector-icons/Entypo"
 import IonIcon from 'react-native-vector-icons/FontAwesome'
 import { View } from 'react-native'
 
-import Welcome from '../screens/Welcome';
-import Login from '../screens/Login';
-import SignUp from '../screens/SignUp.js';
-import Forgot from '../screens/Forgot';
-import Explore from '../screens/Explore';
-import Home from '../screens/Home';
-import Post from '../screens/Post';
-import Setting from '../screens/Setting';
-import Profile from '../screens/Profile';
+import Welcome from '../screens/Welcome'
+import Login from '../screens/Login'
+import SignUp from '../screens/SignUp.js'
+import Forgot from '../screens/Forgot'
+import Explore from '../screens/Explore'
+import Home from '../screens/Home'
+import Post from '../screens/Post'
+import Setting from '../screens/Setting'
+import Profile from '../screens/Profile'
+import Notification from '../screens/Notification'
 import HomeIcon from '../icons/HomeIcon'
+import NotificationIcon from '../icons/NotificationIcon'
+import SearchIcon from '../icons/SearchIcon'
+import UserIcon from '../icons/UserIcon'
 
 import { theme } from '../constants';
 
@@ -33,16 +37,63 @@ const tabBarOptions = {
 }
 
 const TabBarIconContainer = (props) => {
-    return (
-        <View style={{
-            padding: 1,
-            borderRadius: 23,
-        }}>
-            {/* <Entypo name={props.name} size={24} color="#ffffff" /> */}
-            <HomeIcon active={props.focused}/>
-            {props.focused}
-        </View >
-    )
+    switch (props.name) {
+        case "home":
+            return (
+                <View style={{
+                    padding: 1,
+                    borderRadius: 23,
+                }}>
+                    <HomeIcon active={props.focused} />
+                    {props.focused}
+                </View >
+            )
+
+        case "notification":
+            return (
+                <View style={{
+                    padding: 1,
+                    borderRadius: 23,
+                }}>
+                    <NotificationIcon active={props.focused} />
+                    {props.focused}
+                </View >
+            )
+
+        case "search":
+            return (
+                <View style={{
+                    padding: 1,
+                    borderRadius: 23,
+                }}>
+                    <SearchIcon active={props.focused} />
+                    {props.focused}
+                </View >
+            )
+
+        case "user":
+            return (
+                <View style={{
+                    padding: 1,
+                    borderRadius: 23,
+                }}>
+                    <UserIcon active={props.focused} />
+                    {props.focused}
+                </View >
+            )
+
+        default: return (
+            <View style={{
+                padding: 1,
+                borderRadius: 23,
+            }}>
+                <HomeIcon active={props.focused} />
+                {props.focused}
+            </View >
+        )
+    }
+    return
+
 }
 
 const TabNavScreen = () => {
@@ -61,15 +112,15 @@ const TabNavScreen = () => {
                                 break;
 
                             case "Explore":
-                                iconName = "magnifying-glass"
+                                iconName = "search"
+                                break;
+
+                            case "Notification":
+                                iconName = "notification"
                                 break;
 
                             case "Profile":
                                 iconName = "user"
-                                break;
-
-                            case "Setting":
-                                iconName = "menu"
                                 break;
 
                             default:
@@ -85,8 +136,8 @@ const TabNavScreen = () => {
 
             <TabNav.Screen name="Home" component={Home} />
             <TabNav.Screen name="Explore" component={Explore} />
+            <TabNav.Screen name="Notification" component={Notification} />
             <TabNav.Screen name="Profile" component={Profile} />
-            <TabNav.Screen name="Setting" component={Setting} />
         </TabNav.Navigator>
     )
 }
