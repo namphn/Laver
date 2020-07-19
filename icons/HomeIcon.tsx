@@ -24,7 +24,7 @@ export default function HomeIcon(props) {
                 x="10"
                 y="14"
                 width="4"
-                height="9"
+                height="19"
                 fill="white"
                 strokeWidth="1"
                 
