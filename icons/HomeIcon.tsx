@@ -16,7 +16,7 @@ export default function HomeIcon(props) {
                 strokeLinecap="round"
                 fillRule="evenodd"
                 strokeLinejoin="round"
-                className="prefix__feather prefix__feather-home">
+                >
                 <Path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z" />
                 <Path d="M9 22V12h6v10" />
             </G>

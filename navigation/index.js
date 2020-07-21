@@ -20,7 +20,6 @@ import HomeIcon from '../icons/HomeIcon'
 import NotificationIcon from '../icons/NotificationIcon'
 import SearchIcon from '../icons/SearchIcon'
 import UserIcon from '../icons/UserIcon'
-
 import { theme } from '../constants';
 
 const AppStack = createStackNavigator();
@@ -131,14 +130,17 @@ const TabNavScreen = () => {
                             <TabBarIconContainer focused={focused} name={iconName} />
                         )
                     }
+                   
+
                 }
-            )}>
+            )
+            }>
 
             <TabNav.Screen name="Home" component={Home} />
             <TabNav.Screen name="Explore" component={Explore} />
             <TabNav.Screen name="Notification" component={Notification} />
             <TabNav.Screen name="Profile" component={Profile} />
-        </TabNav.Navigator>
+        </TabNav.Navigator >
     )
 }
 
@@ -152,3 +154,5 @@ export default Navigation = () => {
         </NavigationContainer>
     )
 }
+
+
