@@ -53,19 +53,20 @@ export default function Home(props) {
 
     return (
         <SafeAreaView style={GlobalStyles.droidSafeArea}>
+            <Block flex={false} row center space="between" style={styles.header}>
+                <Text h1 bold>
+                    Laver
+                    </Text>
+                <Button onPress={() => navigation.navigate("Settings")}>
+                    <Image source={profile.avatar} style={styles.avatar} />
+                </Button>
+            </Block>
             <ScrollView showsVerticalScrollIndicator={false} style={styles.home}>
                 <Block>
-                    <Block flex={false} row center space="between" style={styles.header}>
-                        <Text h1 bold>
-                            Laver
-                    </Text>
-                        <Button onPress={() => navigation.navigate("Settings")}>
-                            <Image source={profile.avatar} style={styles.avatar} />
-                        </Button>
-                    </Block>
+
                     <Block style={{ marginBottom: theme.sizes.marginBottom }}>
                         <TouchableOpacity>
-                            <Image source={mocks.explore[0]} style={[styles.image, styles.mainImage]}/>
+                            <Image source={mocks.explore[0]} style={[styles.image, styles.mainImage]} />
                         </TouchableOpacity>
                     </Block>
                     <Block row space='between' wrap>
@@ -130,6 +131,6 @@ const styles = StyleSheet.create({
         minHeight: width - theme.sizes.padding,
     },
     home: {
-        marginHorizontal: theme.sizes.padding 
+        marginHorizontal: theme.sizes.padding
     }
 });
