@@ -41,6 +41,7 @@ export default function Input(props) {
                 autoCapitalize="none"
                 autoCorrect={false}
                 keyboardType={inputType}
+                {...props}
             />
             {renderToggle(props, state)}
             {renderRight(props)}

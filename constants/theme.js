@@ -33,7 +33,7 @@ const sizes = {
   DURATION: 450,
   PADDING: 16,
   SEGMENT: PixelRatio.roundToNearestPixel(width / 5),
-  ICON_SIZE: PixelRatio.roundToNearestPixel(width / 5) - 48
+  ICON_SIZE: PixelRatio.roundToNearestPixel(width / 5) - 55
 };
 
 const fonts = {

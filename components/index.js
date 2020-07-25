@@ -8,5 +8,6 @@ import Text from './Text';
 import Progress from './Progress';
 import Divider from './Divider';
 import Switch from './Switch';
+import Notifi from './Notifi'
 
-export { Block, Badge, Button, Card, Input, Text, Progress, Divider, Switch };
+export { Block, Badge, Button, Card, Input, Text, Progress, Divider, Switch, Notifi };

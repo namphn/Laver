@@ -131,7 +131,7 @@ export default function Block(props) {
         animated,
         wrap,
         style,
-        children,
+        children
       } = props;
   
       const blockStyles = [
@@ -146,8 +146,8 @@ export default function Block(props) {
         right && styles.right,
         top && styles.top,
         bottom && styles.bottom,
-        margin && { handleMargins },
-        padding && { handlePaddings },
+        margin && { ...handleMargins },
+        padding && { ...handlePaddings },
         card && styles.card,
         shadow && styles.shadow,
         space && { justifyContent: `space-${space}` },
@@ -160,7 +160,7 @@ export default function Block(props) {
 
     if (animated) {
         return (
-            <Animated.View style={blockStyles}>
+            <Animated.View style={blockStyles} {...props} >
                 {children}
             </Animated.View>
         )

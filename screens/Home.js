@@ -21,14 +21,8 @@ export default function Home(props) {
     })
 
     const { profile } = props;
-    // const { categories } = state;
+    
     const tabs = ["Products", "Inspirations", "Shop"];
-
-    // useEffect(() => {
-    //     setState({
-    //         categories: props.categories
-    //     })
-    // })
 
     const renderImage = (img, index) => {
         const { navigation } = props;
@@ -63,8 +57,7 @@ export default function Home(props) {
             </Block>
             <ScrollView showsVerticalScrollIndicator={false} style={styles.home}>
                 <Block>
-
-                    <Block style={{ marginBottom: theme.sizes.marginBottom }}>
+                    <Block style={{marginBottom: height / 13  }}>
                         <TouchableOpacity>
                             <Image source={mocks.explore[0]} style={[styles.image, styles.mainImage]} />
                         </TouchableOpacity>

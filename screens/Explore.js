@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import Animated from 'react-native-reanimated'
+import { Animated } from 'react-native'
 import { SafeAreaView } from 'react-navigation'
 import GlobalStyles from '../GlobalStyles'
 import { Button, Input, Block, Text } from "../components"
@@ -13,13 +13,13 @@ const { width, height } = Dimensions.get("window");
 export default function Explore() {
 
     const [state, setState] = useState({
-        searchFocus: new Animated.Value(0, 6),
+        searchFocus: new Animated.Value(1, 6),
         searchString: null
     })
 
     const handleSearchFocus = (status) => {
         Animated.timing(state.searchFocus, {
-            toValue: status ? 0.8 : 0.6,
+            toValue: status ? 1 : 0,
             duration: 150
         }).start();
     }
@@ -29,28 +29,8 @@ export default function Explore() {
         const isEditing = searchFocus && searchString;
 
         return (
-            <Block animated middle  style={styles.search}>
-                <Input
-                    placeholder="Search"
-                    placeholderTextColor={theme.colors.gray2}
-                    style={styles.searchInput}
-                    onFocus={() => handleSearchFocus(true)}
-                    onBlur={() => handleSearchFocus(false)}
-                    onChangeText={text => setState({ searchString: text })}
-                    value={searchString}
-                    onRightPress={() =>
-                        isEditing ? setState({ searchString: null }) : null
-                    }
-                    rightStyle={styles.searchRight}
-                    rightLabel={
-                        <IonIcon
-                            name={isEditing ? "close" : "search"}
-                            size={theme.sizes.base / 1.6}
-                            color={theme.colors.gray2}
-                            style={styles.searchIcon}
-                        />
-                    }
-                />
+            <Block animated middle style={[styles.search, styles.header]} flex={searchFocus}>
+
             </Block>
         );
     }
@@ -59,7 +39,7 @@ export default function Explore() {
         <SafeAreaView style={GlobalStyles.droidSafeArea}>
             <Block>
                 <Block flex={false} row center space="between" style={styles.header}>
-                    <Text h1 bold>
+                    <Text h2 bold>
                         Explore
                     </Text>
                     {renderSearch()}
@@ -82,7 +62,8 @@ Explore.defaultProps = {
 const styles = StyleSheet.create({
     header: {
         paddingHorizontal: theme.sizes.base * 2,
-        paddingBottom: theme.sizes.base * 2
+        paddingBottom: theme.sizes.base * 2,
+        paddingTop:  theme.sizes.base
     },
     search: {
         height: theme.sizes.base * 2,
@@ -131,5 +112,8 @@ const styles = StyleSheet.create({
         height: height * 0.1,
         width,
         paddingBottom: theme.sizes.base * 4
+    },
+    title: {
+        paddingBottom: 2
     }
 });
