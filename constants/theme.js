@@ -12,7 +12,8 @@ const colors = {
   white: '#FFFFFF',
   gray: '#9DA3B4',
   gray2: '#C5CCD6',
-  border: '#616164'
+  border: '#616164',
+  brow: '#ab6d03'
 };
 
 const sizes = {

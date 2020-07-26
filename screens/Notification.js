@@ -67,9 +67,17 @@ export default function Notification() {
                 </Block>
                 <ScrollView style={styles.notificationContainer} >
                     <Notifi/>
+                    <Notifi visiable/>
                     <Notifi/>
+                    <Notifi visiable/>
                     <Notifi/>
+                    <Notifi visiable/>
                     <Notifi/>
+                    <Notifi visiable/>
+                    <Notifi/>
+                    <Notifi visiable/>
+                    <Notifi/>
+                    <Notifi visiable/>
                 </ScrollView>
 
 
@@ -141,7 +149,6 @@ const styles = StyleSheet.create({
         paddingBottom: 2
     },
     notificationContainer: {
-        paddingLeft: theme.sizes.base,
-        paddingRight: theme.sizes.base
+
     }
 });

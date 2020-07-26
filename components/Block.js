@@ -21,7 +21,7 @@ export default function Block(props) {
             const marginSize = Object.keys(margin).length;
 
             switch (marginSize) {
-
+                
                 case 1:
                     return {
                         marginTop: margin[0],
