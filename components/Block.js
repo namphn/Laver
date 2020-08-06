@@ -1,14 +1,14 @@
-import React from 'react';
-import { StyleSheet, View, Animated } from 'react-native';
+import React from "react";
+import { StyleSheet, View, Animated } from "react-native";
 
-import { theme } from '../constants';
+import { theme } from "../constants";
 
 export default function Block(props) {
 
     const handleMargins = () => {
         const { margin } = props;
 
-        if (typeof margin === 'number') {
+        if (typeof margin === "number") {
             return {
                 marginTop: margin,
                 marginBottom: margin,
@@ -17,7 +17,7 @@ export default function Block(props) {
             }
         }
 
-        if (typeof margin === 'object') {
+        if (typeof margin === "object") {
             const marginSize = Object.keys(margin).length;
 
             switch (marginSize) {
@@ -178,10 +178,10 @@ export const styles = StyleSheet.create({
         flex: 1
     },
     row: {
-        flexDirection: 'row'
+        flexDirection: "row"
     },
     column: {
-        flexDirection: 'column'
+        flexDirection: "column"
     },
     card: {
         borderRadius: theme.sizes.radius

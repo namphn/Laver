@@ -1,26 +1,28 @@
-import React, { Children } from 'react'
-import { NavigationContainer } from '@react-navigation/native'
-import { createStackNavigator } from '@react-navigation/stack'
+import React, { Children } from "react"
+import { NavigationContainer } from "@react-navigation/native"
+import { createStackNavigator } from "@react-navigation/stack"
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs"
 import Entypo from "react-native-vector-icons/Entypo"
-import IonIcon from 'react-native-vector-icons/FontAwesome'
-import { View } from 'react-native'
+import IonIcon from "react-native-vector-icons/FontAwesome"
+import { View } from "react-native"
 
-import Welcome from '../screens/Welcome'
-import Login from '../screens/Login'
-import SignUp from '../screens/SignUp.js'
-import Forgot from '../screens/Forgot'
-import Explore from '../screens/Explore'
-import Home from '../screens/Home'
-import Post from '../screens/Post'
-import Setting from '../screens/Setting'
-import Profile from '../screens/Profile'
-import Notification from '../screens/Notification'
-import HomeIcon from '../icons/HomeIcon'
-import NotificationIcon from '../icons/NotificationIcon'
-import SearchIcon from '../icons/SearchIcon'
-import UserIcon from '../icons/UserIcon'
-import { theme } from '../constants';
+import Welcome from "../screens/Welcome"
+import Login from "../screens/Login"
+import SignUp from "../screens/SignUp.js"
+import Forgot from "../screens/Forgot"
+import Explore from "../screens/Explore"
+import Home from "../screens/Home"
+import Post from "../screens/Post"
+import Setting from "../screens/Setting"
+import Profile from "../screens/Profile"
+import Notification from "../screens/Notification"
+import Chat from "../screens/Chat"
+import HomeIcon from "../icons/HomeIcon"
+import NotificationIcon from "../icons/NotificationIcon"
+import SearchIcon from "../icons/SearchIcon"
+import UserIcon from "../icons/UserIcon"
+import ChatIcon from "../icons/ChatIcon"
+import { theme } from "../constants";
 
 const AppStack = createStackNavigator();
 
@@ -81,6 +83,17 @@ const TabBarIconContainer = (props) => {
                 </View >
             )
 
+        case "chat":
+            return (
+                <View style={{
+                    padding: 1,
+                    borderRadius: 23,
+                }}>
+                    <ChatIcon active={props.focused} />
+                    {props.focused}
+                </View >
+            )
+
         default: return (
             <View style={{
                 padding: 1,
@@ -114,6 +127,10 @@ const TabNavScreen = () => {
                                 iconName = "search"
                                 break;
 
+                            case "Chat":
+                                iconName = "chat"
+                                break;
+
                             case "Notification":
                                 iconName = "notification"
                                 break;
@@ -130,7 +147,7 @@ const TabNavScreen = () => {
                             <TabBarIconContainer focused={focused} name={iconName} />
                         )
                     }
-                   
+
 
                 }
             )
@@ -138,6 +155,7 @@ const TabNavScreen = () => {
 
             <TabNav.Screen name="Home" component={Home} />
             <TabNav.Screen name="Explore" component={Explore} />
+            <TabNav.Screen name="Chat" component={Chat} />
             <TabNav.Screen name="Notification" component={Notification} />
             <TabNav.Screen name="Profile" component={Profile} />
         </TabNav.Navigator >

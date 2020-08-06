@@ -1,11 +1,11 @@
-import React, { useState } from 'react'
-import { Animated } from 'react-native'
-import { SafeAreaView } from 'react-navigation'
-import GlobalStyles from '../GlobalStyles'
+import React, { useState } from "react"
+import { Animated } from "react-native"
+import { SafeAreaView } from "react-navigation"
+import GlobalStyles from "../GlobalStyles"
 import { Button, Input, Block, Text } from "../components"
 import { theme, mocks } from "../constants";
-import { StyleSheet, Dimensions } from 'react-native'
-import  IonIcon from 'react-native-vector-icons/FontAwesome'
+import { StyleSheet, Dimensions } from "react-native"
+import  IonIcon from "react-native-vector-icons/FontAwesome"
 
 
 const { width, height } = Dimensions.get("window");

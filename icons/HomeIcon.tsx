@@ -1,6 +1,6 @@
-import React from 'react'
-import Svg, { Circle, G, Path, Rect } from 'react-native-svg'
-import { theme } from '../constants'
+import React from "react"
+import Svg, { Circle, G, Path, Rect } from "react-native-svg"
+import { theme } from "../constants"
 
 
 export default function HomeIcon(props) {
@@ -10,7 +10,7 @@ export default function HomeIcon(props) {
             height={theme.sizes.ICON_SIZE}
             viewBox="0 0 24 24">
             <G
-                fill={props.active ? theme.colors.primary : 'none'}
+                fill={props.active ? theme.colors.primary : "none"}
                 stroke={props.active ? theme.colors.primary : theme.colors.border}
                 strokeWidth={2}
                 strokeLinecap="round"

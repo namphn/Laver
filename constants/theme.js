@@ -1,19 +1,20 @@
 
-import { Dimensions, PixelRatio } from 'react-native';
+import { Dimensions, PixelRatio } from "react-native";
 
-const { width } = Dimensions.get('window');
+const { width } = Dimensions.get("window");
 
 const colors = {
-  accent: '#F3534A',
-  primary: '#0AC4BA',
-  secondary: '#2BDA8E',
-  tertiary: '#FFE358',
-  black: '#323643',
-  white: '#FFFFFF',
-  gray: '#9DA3B4',
-  gray2: '#C5CCD6',
-  border: '#616164',
-  brow: '#ab6d03'
+  accent: "#F3534A",
+  primary: "#0AC4BA",
+  secondary: "#2BDA8E",
+  tertiary: "#FFE358",
+  black: "#323643",
+  white: "#FFFFFF",
+  gray: "#9DA3B4",
+  gray2: "#C5CCD6",
+  border: "#616164",
+  brow: "#ab6d03",
+  green: "#32a852"
 };
 
 const sizes = {

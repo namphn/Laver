@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect } from "react"
 import {
     View,
     SafeAreaView,
@@ -7,16 +7,16 @@ import {
     ScrollView,
     TouchableOpacity,
     StyleSheet
-} from 'react-native'
-import { Text, Card, Badge, Button, Block } from '../components'
-import GlobalStyles from '../GlobalStyles'
-import { theme, mocks } from '../constants'
+} from "react-native"
+import { Text, Card, Badge, Button, Block } from "../components"
+import GlobalStyles from "../GlobalStyles"
+import { theme, mocks } from "../constants"
 
 const { width, height } = Dimensions.get("window");
 
 export default function Home(props) {
     const [state, setState] = useState({
-        active: 'Products',
+        active: "Products",
         categories: []
     })
 
@@ -50,8 +50,8 @@ export default function Home(props) {
             <Block flex={false} row center space="between" style={styles.header}>
                 <Text h1 bold>
                     Laver
-                    </Text>
-                <Button onPress={() => navigation.navigate("Settings")}>
+                </Text>
+                <Button onPress={() => navigation.navigate("Profile")}>
                     <Image source={profile.avatar} style={styles.avatar} />
                 </Button>
             </Block>
@@ -62,7 +62,7 @@ export default function Home(props) {
                             <Image source={mocks.explore[0]} style={[styles.image, styles.mainImage]} />
                         </TouchableOpacity>
                     </Block>
-                    <Block row space='between' wrap>
+                    <Block row space="between" wrap>
                         {mocks.explore.slice(1).map((img, index) => renderImage(img, index))}
                     </Block>
                 </Block>

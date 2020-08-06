@@ -1,7 +1,7 @@
-import React from 'react'
-import { Text, StyleSheet } from 'react-native';
+import React from "react"
+import { Text, StyleSheet } from "react-native";
 
-import { theme } from '../constants';
+import { theme } from "../constants";
 
 export default function Typography(props) {
 

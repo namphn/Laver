@@ -1,7 +1,7 @@
 import React from "react";
 import { StyleSheet } from "react-native"
 
-import Block from './Block';
+import Block from "./Block";
 import { theme } from "../constants"
 
 export default function Badge(props) {

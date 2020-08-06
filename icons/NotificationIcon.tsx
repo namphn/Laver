@@ -1,6 +1,6 @@
-import * as React from 'react';
-import Svg, {Circle, G, Path } from 'react-native-svg';
-import {theme } from '../constants';
+import * as React from "react";
+import Svg, {Circle, G, Path } from "react-native-svg";
+import {theme } from "../constants";
 
 export default function Notification(props)  {
   return (
@@ -9,7 +9,7 @@ export default function Notification(props)  {
       <G
         stroke={props.active ? theme.colors.primary : theme.colors.border}
         strokeWidth={2}
-        fill={props.active ? theme.colors.primary : 'none'}
+        fill={props.active ? theme.colors.primary : "none"}
         fillRule="evenodd"
         strokeLinecap="round"
         strokeLinejoin="round"

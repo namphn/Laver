@@ -1,8 +1,8 @@
-import React from 'react'
-import { StyleSheet } from 'react-native';
-import { LinearGradient } from 'expo-linear-gradient';
+import React from "react"
+import { StyleSheet } from "react-native";
+import { LinearGradient } from "expo-linear-gradient";
 
-import Block from './Block'
+import Block from "./Block"
 
 export default function Progress(props) {
 

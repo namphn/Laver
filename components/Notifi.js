@@ -1,8 +1,8 @@
-import React from 'react'
-import { View, Image, StyleSheet, Dimensions } from 'react-native'
-import Text from './Text'
-import { ThemeColors } from 'react-navigation'
-import { theme } from '../constants'
+import React from "react"
+import { View, Image, StyleSheet, Dimensions } from "react-native"
+import Text from "./Text"
+import { ThemeColors } from "react-navigation"
+import { theme } from "../constants"
 
 const { width, height } = Dimensions.get("window");
 
@@ -20,7 +20,7 @@ export default function Notifi(props) {
 
     return (
         <View style={[styles.container, notifiStyle]}>
-            <Image source={require('../assets/images/explore_3.png')}
+            <Image source={require("../assets/images/explore_3.png")}
                 style={styles.avatar}
             />
             <View style={styles.content}>
@@ -44,14 +44,14 @@ const styles = StyleSheet.create({
         height: 70,
         paddingTop: 2,
         paddingBottom: 2,
-        flexDirection: 'row'
+        flexDirection: "row"
     },
     content: {
         flex: 1,
         padding: theme.sizes.base,
-        flexWrap: 'wrap',
+        flexWrap: "wrap",
         width: width,
-        alignItems: 'flex-start'
+        alignItems: "flex-start"
     }
 })
 

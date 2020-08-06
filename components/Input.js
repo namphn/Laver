@@ -1,10 +1,10 @@
-import React, { useState } from 'react'
-import { StyleSheet, TextInput} from 'react-native';
+import React, { useState } from "react"
+import { StyleSheet, TextInput} from "react-native";
 
-import Text from './Text';
-import Block from './Block';
-import Button from './Button';
-import { theme } from '../constants';
+import Text from "./Text";
+import Block from "./Block";
+import Button from "./Button";
+import { theme } from "../constants";
 
 export default function Input(props) {
     
