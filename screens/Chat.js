@@ -28,7 +28,7 @@ export default function Chat(props) {
     const { navigation } = props;
 
     return (
-        <SafeAreaView style={[GlobalStyles.droidSafeArea, ]}>
+        <SafeAreaView style={[GlobalStyles.droidSafeArea,]}>
             <Block flex={false} row center space="between" style={[styles.header, styles.mainContainer]}>
                 <Text h2 bold>Tin nhắn</Text>
                 <Button onPress={() => navigation.navigate("Profile")}>
@@ -72,22 +72,20 @@ export default function Chat(props) {
                         </ScrollView>
                     </Block>
                     <Block flex={false} style={styles.mainContainer}>
-                            <FriendMessage />
-                            <FriendMessage />
-                            <FriendMessage />
-                            <FriendMessage />
-                            <FriendMessage />
-                            <FriendMessage />
-                            <FriendMessage />
-                            <FriendMessage />
-                            <FriendMessage />
-                            <FriendMessage />
-                            <FriendMessage />
+                        <FriendMessage />
+                        <FriendMessage />
+                        <FriendMessage />
+                        <FriendMessage />
+                        <FriendMessage />
+                        <FriendMessage />
+                        <FriendMessage />
+                        <FriendMessage />
+                        <FriendMessage />
+                        <FriendMessage />
+                        <FriendMessage />
                     </Block>
                 </ScrollView>
-
             </Block>
-
         </SafeAreaView>
     )
 }

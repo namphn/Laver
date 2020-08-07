@@ -11,6 +11,7 @@ import Switch from "./Switch";
 import Notifi from "./Notifi";
 import FriendStatus from "./FriendStatus"
 import FriendMessage from "./FriendMessage"
+import PeopleSearch from './PeopleSearch'
 
 export { Block, 
     Badge, 
@@ -23,5 +24,6 @@ export { Block,
     Switch, 
     Notifi,
     FriendStatus,
-    FriendMessage
+    FriendMessage,
+    PeopleSearch
 };

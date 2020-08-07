@@ -45,7 +45,7 @@ export default function Notification() {
                     rightLabel={
                         <IonIcon
                             name={isEditing ? "close" : "search"}
-                            size={theme.sizes.base / 1.6}
+                            size={theme.sizes.base }
                             color={theme.colors.gray2}
                             style={styles.searchIcon}
                         />
@@ -93,9 +93,10 @@ Notification.defaultProps = {
 
 const styles = StyleSheet.create({
     header: {
-        paddingHorizontal: theme.sizes.base * 2,
         paddingBottom: theme.sizes.base * 2,
-        paddingTop: theme.sizes.base
+        paddingTop: theme.sizes.base,
+        paddingLeft: width / 20,
+        paddingRight: width / 20
     },
     search: {
         height: theme.sizes.base * 2,
@@ -103,11 +104,12 @@ const styles = StyleSheet.create({
     },
     searchInput: {
         fontSize: theme.sizes.caption,
-        height: theme.sizes.base * 2,
+        height: theme.sizes.base * 2.5,
         backgroundColor: "rgba(142, 142, 147, 0.06)",
         borderColor: "rgba(142, 142, 147, 0.06)",
         paddingLeft: theme.sizes.base / 1.333,
-        paddingRight: theme.sizes.base * 1.5
+        paddingRight: theme.sizes.base * 1.5,
+        borderRadius: 25,
     },
     searchRight: {
         top: 0,
@@ -117,7 +119,7 @@ const styles = StyleSheet.create({
     searchIcon: {
         position: "absolute",
         right: theme.sizes.base / 1.333,
-        top: theme.sizes.base / 1.6
+        top: theme.sizes.base / 1.3
     },
     explore: {
         marginHorizontal: theme.sizes.padding * 1.25

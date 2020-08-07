@@ -1,11 +1,17 @@
 import React, { useState } from "react"
-import { Animated } from "react-native"
+import { Animated, ScrollView } from "react-native"
 import { SafeAreaView } from "react-navigation"
 import GlobalStyles from "../GlobalStyles"
-import { Button, Input, Block, Text } from "../components"
+import {
+    Button,
+    Input,
+    Block,
+    Text,
+    PeopleSearch
+} from "../components"
 import { theme, mocks } from "../constants";
 import { StyleSheet, Dimensions } from "react-native"
-import  IonIcon from "react-native-vector-icons/FontAwesome"
+import IonIcon from "react-native-vector-icons/FontAwesome"
 
 
 const { width, height } = Dimensions.get("window");
@@ -37,19 +43,57 @@ export default function Explore() {
 
     return (
         <SafeAreaView style={GlobalStyles.droidSafeArea}>
-            <Block>
+            <Block style={styles.mainContainer}>
                 <Block flex={false} row center space="between" style={styles.header}>
                     <Text h2 bold>
-                        Explore
+                        Search
                     </Text>
                     {renderSearch()}
                 </Block>
+                <Block flex={false}>
+                    <ScrollView showsVerticalScrollIndicator={false}>
+                        <Block middle style={styles.inputContainer} flex={false}>
+                            <Input
+                                placeholder="Search"
+                                placeholderTextColor={theme.colors.gray2}
+                                style={styles.searchInput}
+                                // onFocus={() => handleSearchFocus(true)}
+                                // onBlur={() => handleSearchFocus(false)}
+                                // onChangeText={text => setState({ searchString: text })}
+                                // value={searchString}
+                                // onRightPress={() =>
+                                //     isEditing ? setState({ searchString: null }) : null
+                                // }
+                                rightStyle={styles.searchRight}
+                                rightLabel={
+                                    <IonIcon
+                                        name="search"
+                                        size={theme.sizes.base}
+                                        color={theme.colors.gray2}
+                                        style={styles.searchIcon}
+                                    />
+                                }
 
-                {/* <ScrollView showsVerticalScrollIndicator={false} style={styles.explore}>
-                    {this.renderExplore()}
-                </ScrollView>
-
-                {this.renderFooter()} */}
+                            />
+                        </Block>
+                        <Block flex={false} style={styles.mainContainer}>
+                            <Block flex={false} style={styles.recentResult}>
+                                <Text bold>Kết quả tìm kiếm</Text>
+                            </Block>
+                            <Block flex={false} style={styles.container}>
+                                <PeopleSearch />
+                                <PeopleSearch />
+                                <PeopleSearch />
+                                <PeopleSearch />
+                                <PeopleSearch />
+                                <PeopleSearch />
+                                <PeopleSearch />
+                                <PeopleSearch />
+                                <PeopleSearch />
+                            </Block>
+                        </Block>
+                    </ScrollView>
+                </Block>
             </Block>
         </SafeAreaView>
     )
@@ -60,18 +104,18 @@ Explore.defaultProps = {
 };
 
 const styles = StyleSheet.create({
-    header: {
-        paddingHorizontal: theme.sizes.base * 2,
-        paddingBottom: theme.sizes.base * 2,
-        paddingTop:  theme.sizes.base
+    mainContainer: {
+        marginBottom: 40
     },
-    search: {
-        height: theme.sizes.base * 2,
-        width: width - theme.sizes.base * 2
+    header: {
+        paddingBottom: theme.sizes.base,
+        paddingTop: theme.sizes.base,
+        paddingLeft: width / 20
     },
     searchInput: {
         fontSize: theme.sizes.caption,
-        height: theme.sizes.base * 2,
+        height: theme.sizes.base * 2.8,
+        borderRadius: 25,
         backgroundColor: "rgba(142, 142, 147, 0.06)",
         borderColor: "rgba(142, 142, 147, 0.06)",
         paddingLeft: theme.sizes.base / 1.333,
@@ -115,5 +159,16 @@ const styles = StyleSheet.create({
     },
     title: {
         paddingBottom: 2
+    },
+    container: {
+      paddingTop: 10
+    },
+    recentResult: {
+        paddingTop: 15,
+        paddingLeft: width / 20
+    },
+    inputContainer: {
+        paddingLeft: width / 20,
+        paddingRight: width / 20,
     }
 });

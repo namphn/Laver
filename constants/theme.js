@@ -20,7 +20,7 @@ const colors = {
 const sizes = {
   base: 16,
   font: 14,
-  radius: 6,
+  radius: 18,
   padding: 25,
 
   h1: 26,
