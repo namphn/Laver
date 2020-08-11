@@ -5,7 +5,8 @@ import {
     Image,
     Dimensions,
     ScrollView,
-    TouchableOpacity
+    TouchableOpacity,
+    FlatList
 } from "react-native"
 import {
     Text,
@@ -26,6 +27,94 @@ const { width, height } = Dimensions.get("window");
 export default function Chat(props) {
 
     const { navigation } = props;
+
+    const friendStatus = [
+        {
+            avatar: mocks.profile.avatar,
+            online: false
+        },
+        {
+            avatar: mocks.profile.avatar,
+            online: true
+        },
+        {
+            avatar: mocks.profile.avatar,
+            online: false
+        },
+        {
+            avatar: mocks.profile.avatar,
+            online: true
+        },
+        {
+            avatar: mocks.profile.avatar,
+            online: false
+        },
+        {
+            avatar: mocks.profile.avatar,
+            online: false
+        },
+        {
+            avatar: mocks.profile.avatar,
+            online: true
+        },
+    ]
+
+    const listMessage = [
+        {
+            avatar: mocks.profile.avatar,
+            name: "Phạm Hoàng Nam",
+            message: "Hi Nam",
+            online: true
+        },
+        {
+            avatar: mocks.profile.avatar,
+            name: "Nguyễn Hữu Thanh",
+            message: "Lên công ty chưa",
+            online: true
+        },
+        {
+            avatar: mocks.profile.avatar,
+            name: "Vũ Ngọc Sáng",
+            message: "Game đi bạn ơi",
+            online: false
+        },
+        {
+            avatar: mocks.profile.avatar,
+            name: "Phạm Hoàng Nam",
+            message: "Hey Bro! What's up??",
+            online: true
+        },
+        {
+            avatar: mocks.profile.avatar,
+            name: "Phạm Hoàng Nam",
+            message: "Hey Bro! What's up??",
+            online: true
+        },
+        {
+            avatar: mocks.profile.avatar,
+            name: "Phạm Hoàng Nam",
+            message: "Hey Bro! What's up??",
+            online: false
+        },
+        {
+            avatar: mocks.profile.avatar,
+            name: "Phạm Hoàng Nam",
+            message: "Hey Bro! What's up??",
+            online: true
+        },
+    ]
+
+    const renderFriendStatus = ({ item }) => {
+        return (
+            <FriendStatus avatar={item.avatar} online={item.online}/>
+        )
+    }
+
+    const renderMessage = ({ item }) => {
+        return (
+            <FriendMessage avatar={item.avatar} online={item.online} name={item.name} message={item.message} />
+        )
+    }
 
     return (
         <SafeAreaView style={[GlobalStyles.droidSafeArea,]}>
@@ -62,27 +151,19 @@ export default function Chat(props) {
                         />
                     </Block>
                     <Block row flex={false} style={styles.messageList}>
-                        <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
-                            <FriendStatus />
-                            <FriendStatus />
-                            <FriendStatus />
-                            <FriendStatus />
-                            <FriendStatus />
-                            <FriendStatus />
-                        </ScrollView>
+                        <FlatList
+                        horizontal
+                        showsHorizontalScrollIndicator={false}
+                        data={friendStatus}
+                        renderItem={renderFriendStatus}
+                        />
                     </Block>
                     <Block flex={false} style={styles.mainContainer}>
-                        <FriendMessage />
-                        <FriendMessage />
-                        <FriendMessage />
-                        <FriendMessage />
-                        <FriendMessage />
-                        <FriendMessage />
-                        <FriendMessage />
-                        <FriendMessage />
-                        <FriendMessage />
-                        <FriendMessage />
-                        <FriendMessage />
+                        <FlatList
+                        showsVerticalScrollIndicator={false}
+                        data={listMessage}
+                        renderItem={renderMessage}
+                        />
                     </Block>
                 </ScrollView>
             </Block>

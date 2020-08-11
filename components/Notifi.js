@@ -24,7 +24,11 @@ export default function Notifi(props) {
                 style={styles.avatar}
             />
             <View style={styles.content}>
-                <Text>Hoàng Nam đã bình luận hình ảnh của bạn, Hãy xem Nam nói gì về bạn nào!!</Text>
+                <Text>
+                    <Text>{props.name + " "}</Text>
+                    <Text>đã bình luận hình ảnh của bạn</Text>
+                    <Text>Hãy xem Nam nói gì về bạn nào!!</Text>
+                </Text>
             </View>
 
         </View>

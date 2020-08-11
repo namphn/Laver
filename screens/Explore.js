@@ -12,11 +12,67 @@ import {
 import { theme, mocks } from "../constants";
 import { StyleSheet, Dimensions } from "react-native"
 import IonIcon from "react-native-vector-icons/FontAwesome"
+import { FlatList } from "react-native-gesture-handler"
 
 
 const { width, height } = Dimensions.get("window");
 
 export default function Explore() {
+
+    const data = [
+        {
+            avatar: mocks.profile.avatar,
+            name: "Phạm Hoàng Nam",
+            city: "Thái Nguyên",
+            country: "Việt Nam" 
+        },
+        {
+            avatar: mocks.profile.avatar,
+            name: "Phạm Hoàng Nam",
+            city: "Thái Nguyên",
+            country: "Việt Nam" 
+        },
+        {
+            avatar: mocks.profile.avatar,
+            name: "Phạm Hoàng Nam",
+            city: "Thái Nguyên",
+            country: "Việt Nam" 
+        },
+        {
+            avatar: mocks.profile.avatar,
+            name: "Phạm Hoàng Nam",
+            city: "Thái Nguyên",
+            country: "Việt Nam" 
+        },
+        {
+            avatar: mocks.profile.avatar,
+            name: "Phạm Hoàng Nam",
+            city: "Thái Nguyên",
+            country: "Việt Nam" 
+        },
+        {
+            avatar: mocks.profile.avatar,
+            name: "Phạm Hoàng Nam",
+            city: "Thái Nguyên",
+            country: "Việt Nam" 
+        },
+        {
+            avatar: mocks.profile.avatar,
+            name: "Phạm Hoàng Nam",
+            city: "Thái Nguyên",
+            country: "Việt Nam" 
+        },
+    ];
+
+    const renderResult = ({ item }) => {
+        return (
+            <PeopleSearch avatar={item.avatar}
+                name={item.name}
+                city={item.city}
+                country={item.country}
+            />
+        )
+    }
 
     const [state, setState] = useState({
         searchFocus: new Animated.Value(1, 6),
@@ -81,15 +137,10 @@ export default function Explore() {
                                 <Text bold>Kết quả tìm kiếm</Text>
                             </Block>
                             <Block flex={false} style={styles.container}>
-                                <PeopleSearch />
-                                <PeopleSearch />
-                                <PeopleSearch />
-                                <PeopleSearch />
-                                <PeopleSearch />
-                                <PeopleSearch />
-                                <PeopleSearch />
-                                <PeopleSearch />
-                                <PeopleSearch />
+                                <FlatList
+                                data={data}
+                                renderItem={renderResult}
+                                />
                             </Block>
                         </Block>
                     </ScrollView>

@@ -25,8 +25,10 @@ export default function FriendStatus(props) {
 
     return (
         <TouchableOpacity style={styles.ListImage} style={styles.container}>
-            <Image source={mocks.profile.avatar} style={styles.friendAvatar} />
-            <IonIcon name="primitive-dot" color={theme.colors.green} size={20} style={styles.onlineDot}/>
+            <Image source={props.avatar} style={styles.friendAvatar} />
+            {
+                props.online ?  <IonIcon name="primitive-dot" color={theme.colors.green} size={20} style={styles.onlineDot}/> : null
+            }
         </TouchableOpacity>
     )
 }
@@ -39,11 +41,11 @@ const styles = StyleSheet.create({
     },
     onlineDot: {
         position: "absolute",
-        paddingLeft: width / 9,
-        paddingTop: width / 21
+        paddingLeft: width / 10,
+        paddingTop: width / 20
     },
     friendAvatar: {
-        width: width / 7,
-        height: width / 7,
+        width: width / 8,
+        height: width / 8,
     }
 })

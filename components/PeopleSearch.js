@@ -26,10 +26,13 @@ export default function People(props) {
     return (
         <TouchableOpacity>
             <Block flex={false} style={styles.container} color="white" shadow>
-                <Image source={mocks.profile.avatar} style={styles.friendAvatar} />
+                <Image source={props.avatar} style={styles.friendAvatar} />
                 <Block flex={false} center >
-                    <Text style={styles.friendName}>Phạm Hoàng Nam</Text>
-                    <Text>Thái Nguyên, Việt Nam</Text>
+                    <Text style={styles.friendName}>{props.name}</Text>
+                    <Text>
+                        <Text>{props.city + ","}</Text>
+                        <Text>{props.country}</Text>
+                    </Text>
                 </Block>
                 <Block flex={false} style={styles.followButtonContainer}>
                     <Button gradient style={styles.followButton} center startColor={theme.colors.green} endColor="#28f7ed">

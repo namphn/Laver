@@ -4,7 +4,7 @@ import { SafeAreaView } from "react-navigation"
 import GlobalStyles from "../GlobalStyles"
 import { Button, Input, Block, Text, Notifi } from "../components"
 import { theme, mocks } from "../constants";
-import { StyleSheet, Dimensions } from "react-native"
+import { StyleSheet, Dimensions, FlatList } from "react-native"
 import IonIcon from "react-native-vector-icons/FontAwesome"
 
 
@@ -16,6 +16,69 @@ export default function Notification() {
         searchFocus: new Animated.Value(0.6),
         searchString: null
     })
+
+    const DATA = [
+        {
+            name: "Phạm Hoàng Nam",
+            image: "",
+            content: "",
+            time: "",
+            visiable: false
+        },
+        {
+            name: "Nguyễn Hữu Thanh",
+            image: "",
+            content: "",
+            time: "",
+            visiable: true
+        },
+        {
+            name: "Vũ Ngọc Sáng",
+            image: "",
+            content: "",
+            time: "",
+            visiable: false
+        },
+        {
+            name: "Nguyễn Ngọc Khôi",
+            image: "",
+            content: "",
+            time: "",
+            visiable: true
+        },
+        {
+            name: "Phạm Hoàng Nam",
+            image: "",
+            content: "",
+            time: "",
+            visiable: false
+        },
+        {
+            name: "Nguyễn Hữu Thanh",
+            image: "",
+            content: "",
+            time: "",
+            visiable: true
+        },
+        {
+            name: "Vũ Ngọc Sáng",
+            image: "",
+            content: "",
+            time: "",
+            visiable: false
+        },
+        {
+            name: "Nguyễn Ngọc Khôi",
+            image: "",
+            content: "",
+            time: "",
+            visiable: true
+        },
+    ];
+
+    const render = ({ item }) => (
+        <Notifi name={item.name} content={item.content} time={item.time} visiable={item.visiable} />
+    );
 
     const handleSearchFocus = (status) => {
         Animated.timing(state.searchFocus, {
@@ -45,7 +108,7 @@ export default function Notification() {
                     rightLabel={
                         <IonIcon
                             name={isEditing ? "close" : "search"}
-                            size={theme.sizes.base }
+                            size={theme.sizes.base}
                             color={theme.colors.gray2}
                             style={styles.searchIcon}
                         />
@@ -65,22 +128,12 @@ export default function Notification() {
                     </Text>
                     {renderSearch()}
                 </Block>
-                <ScrollView style={styles.notificationContainer} >
-                    <Notifi/>
-                    <Notifi visiable/>
-                    <Notifi/>
-                    <Notifi visiable/>
-                    <Notifi/>
-                    <Notifi visiable/>
-                    <Notifi/>
-                    <Notifi visiable/>
-                    <Notifi/>
-                    <Notifi visiable/>
-                    <Notifi/>
-                    <Notifi visiable/>
-                </ScrollView>
-
-
+                <FlatList
+                    data={DATA}
+                    renderItem={render}
+                    keyExtractor={(item, index) => index}
+                    showsVerticalScrollIndicator={false}
+                />
 
             </Block>
         </SafeAreaView>
@@ -150,7 +203,4 @@ const styles = StyleSheet.create({
     title: {
         paddingBottom: 2
     },
-    notificationContainer: {
-
-    }
 });

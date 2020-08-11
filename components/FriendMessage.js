@@ -25,11 +25,15 @@ export default function FriendMessage(props) {
 
     return (
         <TouchableOpacity style={styles.ListImage} style={styles.container}>
-            <Image source={mocks.profile.avatar} style={styles.friendAvatar} />
-            <IonIcon name="primitive-dot" color={theme.colors.green} size={20} style={styles.onlineDot}/>
+            <Image source={props.avatar} style={styles.friendAvatar} />
+            {
+                props.online ?
+                    <IonIcon name="primitive-dot" color={theme.colors.green} size={20} style={styles.onlineDot} />
+                    : null
+            }
             <Block flex={false}>
-                <Text style={styles.friendName}>Phạm Hoàng Nam</Text>
-                <Text style={styles.message}>Hey Bro! What's up?</Text>
+                <Text style={styles.friendName}>{props.name}</Text>
+                <Text style={styles.message}>{props.message}</Text>
             </Block>
         </TouchableOpacity>
     )
