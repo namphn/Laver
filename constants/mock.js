@@ -85,5 +85,14 @@ const categories = [
     notifications: true,
     newsletter: false
   };
+
+  const images = {
+    image1:  require("../assets/images/explore_1.png"),
+    image1:  require("../assets/images/explore_2.png"),
+    image1:  require("../assets/images/explore_3.png"),
+    image1:  require("../assets/images/explore_4.png"),
+    image1:  require("../assets/images/explore_5.png"),
+    image1:  require("../assets/images/explore_6.png"),
+  }
   
-  export { categories, explore, products, profile };
+  export { categories, explore, products, profile, images };

@@ -6,10 +6,14 @@ import {
     Image,
     ScrollView,
     TouchableOpacity,
-    StyleSheet
+    StyleSheet,
+    FlatList
 } from "react-native"
-import { Text, Card, Badge, Button, Block } from "../components"
-import GlobalStyles from "../GlobalStyles"
+import { Text, 
+    Button, 
+    Block, 
+    Post 
+} from "../components"
 import { theme, mocks } from "../constants"
 
 const { width, height } = Dimensions.get("window");
@@ -20,34 +24,75 @@ export default function Home(props) {
         categories: []
     })
 
+    const data = [
+        {
+            name: "Phạm Hoàng Nam",
+            avatar: mocks.profile.avatar,
+            status: "Hello! this is my app",
+            image: mocks.images.image1,
+            like: 99,
+            comment: 15
+        },
+        {
+            name: "Phạm Hoàng Nam",
+            avatar: mocks.profile.avatar,
+            status: "Hello! this is my app",
+            image: mocks.images.image2,
+            like: 99,
+            comment: 15
+        },
+        {
+            name: "Phạm Hoàng Nam",
+            avatar: mocks.profile.avatar,
+            status: "Hello! this is my app",
+            image: mocks.images.image3,
+            like: 99,
+            comment: 15
+        },
+        {
+            name: "Phạm Hoàng Nam",
+            avatar: mocks.profile.avatar,
+            status: "Hello! this is my app",
+            image: mocks.images.image4,
+            like: 99,
+            comment: 15
+        },
+        {
+            name: "Phạm Hoàng Nam",
+            avatar: mocks.profile.avatar,
+            status: "Hello! this is my app",
+            image: mocks.images.image5,
+            like: 99,
+            comment: 15
+        },
+        {
+            name: "Phạm Hoàng Nam",
+            avatar: mocks.profile.avatar,
+            status: "Hello! this is my app",
+            image: mocks.images.image6,
+            like: 99,
+            comment: 15
+        }
+    ]
+
     const { profile } = props;
-    
-    const tabs = ["Products", "Inspirations", "Shop"];
 
-    const renderImage = (img, index) => {
-        const { navigation } = props;
-        const sizes = Image.resolveAssetSource(img);
-        const fullWidth = width - theme.sizes.padding * 2.5;
-        const resize = (sizes.width * 100) / fullWidth;
-        const imgWidth = resize > 75 ? fullWidth : sizes.width * 1;
-
+    const renderPost = ({ item }) => {
         return (
-            <TouchableOpacity
-                key={`img-${index}`}
-                onPress={() => navigation.navigate("Post")}
-            >
-                <Image
-                    source={img}
-                    style={[styles.image, { minWidth: imgWidth, maxWidth: imgWidth }]}
-                />
-            </TouchableOpacity>
-        );
+            <Post avatar={item.avatar}
+                name={item.name}
+                status={item.status}
+                image={item.image}
+                like={item.like}
+                comment={item.comment}
+            />
+        )
     }
 
 
     return (
-        <SafeAreaView style={GlobalStyles.droidSafeArea}>
-            <Block flex={false} row center space="between" style={styles.header}>
+        <SafeAreaView >
+            <Block flex={false} row center space="between" style={styles.header} color="white">
                 <Text h1 bold>
                     Laver
                 </Text>
@@ -55,18 +100,13 @@ export default function Home(props) {
                     <Image source={profile.avatar} style={styles.avatar} />
                 </Button>
             </Block>
-            <ScrollView showsVerticalScrollIndicator={false} style={styles.home}>
-                <Block>
-                    <Block style={{marginBottom: height / 13  }}>
-                        <TouchableOpacity>
-                            <Image source={mocks.explore[0]} style={[styles.image, styles.mainImage]} />
-                        </TouchableOpacity>
-                    </Block>
-                    <Block row space="between" wrap>
-                        {mocks.explore.slice(1).map((img, index) => renderImage(img, index))}
-                    </Block>
-                </Block>
-            </ScrollView>
+            <Block flex={false} style={styles.home} color={theme.colors.gray}>
+                <FlatList
+                showsVerticalScrollIndicator={false}
+                data={data}
+                renderItem={renderPost}
+                />
+            </Block>
         </SafeAreaView>
     );
 }
@@ -81,7 +121,8 @@ Home.defaultProps = {
 
 const styles = StyleSheet.create({
     header: {
-        paddingHorizontal: theme.sizes.base * 2
+        paddingHorizontal: theme.sizes.base * 2,
+        color: "white"
     },
     avatar: {
         height: theme.sizes.base * 2.2,
@@ -123,7 +164,5 @@ const styles = StyleSheet.create({
         minWidth: width - theme.sizes.padding,
         minHeight: width - theme.sizes.padding,
     },
-    home: {
-        marginHorizontal: theme.sizes.padding
-    }
+    
 });

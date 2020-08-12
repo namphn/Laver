@@ -12,8 +12,10 @@ import Notifi from "./Notifi";
 import FriendStatus from "./FriendStatus"
 import FriendMessage from "./FriendMessage"
 import PeopleSearch from './PeopleSearch'
+import Post from "./Post"
 
-export { Block, 
+export { 
+    Block, 
     Badge, 
     Button, 
     Card, 
@@ -25,5 +27,6 @@ export { Block,
     Notifi,
     FriendStatus,
     FriendMessage,
-    PeopleSearch
+    PeopleSearch,
+    Post
 };

@@ -12,7 +12,7 @@ import SignUp from "../screens/SignUp.js"
 import Forgot from "../screens/Forgot"
 import Explore from "../screens/Explore"
 import Home from "../screens/Home"
-import Post from "../screens/Post"
+import FullPost from "../screens/FullPost"
 import Setting from "../screens/Setting"
 import Profile from "../screens/Profile"
 import Notification from "../screens/Notification"
@@ -167,7 +167,7 @@ export default Navigation = () => {
         <NavigationContainer>
             <AppStack.Navigator mode="modal" headerMode="none">
                 <AppStack.Screen name="App" component={TabNavScreen} />
-                <AppStack.Screen name="Post" component={Post} />
+                <AppStack.Screen name="Post" component={FullPost} />
             </AppStack.Navigator>
         </NavigationContainer>
     )
