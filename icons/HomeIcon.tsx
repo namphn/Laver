@@ -27,7 +27,6 @@ export default function HomeIcon(props) {
                 height="19"
                 fill="white"
                 strokeWidth="1"
-                
             />
         </Svg >
     )

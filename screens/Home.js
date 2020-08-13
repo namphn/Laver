@@ -105,6 +105,7 @@ export default function Home(props) {
                 showsVerticalScrollIndicator={false}
                 data={data}
                 renderItem={renderPost}
+                style={{marginBottom: 130}}
                 />
             </Block>
         </SafeAreaView>
@@ -122,7 +123,9 @@ Home.defaultProps = {
 const styles = StyleSheet.create({
     header: {
         paddingHorizontal: theme.sizes.base * 2,
-        color: "white"
+        color: "white",
+        borderBottomColor: "gray",
+        borderBottomWidth: 0.5
     },
     avatar: {
         height: theme.sizes.base * 2.2,

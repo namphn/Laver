@@ -88,11 +88,11 @@ const categories = [
 
   const images = {
     image1:  require("../assets/images/explore_1.png"),
-    image1:  require("../assets/images/explore_2.png"),
-    image1:  require("../assets/images/explore_3.png"),
-    image1:  require("../assets/images/explore_4.png"),
-    image1:  require("../assets/images/explore_5.png"),
-    image1:  require("../assets/images/explore_6.png"),
+    image2:  require("../assets/images/explore_2.png"),
+    image3:  require("../assets/images/explore_3.png"),
+    image4:  require("../assets/images/explore_4.png"),
+    image5:  require("../assets/images/explore_5.png"),
+    image6:  require("../assets/images/explore_6.png"),
   }
   
   export { categories, explore, products, profile, images };
