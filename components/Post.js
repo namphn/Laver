@@ -27,7 +27,7 @@ export default function Post(props) {
     ]
 
     return (
-        <Block flex={false} color="white" style={styles.container} shadow>
+        <Block flex={false} color="white" style={styles.container} >
             <Block>
                 <TouchableOpacity style={styles.postHeader}>
                     <Image source={props.avatar} style={styles.avatar} />

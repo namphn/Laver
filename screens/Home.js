@@ -4,15 +4,16 @@ import {
     SafeAreaView,
     Dimensions,
     Image,
-    ScrollView,
     TouchableOpacity,
     StyleSheet,
-    FlatList
+    FlatList,
+    ScrollView
 } from "react-native"
-import { Text, 
-    Button, 
-    Block, 
-    Post 
+import {
+    Text,
+    Button,
+    Block,
+    Post
 } from "../components"
 import { theme, mocks } from "../constants"
 
@@ -91,7 +92,7 @@ export default function Home(props) {
 
 
     return (
-        <SafeAreaView >
+        <SafeAreaView>
             <Block flex={false} row center space="between" style={styles.header} color="white">
                 <Text h1 bold>
                     Laver
@@ -100,16 +101,46 @@ export default function Home(props) {
                     <Image source={profile.avatar} style={styles.avatar} />
                 </Button>
             </Block>
-            <Block flex={false} style={styles.home} color={theme.colors.gray}>
-                <FlatList
-                showsVerticalScrollIndicator={false}
-                data={data}
-                renderItem={renderPost}
-                style={{marginBottom: 130}}
-                />
+            <Block flex={false}>
+                <Block flex={false} style={styles.home} color={theme.colors.gray2}>
+                    <ScrollView showsVerticalScrollIndicator={false}>
+                        <Block  style={{ 
+                            backgroundColor: "white", 
+                            flexDirection: "row", 
+                            alignItems: "center",
+                            paddingLeft: 10
+                            }}>
+                            <Image source={mocks.profile.avatar} style={styles.postAvatar}/>
+                            <Block style={styles.postStatusButton}>
+                                <TouchableOpacity >
+                                    <Text style={{ 
+                                        alignItems: "center",
+                                        paddingLeft: 20,
+                                }}>post something. . .</Text>
+                                </TouchableOpacity>
+                            </Block>
+                        </Block>
+                        <FlatList
+                            showsVerticalScrollIndicator={false}
+                            data={data}
+                            renderItem={renderPost}
+                            style={{ marginBottom: 130, marginTop: 10 }}
+                        />
+                    </ScrollView>
+                </Block>
             </Block>
         </SafeAreaView>
     );
+}
+
+const postStatusButton = () => {
+    return (
+        <TouchableOpacity>
+            <View style={styles.postStatusButton}>
+                <Text>post something</Text>
+            </View>
+        </TouchableOpacity>
+    )
 }
 
 
@@ -129,7 +160,8 @@ const styles = StyleSheet.create({
     },
     avatar: {
         height: theme.sizes.base * 2.2,
-        width: theme.sizes.base * 2.2
+        width: theme.sizes.base * 2.2,
+        alignContent: "center"
     },
     tabs: {
         borderBottomColor: theme.colors.gray2,
@@ -167,5 +199,26 @@ const styles = StyleSheet.create({
         minWidth: width - theme.sizes.padding,
         minHeight: width - theme.sizes.padding,
     },
-    
+    postStatusButton: {
+        borderWidth: 0.5,
+        borderColor: "gray",
+        height: 40,
+        borderRadius: 24,
+        backgroundColor: "white",
+        marginLeft: 20,
+        marginRight: 20,
+        marginTop: 10,
+        marginBottom: 10,
+        paddingTop: 7
+    },
+    postButtonContainer: {
+        paddingLeft: 30,
+        paddingRight: 30,
+        backgroundColor: "white",
+    },
+    postAvatar: {
+        height: width / 10,
+        width: width / 10,
+        paddingLeft: 20
+    }
 });
