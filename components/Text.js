@@ -37,6 +37,7 @@ export default function Typography(props) {
         gray2,
         style,
         children,
+        paddingLeft
     } = props;
 
     const textStyles = [
@@ -71,6 +72,7 @@ export default function Typography(props) {
         white && styles.white,
         gray && styles.gray,
         gray2 && styles.gray2,
+        paddingLeft && styles.paddingLeft,
         style
     ];
 
@@ -86,7 +88,9 @@ const styles = StyleSheet.create({
         fontSize: theme.sizes.font,
         color: theme.colors.black
     },
-  
+    paddingLeft: {
+        paddingLeft: 10
+    },  
     regular: {
         fontWeight: "normal"
     },

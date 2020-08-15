@@ -23,6 +23,7 @@ import SearchIcon from "../icons/SearchIcon"
 import UserIcon from "../icons/UserIcon"
 import ChatIcon from "../icons/ChatIcon"
 import { theme } from "../constants";
+import Upload from "../screens/Upload"
 
 const AppStack = createStackNavigator();
 
@@ -168,6 +169,7 @@ export default Navigation = () => {
             <AppStack.Navigator mode="modal" headerMode="none">
                 <AppStack.Screen name="App" component={TabNavScreen} />
                 <AppStack.Screen name="Post" component={FullPost} />
+                <AppStack.Screen name="Upload" component={Upload} />
             </AppStack.Navigator>
         </NavigationContainer>
     )

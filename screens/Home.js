@@ -19,7 +19,7 @@ import { theme, mocks } from "../constants"
 
 const { width, height } = Dimensions.get("window");
 
-export default function Home(props) {
+export default function Home({navigation}) {
     const [state, setState] = useState({
         active: "Products",
         categories: []
@@ -76,8 +76,6 @@ export default function Home(props) {
         }
     ]
 
-    const { profile } = props;
-
     const renderPost = ({ item }) => {
         return (
             <Post avatar={item.avatar}
@@ -98,7 +96,7 @@ export default function Home(props) {
                     Laver
                 </Text>
                 <Button onPress={() => navigation.navigate("Profile")}>
-                    <Image source={profile.avatar} style={styles.avatar} />
+                    <Image source={mocks.profile.avatar} style={styles.avatar} />
                 </Button>
             </Block>
             <Block flex={false}>
@@ -112,7 +110,7 @@ export default function Home(props) {
                             }}>
                             <Image source={mocks.profile.avatar} style={styles.postAvatar}/>
                             <Block style={styles.postStatusButton}>
-                                <TouchableOpacity >
+                                <TouchableOpacity  onPress={() => navigation.navigate("Upload")}>
                                     <Text style={{ 
                                         alignItems: "center",
                                         paddingLeft: 20,
@@ -143,12 +141,6 @@ const postStatusButton = () => {
     )
 }
 
-
-
-Home.defaultProps = {
-    profile: mocks.profile,
-    categories: mocks.categories
-};
 
 
 const styles = StyleSheet.create({
