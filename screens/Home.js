@@ -7,7 +7,8 @@ import {
     TouchableOpacity,
     StyleSheet,
     FlatList,
-    ScrollView
+    ScrollView,
+    Animated
 } from "react-native"
 import {
     Text,
@@ -19,10 +20,27 @@ import { theme, mocks } from "../constants"
 
 const { width, height } = Dimensions.get("window");
 
-export default function Home({navigation}) {
+export default function Home({ navigation }) {
     const [state, setState] = useState({
         active: "Products",
         categories: []
+    })
+
+    const scrollY = new Animated.Value(0);
+
+    const diffClampScrollY = Animated.diffClamp(scrollY, 0, 50)
+
+    const headerHeight = scrollY.interpolate({
+        inputRange: [0, 100],
+        outputRange: [60, 0],
+        extrapolate: "clamp",
+    })
+
+
+    const headerOpacity = scrollY.interpolate({
+        inputRange: [0, 30],
+        outputRange: [1, 0],
+        extrapolate: "clamp",
     })
 
     const data = [
@@ -91,64 +109,64 @@ export default function Home({navigation}) {
 
     return (
         <SafeAreaView>
-            <Block flex={false} row center space="between" style={styles.header} color="white">
-                <Text h1 bold>
-                    Laver
+            <Animated.View
+                style={[
+                    styles.header,
+                    {
+                        height: headerHeight,
+                        opacity: headerOpacity
+                    }
+                ]}>
+                <Block flex={false} row center space="between">
+                    <Text h1 bold>
+                        Laver
                 </Text>
-                <Button onPress={() => navigation.navigate("Profile")}>
-                    <Image source={mocks.profile.avatar} style={styles.avatar} />
-                </Button>
-            </Block>
+                    <Button onPress={() => navigation.navigate("Profile")}>
+                        <Image source={mocks.profile.avatar} style={styles.avatar} />
+                    </Button>
+                </Block>
+            </Animated.View>
             <Block flex={false}>
-                <Block flex={false} style={styles.home} color={theme.colors.gray2}>
-                    <ScrollView showsVerticalScrollIndicator={false}>
-                        <Block  style={{ 
-                            backgroundColor: "white", 
-                            flexDirection: "row", 
+                <Block flex={false} style={styles.home}>
+                    <FlatList
+                        onScroll={Animated.event(
+                            [{ nativeEvent: { contentOffset: { y: scrollY } } }]
+                        )}
+                        showsVerticalScrollIndicator={false}
+                        data={data}
+                        renderItem={renderPost}
+                        style={{ marginTop: 10 }}
+                    >
+                        <Block style={{
+                            backgroundColor: "white",
+                            flexDirection: "row",
                             alignItems: "center",
                             paddingLeft: 10
-                            }}>
-                            <Image source={mocks.profile.avatar} style={styles.postAvatar}/>
+                        }}>
+                            <Image source={mocks.profile.avatar} style={styles.postAvatar} />
                             <Block style={styles.postStatusButton}>
-                                <TouchableOpacity  onPress={() => navigation.navigate("Upload")}>
-                                    <Text style={{ 
+                                <TouchableOpacity onPress={() => navigation.navigate("Upload")}>
+                                    <Text style={{
                                         alignItems: "center",
                                         paddingLeft: 20,
-                                }}>post something. . .</Text>
+                                    }}>post something. . .</Text>
                                 </TouchableOpacity>
                             </Block>
                         </Block>
-                        <FlatList
-                            showsVerticalScrollIndicator={false}
-                            data={data}
-                            renderItem={renderPost}
-                            style={{ marginBottom: 130, marginTop: 10 }}
-                        />
-                    </ScrollView>
+                    </FlatList>
                 </Block>
             </Block>
         </SafeAreaView>
     );
 }
 
-const postStatusButton = () => {
-    return (
-        <TouchableOpacity>
-            <View style={styles.postStatusButton}>
-                <Text>post something</Text>
-            </View>
-        </TouchableOpacity>
-    )
-}
-
-
 
 const styles = StyleSheet.create({
     header: {
         paddingHorizontal: theme.sizes.base * 2,
-        color: "white",
         borderBottomColor: "gray",
-        borderBottomWidth: 0.5
+        borderBottomWidth: 0.5,
+        backgroundColor: "white"
     },
     avatar: {
         height: theme.sizes.base * 2.2,
