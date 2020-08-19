@@ -128,15 +128,7 @@ export default function Home({ navigation }) {
             </Animated.View>
             <Block flex={false}>
                 <Block flex={false} style={styles.home}>
-                    <FlatList
-                        onScroll={Animated.event(
-                            [{ nativeEvent: { contentOffset: { y: scrollY } } }]
-                        )}
-                        showsVerticalScrollIndicator={false}
-                        data={data}
-                        renderItem={renderPost}
-                        style={{ marginTop: 10 }}
-                    >
+                    <ScrollView>
                         <Block style={{
                             backgroundColor: "white",
                             flexDirection: "row",
@@ -153,6 +145,16 @@ export default function Home({ navigation }) {
                                 </TouchableOpacity>
                             </Block>
                         </Block>
+                    </ScrollView>
+                    <FlatList
+                        onScroll={Animated.event(
+                            [{ nativeEvent: { contentOffset: { y: scrollY } } }]
+                        )}
+                        showsVerticalScrollIndicator={false}
+                        data={data}
+                        renderItem={renderPost}
+                        style={{ marginTop: 10 }}
+                    >
                     </FlatList>
                 </Block>
             </Block>

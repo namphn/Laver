@@ -3,8 +3,7 @@ import { Text } from "../components"
 
 export default function SignUp() {
     return (
- 
-            <Text bold center >SignUp</Text>
- 
+
+        <Text bold center >SignUp</Text>
     )
 }

@@ -94,5 +94,13 @@ const categories = [
     image5:  require("../assets/images/explore_5.png"),
     image6:  require("../assets/images/explore_6.png"),
   }
+
+  const icons = {
+    image_video: require("../assets/icons/image_video.png"),
+    tag: require("../assets/icons/tag.png"),
+    checkin: require("../assets/icons/check_in.png"),
+    gif: require("../assets/icons/gif.png"),
+    question: require("../assets/icons/question.png"),
+  }
   
-  export { categories, explore, products, profile, images };
+  export { categories, explore, products, profile, images, icons };
