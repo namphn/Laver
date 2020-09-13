@@ -34,6 +34,7 @@ export default function Home({ navigation }) {
         inputRange: [0, 100],
         outputRange: [60, 0],
         extrapolate: "clamp",
+        useNativeDriver: true
     })
 
 
@@ -41,6 +42,7 @@ export default function Home({ navigation }) {
         inputRange: [0, 30],
         outputRange: [1, 0],
         extrapolate: "clamp",
+        useNativeDriver: true
     })
 
     const data = [

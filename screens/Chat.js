@@ -131,13 +131,6 @@ export default function Chat(props) {
                             placeholder="Search"
                             placeholderTextColor={theme.colors.gray2}
                             style={styles.searchInput}
-                            // onFocus={() => handleSearchFocus(true)}
-                            // onBlur={() => handleSearchFocus(false)}
-                            // onChangeText={text => setState({ searchString: text })}
-                            // value={searchString}
-                            // onRightPress={() =>
-                            //     isEditing ? setState({ searchString: null }) : null
-                            // }
                             rightStyle={styles.searchRight}
                             rightLabel={
                                 <IonIcon

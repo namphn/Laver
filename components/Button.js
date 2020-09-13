@@ -20,7 +20,7 @@ export default function Button(props) {
     } = props;
 
     const buttonStyles = [
-        styles.button,
+        styles.button ,
         shadow && styles.shadow,
         color && styles[color], // predefined styles colors for backgroundColor
         color && !styles[color] && { backgroundColor: color }, // custom backgroundColor

@@ -7,7 +7,6 @@ import { theme, mocks } from "../constants";
 import { StyleSheet, Dimensions, FlatList } from "react-native"
 import IonIcon from "react-native-vector-icons/FontAwesome"
 
-
 const { width, height } = Dimensions.get("window");
 
 export default function Notification() {

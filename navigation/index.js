@@ -1,11 +1,10 @@
-import React, { Children } from "react"
+import React, { useEffect } from "react"
 import { NavigationContainer } from "@react-navigation/native"
 import { createStackNavigator } from "@react-navigation/stack"
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs"
-import Entypo from "react-native-vector-icons/Entypo"
-import IonIcon from "react-native-vector-icons/FontAwesome"
 import { View } from "react-native"
-
+import { useDispatch, useSelector } from 'react-redux'
+import AsyncStorage from '@react-native-community/async-storage';
 import Welcome from "../screens/Welcome"
 import Login from "../screens/Login"
 import SignUp from "../screens/SignUp.js"
@@ -163,16 +162,48 @@ const TabNavScreen = () => {
     )
 }
 
+
 export default Navigation = () => {
+
+    const dispatch = useDispatch();
+    const isLoggedIn = useSelector(state => state.loggedIn)
+    let userToken;
+
+    useEffect(() => {
+        const bootstrapAsync = async () => {
+            try {
+                userToken = await AsyncStorage.getItem("userToken");
+            } catch (e) {
+
+            }
+
+            dispatch({ type: 'RESTORE_TOKEN', token: userToken })
+        }
+
+        bootstrapAsync();
+    }, []);
+
+
     return (
         <NavigationContainer>
             <AppStack.Navigator mode="modal" headerMode="none">
-                <AppStack.Screen name="App" component={TabNavScreen} />
-                <AppStack.Screen name="Post" component={FullPost} />
-                <AppStack.Screen name="Upload" component={Upload} />
+                {
+                    isLoggedIn ? (
+                        <>
+                        <AppStack.Screen name="App" component={TabNavScreen} />
+                        <AppStack.Screen name="Post" component={FullPost} />
+                        <AppStack.Screen name="Upload" component={Upload} />
+                        </>
+                ) : (
+                            <AppStack.Screen name="Post" component={Login} />
+                        )
+                }
+
             </AppStack.Navigator>
         </NavigationContainer>
     )
+
+
 }
 
 
