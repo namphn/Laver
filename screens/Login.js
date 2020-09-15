@@ -29,7 +29,8 @@ const { Value,
     timing,
     clockRunning,
     interpolate,
-    Extrapolate
+    Extrapolate,
+    concat
 } = Animated;
 
 function runTiming(clock, value, dest) {
@@ -71,6 +72,18 @@ export default function Login() {
                 block([
                     cond(
                         eq(state, State.END),
+                        set(buttonOpacity, runTiming(new Clock(), 0, 1))
+                    )
+                ])
+        }
+    ]);
+
+    const onCloseState = event([
+        {
+            nativeEvent: ({ state }) =>
+                block([
+                    cond(
+                        eq(state, State.END),
                         set(buttonOpacity, runTiming(new Clock(), 1, 0))
                     )
                 ])
@@ -86,6 +99,30 @@ export default function Login() {
     const bgY = interpolate(buttonOpacity, {
         inputRange: [0, 1],
         outputRange: [-height / 3, 0],
+        extrapolate: Extrapolate.CLAMP
+    });
+
+    const textInputZindex = interpolate(buttonOpacity, {
+        inputRange: [0, 1],
+        outputRange: [1, -1],
+        extrapolate: Extrapolate.CLAMP
+    });
+
+    const textInputY = interpolate(buttonOpacity, {
+        inputRange: [0, 1],
+        outputRange: [0, 100],
+        extrapolate: Extrapolate.CLAMP
+    });
+
+    const textInpuOpacity = interpolate(buttonOpacity, {
+        inputRange: [0, 1],
+        outputRange: [1, 0],
+        extrapolate: Extrapolate.CLAMP
+    });
+
+    const rotateCross = interpolate(buttonOpacity, {
+        inputRange: [0, 1],
+        outputRange: [180, 360],
         extrapolate: Extrapolate.CLAMP
     });
 
@@ -122,25 +159,38 @@ export default function Login() {
                 </Animated.View>
                 <Animated.View
                     style={{
-                        zIndex: -1,
-                        opacity: 0,
+                        opacity: textInpuOpacity,
+                        zIndex: textInputZindex,
                         height: height / 3,
+                        transform: [{ translateY: textInputY }],
                         ...StyleSheet.absoluteFill,
                         top: null,
                         justifyContent: "center"
                     }}>
+                    <TapGestureHandler onHandlerStateChange={onCloseState}>
+                        <Animated.View style={styles.closeButton}>
+                            <Animated.Text style={{
+                                fontSize: 20, transform: [{
+                                    rotate: concat(rotateCross,
+                                        "deg")
+                                }]
+                            }}>
+                                X
+                                </Animated.Text>
+                        </Animated.View>
+                    </TapGestureHandler>
                     <Input
                         placeholder="Email"
                         placeholderTextColor={theme.colors.gray2}
-                        style={styles.searchInput}
+                        style={styles.textInput}
                     />
                     <Input
                         placeholder="Password"
                         placeholderTextColor={theme.colors.gray2}
-                        style={styles.searchInput}
+                        style={styles.textInput}
                     />
-                    <Animated.View style={styles.button}>
-                    <Text style={{...styles.text, fontWeight: "bold"}}>SIGN IN</Text>
+                    <Animated.View style={{ ...styles.button }}>
+                        <Text style={{ ...styles.text, fontWeight: "bold" }}>SIGN IN</Text>
                     </Animated.View>
                 </Animated.View>
             </Block>
@@ -169,21 +219,37 @@ const styles = StyleSheet.create({
         marginHorizontal: 20,
         alignItems: "center",
         justifyContent: "center",
-        marginBottom: 20
+        marginVertical: 5,
+        marginBottom: 20,
+        shadowOffset: { width: 2, height: 2 },
+        shadowColor: "black",
+        shadowOpacity: 0.2,
+        elevation: 5
     },
     text: {
         fontSize: 18
     },
-    searchInput: {
+    textInput: {
         fontSize: theme.sizes.caption,
-        height: theme.sizes.base * 2.5,
         borderWidth: 0.5,
-        borderColor: "rgba(142, 142, 147, 0.06)",
+        borderColor: "black",
         paddingLeft: theme.sizes.base / 1.333,
         paddingRight: theme.sizes.base * 1.5,
         borderRadius: 25,
         marginHorizontal: 20,
-        marginVertical: 5
+        marginVertical: 5,
+        height: 50
     },
+    closeButton: {
+        height: 40,
+        width: 40,
+        backgroundColor: "white",
+        borderRadius: 20,
+        alignItems: "center",
+        justifyContent: "center",
+        position: "absolute",
+        top: -20,
+        left: width / 2 - 20
+    }
 })
 
