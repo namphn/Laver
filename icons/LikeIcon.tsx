@@ -5,8 +5,8 @@ import { theme } from "../constants"
 export default function LikeIcon(props) {
     return (
         <Svg
-            width={24}
-            height={24}
+            width={20}
+            height={20}
             viewBox="0 0 24 24"
             fill={props.active ? theme.colors.primary : "none"}
             stroke={props.active ? theme.colors.primary : theme.colors.border}
@@ -14,8 +14,7 @@ export default function LikeIcon(props) {
             strokeLinecap="round"
             strokeLinejoin="round"
         >
-            <Path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z" />
-
+            <Path d="M14 9V5a3 3 0 00-3-3l-4 9v11h11.28a2 2 0 002-1.7l1.38-9a2 2 0 00-2-2.3zM7 22H4a2 2 0 01-2-2v-7a2 2 0 012-2h3" />
         </Svg>
     )
 }

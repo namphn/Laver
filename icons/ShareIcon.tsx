@@ -5,8 +5,8 @@ import { theme } from "../constants"
 export default function ShareIcon(props) {
     return (
         <Svg
-            width={24}
-            height={24}
+            width={20}
+            height={20}
             viewBox="0 0 24 24"
             fill={props.active ? theme.colors.primary : "none"}
             stroke={props.active ? theme.colors.primary : theme.colors.border}

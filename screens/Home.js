@@ -118,7 +118,7 @@ export default function Home({ navigation }) {
 
 
     return (
-        <SafeAreaView>
+        <SafeAreaView style={{paddingBottom: 170}}>
             <Animated.View
                 style={[
                     styles.header,

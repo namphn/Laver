@@ -11,6 +11,7 @@ import { theme, mocks } from "../constants"
 import LikeIcon from "../icons/LikeIcon"
 import CommentIcon from "../icons/CommentIcon"
 import ShareIcon from "../icons/ShareIcon"
+import { set } from "react-native-reanimated"
 
 const { width, height } = Dimensions.get("window");
 
@@ -29,27 +30,35 @@ export default function Post(props) {
         likeCount,
         commentCount,
         share
-    } = props
+    } = props;
 
-    const [active, setActive] = useState(liked)
-    const [likeCountState, setLikeCountState] = useState(likeCount)
-    const [commentCountState, setCommentCountState] = useState(commentCount)
-    const [shareCountState, setShareCountState] = useState(share) 
-
+    const [active, setActive] = useState(liked);
+    const [likeCountState, setLikeCountState] = useState(likeCount);
+    const [commentCountState, setCommentCountState] = useState(commentCount);
+    const [shareCountState, setShareCountState] = useState(share);
+    const [ratio, setRatio] = useState(null);
+    const [imgHeight, setImgHeight] = useState(null);
     const { navigation } = props;
 
-    useEffect(()=> {
-        console.log(likeCountState)
+    useEffect(() => {
     }, [likeCountState])
 
     const onChangeLike = () => {
-        if(active) {
-            setLikeCountState(likeCountState-1)
+        if (active) {
+            setLikeCountState(likeCountState - 1);
         } else {
-            setLikeCountState(likeCountState+1)
+            setLikeCountState(likeCountState + 1);
         }
         setActive(!active);
     }
+    useEffect(() => {
+
+        Image.getSize(props.image, (imgWidth, imgHeight) => {
+            setRatio(width / imgWidth);
+            setImgHeight(imgHeight);
+        })
+    })
+
 
     const navigateToCommentScreen = () => {
         navigation.navigate("Comment", {
@@ -57,7 +66,11 @@ export default function Post(props) {
             liked: active,
             commentCount: commentCountState,
             share: shareCountState,
-            image: props.image
+            image: props.image,
+            imageHeight: imgHeight,
+            avatar: props.avatar,
+            name: props.name,
+            status: props.status
         })
     }
 
@@ -73,7 +86,11 @@ export default function Post(props) {
                 <Text>{props.status}</Text>
             </Block>
             <Block flex={false} style={styles.imageContainer} >
-                <Image resizeMode="stretch" source={props.image} style={styles.image}/>
+                <Image resizeMode="contain" source={{ uri: props.image }}
+                    style={{
+                        ...styles.image,
+                        height: imgHeight * ratio
+                    }} />
             </Block>
             <TouchableOpacity style={styles.postReactCount}>
                 <Text>
@@ -108,8 +125,7 @@ export default function Post(props) {
 
 const styles = StyleSheet.create({
     container: {
-
-        marginBottom: 10
+        marginBottom: 7
     },
     avatar: {
         height: width / 10,
@@ -131,8 +147,9 @@ const styles = StyleSheet.create({
         alignItems: "center"
     },
     image: {
-       width: width,
-       resizeMode: "stretch"
+        flex: 1,
+        width: width,
+        resizeMode: "contain"
     },
     status: {
         paddingTop: 10,
@@ -142,10 +159,6 @@ const styles = StyleSheet.create({
     reactContainer: {
         paddingLeft: 10,
         paddingTop: 6,
-        borderTopColor: "gray",
-        borderTopWidth: 0.5,
-        borderBottomColor: "gray",
-        borderBottomWidth: 0.5,
         paddingBottom: 10,
         flexDirection: "row",
         justifyContent: "space-between",
@@ -156,7 +169,7 @@ const styles = StyleSheet.create({
         flexDirection: "row"
     },
     postReactCount: {
-        paddingTop: 30,
+        paddingTop: 10,
         paddingLeft: 10,
         paddingRight: 10,
         flexDirection: "row",

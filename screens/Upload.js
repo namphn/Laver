@@ -91,8 +91,8 @@ const styles = StyleSheet.create({
         paddingLeft: 20
     },
     avatar: {
-        height: width / 8,
-        width: width / 8,
+        height: height / 15,
+        width: height / 15,
     },
     userInfor: {
         paddingLeft: 10,
@@ -109,6 +109,6 @@ const styles = StyleSheet.create({
     item: {
         borderTopColor: "gray",
         borderTopWidth: 0.5,
-        height: (height*5/16 - 10) / 5
+        height: (height*(1-1/16-1/15-1/2)-10) / 5
     }
 })

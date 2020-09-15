@@ -5,6 +5,8 @@ import { createStore } from "redux"
 import rootReducer from "./reducers"
 import { useDispatch, useSelector } from "react-redux"
 
+console.disableYellowBox = true;
+
 const store = createStore(
   rootReducer
 )

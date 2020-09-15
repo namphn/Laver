@@ -22,30 +22,15 @@ export default function Comment(props) {
         liked,
         commentCount,
         share,
-        image
+        image,
+        imageHeight,
+        avatar,
+        name,
+        status
     } = route.params;
 
     const [active, setActive] = useState(liked)
     const [likeCountState, setLikeCountState] = useState(likeCount)
-
-    useEffect(() => {
-        console.log(likeCount)
-    }, [])
-
-
-    useEffect(() => {
-        console.log(likeCountState)
-    }, [likeCountState])
-
-    const onChangeLike = () => {
-        if (active) {
-            setLikeCountState(likeCountState - 1)
-        } else {
-            setLikeCountState(likeCountState + 1)
-        }
-        setActive(!active);
-        console.log('like')
-    }
 
     const goBack = () => {
         navigation.goBack();
@@ -53,38 +38,27 @@ export default function Comment(props) {
 
     return (
         <Block flex={false} color="white" style={styles.container} >
-            <Block flex={false} row style={styles.header}>
+            <Block flex={false} style={styles.header}>
                 <TouchableOpacity onPress={goBack}>
                     <Icon name="arrow-back" size={24} style={styles.backButton} />
                 </TouchableOpacity>
             </Block>
-            <Block flex={false} style={styles.imageContainer} >
-                <Image source={image} />
-            </Block>
-            <Block>
+            <Block flex={false}>
                 <TouchableOpacity style={styles.postHeader}>
-                    <Image source={props.avatar} style={styles.avatar} />
-                    <Text style={styles.name}>{props.name}</Text>
+                    <Image source={avatar} style={styles.avatar} />
+                    <Text style={styles.name}>{name}</Text>
                 </TouchableOpacity>
             </Block>
             <Block style={styles.status}>
-                <Text>{props.status}</Text>
+                <Text>{status}</Text>
             </Block>
-            <Block flex={false} style={styles.imageContainer} >
-                <Image source={props.image} />
+            <Block flex={false} style={{ ...styles.imageContainer }} >
+                <Image resizeMode="contain" source={{ uri: image }}
+                    style={{
+                        ...styles.image,
+                        height: imageHeight
+                    }} />
             </Block>
-            <TouchableOpacity style={styles.postReactCount}>
-                <Text>
-                    <Text>{likeCountState} </Text>
-                    <Text>Likes</Text>
-                </Text>
-                <Text>
-                    <Text>10 </Text>
-                    <Text>Comment</Text>
-                    <Text>. 10 </Text>
-                    <Text>Share</Text>
-                </Text>
-            </TouchableOpacity>
         </Block>
     )
 }
@@ -92,8 +66,7 @@ export default function Comment(props) {
 
 const styles = StyleSheet.create({
     container: {
-
-        marginBottom: 10
+        marginBottom: 10,
     },
     avatar: {
         height: width / 10,
@@ -112,7 +85,7 @@ const styles = StyleSheet.create({
     },
     imageContainer: {
         width: width,
-        alignItems: "center"
+        alignItems: "center",
     },
     image: {
         width: width,
@@ -123,24 +96,10 @@ const styles = StyleSheet.create({
         paddingBottom: 10,
         paddingLeft: 10
     },
-    reactContainer: {
-        paddingLeft: 10,
-        paddingTop: 6,
-        borderTopColor: "gray",
-        borderTopWidth: 0.5,
-        borderBottomColor: "gray",
-        borderBottomWidth: 0.5,
-        paddingBottom: 10,
-        flexDirection: "row",
-        justifyContent: "space-between",
-        paddingLeft: 30,
-        paddingRight: 30
-    },
     button: {
         flexDirection: "row"
     },
     postReactCount: {
-        paddingTop: 30,
         paddingLeft: 10,
         paddingRight: 10,
         flexDirection: "row",
@@ -149,6 +108,7 @@ const styles = StyleSheet.create({
     header: {
         paddingTop: theme.sizes.base,
         paddingLeft: theme.sizes.base,
+        paddingBottom: 30,
         height: height / 16
     },
     imageContainer: {

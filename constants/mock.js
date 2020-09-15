@@ -51,16 +51,15 @@ const categories = [
         "Bedrooms deserve to be decorated with lush greenery just like every other room in the house – but it can be tricky to find a plant that thrives here. Low light, high humidity and warm temperatures mean only certain houseplants will flourish.",
       tags: ["Interior", "27 m²", "Ideas"],
       images: [
-        require("../assets/images/plants_1.png"),
-        require("../assets/images/plants_2.png"),
-        require("../assets/images/plants_3.png"),
-        // showing only 3 images, show +6 for the rest
-        require("../assets/images/plants_1.png"),
-        require("../assets/images/plants_2.png"),
-        require("../assets/images/plants_3.png"),
-        require("../assets/images/plants_1.png"),
-        require("../assets/images/plants_2.png"),
-        require("../assets/images/plants_3.png")
+        "https://cdn.pixabay.com/photo/2018/07/26/07/45/valais-3562988__340.jpg",
+        "https://cdn.pixabay.com/photo/2019/07/14/08/08/night-4336403__340.jpg",
+        "https://cdn.pixabay.com/photo/2020/08/31/09/33/beach-5531919__340.jpg",
+        "https://cdn.pixabay.com/photo/2020/08/29/08/33/woman-5526487__340.jpg",
+        "https://cdn.pixabay.com/photo/2020/09/01/06/00/sky-5534319__340.jpg",
+        "https://cdn.pixabay.com/photo/2020/04/09/14/42/girls-5021801_960_720.jpg",
+        "https://cdn.pixabay.com/photo/2019/06/22/18/26/woman-4292185_960_720.jpg",
+        "https://cdn.pixabay.com/photo/2019/06/22/18/26/woman-4292185_960_720.jpg",
+        "https://cdn.pixabay.com/photo/2020/04/26/14/09/girl-5095383_960_720.jpg"
       ]
     }
   ];
@@ -87,12 +86,15 @@ const categories = [
   };
 
   const images = {
-    image1:  require("../assets/images/image1.jpg"),
-    image2:  require("../assets/images/explore_2.png"),
-    image3:  require("../assets/images/explore_3.png"),
-    image4:  require("../assets/images/explore_4.png"),
-    image5:  require("../assets/images/explore_5.png"),
-    image6:  require("../assets/images/explore_6.png"),
+    image1: "https://cdn.pixabay.com/photo/2018/07/26/07/45/valais-3562988__340.jpg",
+    image2: "https://cdn.pixabay.com/photo/2019/07/14/08/08/night-4336403__340.jpg",
+    image3: "https://cdn.pixabay.com/photo/2020/08/31/09/33/beach-5531919__340.jpg",
+    image4: "https://cdn.pixabay.com/photo/2020/08/29/08/33/woman-5526487__340.jpg",
+    image5: "https://cdn.pixabay.com/photo/2020/09/01/06/00/sky-5534319__340.jpg",
+    image6: "https://cdn.pixabay.com/photo/2020/04/09/14/42/girls-5021801_960_720.jpg",
+    image7: "https://cdn.pixabay.com/photo/2019/06/22/18/26/woman-4292185_960_720.jpg",
+    image8: "https://cdn.pixabay.com/photo/2019/06/22/18/26/woman-4292185_960_720.jpg",
+    image9: "https://cdn.pixabay.com/photo/2020/04/26/14/09/girl-5095383_960_720.jpg"
   }
 
   const icons = {
