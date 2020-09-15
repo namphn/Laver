@@ -2,7 +2,8 @@ import React, { useEffect } from "react"
 import {
     Image,
     Dimensions,
-    StyleSheet
+    StyleSheet,
+    TouchableOpacity
 } from "react-native"
 import {
     Block,
@@ -62,7 +63,7 @@ function runTiming(clock, value, dest) {
     ]);
 }
 
-export default function Login() {
+export default function Login({ navigation }) {
 
     const buttonOpacity = new Value(1);
 
@@ -72,7 +73,7 @@ export default function Login() {
                 block([
                     cond(
                         eq(state, State.END),
-                        set(buttonOpacity, runTiming(new Clock(), 0, 1))
+                        set(buttonOpacity, runTiming(new Clock(), 1, 0))
                     )
                 ])
         }
@@ -84,7 +85,7 @@ export default function Login() {
                 block([
                     cond(
                         eq(state, State.END),
-                        set(buttonOpacity, runTiming(new Clock(), 1, 0))
+                        set(buttonOpacity, runTiming(new Clock(), 0, 1))
                     )
                 ])
         }
@@ -126,7 +127,6 @@ export default function Login() {
         extrapolate: Extrapolate.CLAMP
     });
 
-
     return (
         <Block flex={1} color="white" bottom>
             <Animated.View
@@ -149,14 +149,16 @@ export default function Login() {
                         <Text style={styles.text}>SIGN IN</Text>
                     </Animated.View>
                 </TapGestureHandler>
-                <Animated.View style={{
-                    ...styles.button,
-                    opacity: buttonOpacity,
-                    backgroundColor: theme.colors.green,
-                    transform: [{ translateY: buttonY }]
-                }}>
-                    <Text style={{ ...styles.text, color: "white" }}>SIGN UP</Text>
-                </Animated.View>
+                <TouchableOpacity onPress={() => navigation.navigate("SignUp")}>
+                    <Animated.View style={{
+                        ...styles.button,
+                        opacity: buttonOpacity,
+                        backgroundColor: theme.colors.green,
+                        transform: [{ translateY: buttonY }]
+                    }}>
+                        <Text style={{ ...styles.text, color: "white" }}>SIGN UP</Text>
+                    </Animated.View>
+                </TouchableOpacity>
                 <Animated.View
                     style={{
                         opacity: textInpuOpacity,
@@ -169,14 +171,17 @@ export default function Login() {
                     }}>
                     <TapGestureHandler onHandlerStateChange={onCloseState}>
                         <Animated.View style={styles.closeButton}>
-                            <Animated.Text style={{
-                                fontSize: 20, transform: [{
-                                    rotate: concat(rotateCross,
-                                        "deg")
-                                }]
-                            }}>
-                                X
+                            <TouchableOpacity>
+                                <Animated.Text style={{
+                                    fontSize: 20,
+                                    transform: [{
+                                        rotate: concat(rotateCross,
+                                            "deg")
+                                    }]
+                                }}>
+                                    X
                                 </Animated.Text>
+                            </TouchableOpacity>
                         </Animated.View>
                     </TapGestureHandler>
                     <Input
@@ -190,7 +195,9 @@ export default function Login() {
                         style={styles.textInput}
                     />
                     <Animated.View style={{ ...styles.button }}>
-                        <Text style={{ ...styles.text, fontWeight: "bold" }}>SIGN IN</Text>
+                        <TouchableOpacity>
+                            <Text style={{ ...styles.text, fontWeight: "bold" }}>SIGN IN</Text>
+                        </TouchableOpacity>
                     </Animated.View>
                 </Animated.View>
             </Block>

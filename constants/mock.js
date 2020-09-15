@@ -87,7 +87,7 @@ const categories = [
   };
 
   const images = {
-    image1:  require("../assets/images/explore_1.png"),
+    image1:  require("../assets/images/image1.jpg"),
     image2:  require("../assets/images/explore_2.png"),
     image3:  require("../assets/images/explore_3.png"),
     image4:  require("../assets/images/explore_4.png"),

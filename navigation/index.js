@@ -23,6 +23,7 @@ import UserIcon from "../icons/UserIcon"
 import ChatIcon from "../icons/ChatIcon"
 import { theme } from "../constants";
 import Upload from "../screens/Upload"
+import Comment from "../screens/Comment"
 
 const AppStack = createStackNavigator();
 
@@ -166,7 +167,8 @@ const TabNavScreen = () => {
 export default Navigation = () => {
 
     const dispatch = useDispatch();
-    const isLoggedIn = useSelector(state => state.loggedIn)
+    // const isLoggedIn = useSelector(state => state.loggedIn)
+    const isLoggedIn = true;
     let userToken;
 
     useEffect(() => {
@@ -190,15 +192,19 @@ export default Navigation = () => {
                 {
                     isLoggedIn ? (
                         <>
-                        <AppStack.Screen name="App" component={TabNavScreen} />
-                        <AppStack.Screen name="Post" component={FullPost} />
-                        <AppStack.Screen name="Upload" component={Upload} />
+                            <AppStack.Screen name="App" component={TabNavScreen} />
+                            <AppStack.Screen name="Post" component={FullPost} />
+                            <AppStack.Screen name="Upload" component={Upload} />
+                            <AppStack.Screen name="Comment" component={Comment} />
                         </>
-                ) : (
-                            <AppStack.Screen name="Post" component={Login} />
+                    ) : (
+                            <>
+                                <AppStack.Screen name="Login" component={Login} />
+                                <AppStack.Screen name="SignUp" component={SignUp} />
+                                <AppStack.Screen name="Forgot" component={Forgot} />
+                            </>
                         )
                 }
-
             </AppStack.Navigator>
         </NavigationContainer>
     )

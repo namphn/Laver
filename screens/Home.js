@@ -51,48 +51,54 @@ export default function Home({ navigation }) {
             avatar: mocks.profile.avatar,
             status: "Hello! this is my app",
             image: mocks.images.image1,
-            like: 99,
-            comment: 15
+            likeCount: 99,
+            comment: 15,
+            liked: true,
         },
         {
             name: "Phạm Hoàng Nam",
             avatar: mocks.profile.avatar,
             status: "Hello! this is my app",
             image: mocks.images.image2,
-            like: 99,
-            comment: 15
+            likeCount: 99,
+            comment: 15,
+            liked: false,
         },
         {
             name: "Phạm Hoàng Nam",
             avatar: mocks.profile.avatar,
             status: "Hello! this is my app",
             image: mocks.images.image3,
-            like: 99,
-            comment: 15
+            likeCount: 99,
+            comment: 15,
+            liked: false,
         },
         {
             name: "Phạm Hoàng Nam",
             avatar: mocks.profile.avatar,
             status: "Hello! this is my app",
             image: mocks.images.image4,
-            like: 99,
-            comment: 15
+            likeCount: 99,
+            comment: 15,
+            liked: false,
         },
         {
             name: "Phạm Hoàng Nam",
             avatar: mocks.profile.avatar,
             status: "Hello! this is my app",
             image: mocks.images.image5,
-            like: 99,
-            comment: 15
+            likeCount: 99,
+            comment: 15,
+            liked: true,
         },
         {
             name: "Phạm Hoàng Nam",
             avatar: mocks.profile.avatar,
             status: "Hello! this is my app",
             image: mocks.images.image6,
-            like: 99,
-            comment: 15
+            likeCount: 99,
+            comment: 15,
+            liked: false,
         }
     ]
 
@@ -102,8 +108,10 @@ export default function Home({ navigation }) {
                 name={item.name}
                 status={item.status}
                 image={item.image}
-                like={item.like}
+                likeCount={item.likeCount}
                 comment={item.comment}
+                liked={item.liked}
+                navigation={navigation}
             />
         )
     }

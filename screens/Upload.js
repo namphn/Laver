@@ -109,6 +109,6 @@ const styles = StyleSheet.create({
     item: {
         borderTopColor: "gray",
         borderTopWidth: 0.5,
-        height: (height - height/10 - height/16 - height/2) / 5 
+        height: (height*5/16 - 10) / 5
     }
 })

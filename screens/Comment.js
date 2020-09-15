@@ -5,64 +5,62 @@ import {
     Image,
     TouchableOpacity
 } from "react-native"
-import Block from "./Block"
-import Text from "./Text"
+import { Text, Block } from "../components"
 import { theme, mocks } from "../constants"
-import LikeIcon from "../icons/LikeIcon"
-import CommentIcon from "../icons/CommentIcon"
-import ShareIcon from "../icons/ShareIcon"
+import Icon from "react-native-vector-icons/MaterialIcons"
 
 const { width, height } = Dimensions.get("window");
 
-// name={item.name}
-// status={item.status}
-// image={item.image}
-// likeCount={item.likeCount}
-// comment={item.comment}
-// liked={item.liked}
-// navigation={navigation}
-
-export default function Post(props) {
+export default function Comment(props) {
     const {
-        avatar,
-        liked,
-        likeCount,
-        commentCount,
-        share
+        navigation,
+        route
     } = props
+
+    const {
+        likeCount,
+        liked,
+        commentCount,
+        share,
+        image
+    } = route.params;
 
     const [active, setActive] = useState(liked)
     const [likeCountState, setLikeCountState] = useState(likeCount)
-    const [commentCountState, setCommentCountState] = useState(commentCount)
-    const [shareCountState, setShareCountState] = useState(share) 
 
-    const { navigation } = props;
+    useEffect(() => {
+        console.log(likeCount)
+    }, [])
 
-    useEffect(()=> {
+
+    useEffect(() => {
         console.log(likeCountState)
     }, [likeCountState])
 
     const onChangeLike = () => {
-        if(active) {
-            setLikeCountState(likeCountState-1)
+        if (active) {
+            setLikeCountState(likeCountState - 1)
         } else {
-            setLikeCountState(likeCountState+1)
+            setLikeCountState(likeCountState + 1)
         }
         setActive(!active);
+        console.log('like')
     }
 
-    const navigateToCommentScreen = () => {
-        navigation.navigate("Comment", {
-            likeCount: likeCountState,
-            liked: active,
-            commentCount: commentCountState,
-            share: shareCountState,
-            image: props.image
-        })
+    const goBack = () => {
+        navigation.goBack();
     }
 
     return (
         <Block flex={false} color="white" style={styles.container} >
+            <Block flex={false} row style={styles.header}>
+                <TouchableOpacity onPress={goBack}>
+                    <Icon name="arrow-back" size={24} style={styles.backButton} />
+                </TouchableOpacity>
+            </Block>
+            <Block flex={false} style={styles.imageContainer} >
+                <Image source={image} />
+            </Block>
             <Block>
                 <TouchableOpacity style={styles.postHeader}>
                     <Image source={props.avatar} style={styles.avatar} />
@@ -73,7 +71,7 @@ export default function Post(props) {
                 <Text>{props.status}</Text>
             </Block>
             <Block flex={false} style={styles.imageContainer} >
-                <Image resizeMode="stretch" source={props.image} style={styles.image}/>
+                <Image source={props.image} />
             </Block>
             <TouchableOpacity style={styles.postReactCount}>
                 <Text>
@@ -87,20 +85,6 @@ export default function Post(props) {
                     <Text>Share</Text>
                 </Text>
             </TouchableOpacity>
-            <Block flex={false} style={styles.reactContainer}>
-                <TouchableOpacity style={styles.button} onPress={onChangeLike}>
-                    <LikeIcon active={active} />
-                    <Text style={{ paddingLeft: 5 }}>Like</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.button} onPress={navigateToCommentScreen}>
-                    <CommentIcon />
-                    <Text style={{ paddingLeft: 5 }}>Comment</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.button}>
-                    <ShareIcon />
-                    <Text style={{ paddingLeft: 5 }}>Share</Text>
-                </TouchableOpacity>
-            </Block>
         </Block>
     )
 }
@@ -131,8 +115,8 @@ const styles = StyleSheet.create({
         alignItems: "center"
     },
     image: {
-       width: width,
-       resizeMode: "stretch"
+        width: width,
+        resizeMode: "contain"
     },
     status: {
         paddingTop: 10,
@@ -161,7 +145,16 @@ const styles = StyleSheet.create({
         paddingRight: 10,
         flexDirection: "row",
         justifyContent: "space-between"
-    }
+    },
+    header: {
+        paddingTop: theme.sizes.base,
+        paddingLeft: theme.sizes.base,
+        height: height / 16
+    },
+    imageContainer: {
+        width: width,
+        alignItems: "center"
+    },
 })
 
 
