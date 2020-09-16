@@ -49,7 +49,7 @@ export default function Home({ navigation }) {
         {
             name: "Phạm Hoàng Nam",
             avatar: mocks.profile.avatar,
-            status: "Hello! this is my app",
+            status: "Đây là lí do người ta gọi anh là Lươn, Cao Bằng thế này thì không lươn mới lạ",
             image: mocks.images.image1,
             likeCount: 99,
             comment: 15,
@@ -58,45 +58,45 @@ export default function Home({ navigation }) {
         {
             name: "Phạm Hoàng Nam",
             avatar: mocks.profile.avatar,
-            status: "Hello! this is my app",
+            status: "Đường tình anh thua, đường đua anh chấp!",
             image: mocks.images.image2,
-            likeCount: 99,
+            likeCount: 53,
             comment: 15,
             liked: false,
         },
         {
             name: "Phạm Hoàng Nam",
             avatar: mocks.profile.avatar,
-            status: "Hello! this is my app",
+            status: "Thành cổ Ousaka, Nhật Bản let's Go.... 日本へ行きましょう！！",
             image: mocks.images.image3,
-            likeCount: 99,
+            likeCount: 87,
             comment: 15,
             liked: false,
         },
         {
             name: "Phạm Hoàng Nam",
             avatar: mocks.profile.avatar,
-            status: "Hello! this is my app",
+            status: "Xinh vchuong huhu T.T",
             image: mocks.images.image4,
-            likeCount: 99,
+            likeCount: 78,
             comment: 15,
             liked: false,
         },
         {
             name: "Phạm Hoàng Nam",
             avatar: mocks.profile.avatar,
-            status: "Hello! this is my app",
+            status: "Tiên sư chúng m",
             image: mocks.images.image5,
-            likeCount: 99,
+            likeCount: 45,
             comment: 15,
             liked: true,
         },
         {
             name: "Phạm Hoàng Nam",
             avatar: mocks.profile.avatar,
-            status: "Hello! this is my app",
+            status: "Ohhhh!",
             image: mocks.images.image6,
-            likeCount: 99,
+            likeCount: 58,
             comment: 15,
             liked: false,
         }
@@ -118,7 +118,7 @@ export default function Home({ navigation }) {
 
 
     return (
-        <SafeAreaView style={{paddingBottom: 170}}>
+        <SafeAreaView style={{ paddingBottom: 170 }}>
             <Animated.View
                 style={[
                     styles.header,

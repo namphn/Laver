@@ -10,7 +10,7 @@ export default function ShareIcon(props) {
             viewBox="0 0 24 24"
             fill={props.active ? theme.colors.primary : "none"}
             stroke={props.active ? theme.colors.primary : theme.colors.border}
-            strokeWidth={2}
+            strokeWidth={1}
             strokeLinecap="round"
             strokeLinejoin="round"
         >

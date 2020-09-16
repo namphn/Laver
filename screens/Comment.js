@@ -3,11 +3,17 @@ import {
     StyleSheet,
     Dimensions,
     Image,
-    TouchableOpacity
+    TouchableOpacity,
+    ScrollView
 } from "react-native"
-import { Text, Block } from "../components"
+import {
+    Text,
+    Block,
+    InComment
+} from "../components"
 import { theme, mocks } from "../constants"
 import Icon from "react-native-vector-icons/MaterialIcons"
+import { FlatList } from "react-native-gesture-handler"
 
 const { width, height } = Dimensions.get("window");
 
@@ -36,38 +42,89 @@ export default function Comment(props) {
         navigation.goBack();
     }
 
+    const data = [
+        {
+            name: "Phạm Hoàng Nam",
+            avatar: mocks.profile.avatar,
+            content: "Đây là lí do người ta gọi anh là Lươn, Cao Bằng thế này thì không lươn mới lạ",
+            image: mocks.images.image1,
+            childComment: [
+                {
+                    name: "Phạm Hoàng Nam",
+                    avatar: mocks.profile.avatar,
+                    content: "Vcl",
+                    image: mocks.images.image1,
+                }
+            ],
+        },
+        {
+            name: "Phạm Hoàng Nam",
+            avatar: mocks.profile.avatar,
+            content: "Đường tình anh thua, đường đua anh chấp!",
+            image: mocks.images.image2,
+            childCommnet: [],
+        },
+    ]
+
+    const renderComment = ({ item }) => {
+        return (
+            <InComment
+                name={item.name}
+                avatar={item.avatar}
+                content={item.content}
+                image={item.image}
+                childComment={item.childComment}
+            />
+        )
+    }
+
     return (
-        <Block flex={false} color="white" style={styles.container} >
+        <Block flex={false} color="white">
             <Block flex={false} style={styles.header}>
                 <TouchableOpacity onPress={goBack}>
                     <Icon name="arrow-back" size={24} style={styles.backButton} />
                 </TouchableOpacity>
             </Block>
-            <Block flex={false}>
-                <TouchableOpacity style={styles.postHeader}>
-                    <Image source={avatar} style={styles.avatar} />
-                    <Text style={styles.name}>{name}</Text>
-                </TouchableOpacity>
-            </Block>
-            <Block style={styles.status}>
-                <Text>{status}</Text>
-            </Block>
-            <Block flex={false} style={{ ...styles.imageContainer }} >
-                <Image resizeMode="contain" source={{ uri: image }}
-                    style={{
-                        ...styles.image,
-                        height: imageHeight
-                    }} />
-            </Block>
+            <ScrollView>
+                <Block flex={false}>
+                    <TouchableOpacity style={styles.postHeader}>
+                        <Image source={avatar} style={styles.avatar} />
+                        <Text style={styles.name}>{name}</Text>
+                    </TouchableOpacity>
+                </Block>
+                <Block flex={false} style={styles.status}>
+                    <Text>{status}</Text>
+                </Block>
+                <Block flex={false} style={{ ...styles.imageContainer }} >
+                    {/* <Image resizeMode="contain" source={{ uri: image }} */}
+                    <Image resizeMode="contain" source={image}
+                        style={{
+                            ...styles.image,
+                            height: imageHeight
+                        }} />
+                </Block>
+
+                <Block flex={false} >
+                    <Text h4 style={{
+                        paddingTop: 10,
+                        paddingLeft: 10,
+                        fontWeight: "bold",
+                        fontSize: 15
+                    }} bold>Comments</Text>
+                </Block>
+                <FlatList
+                    showsVerticalScrollIndicator={false}
+                    data={data}
+                    renderItem={renderComment}
+                    style={{ marginTop: 10 }}
+                ></FlatList>
+            </ScrollView>
         </Block>
     )
 }
 
 
 const styles = StyleSheet.create({
-    container: {
-        marginBottom: 10,
-    },
     avatar: {
         height: width / 10,
         width: width / 10
@@ -84,11 +141,11 @@ const styles = StyleSheet.create({
         alignContent: "center"
     },
     imageContainer: {
-        width: width,
         alignItems: "center",
     },
     image: {
         width: width,
+        paddingTop: 10,
         resizeMode: "contain"
     },
     status: {
@@ -110,10 +167,6 @@ const styles = StyleSheet.create({
         paddingLeft: theme.sizes.base,
         paddingBottom: 30,
         height: height / 16
-    },
-    imageContainer: {
-        width: width,
-        alignItems: "center"
     },
 })
 

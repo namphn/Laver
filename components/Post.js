@@ -15,14 +15,6 @@ import { set } from "react-native-reanimated"
 
 const { width, height } = Dimensions.get("window");
 
-// name={item.name}
-// status={item.status}
-// image={item.image}
-// likeCount={item.likeCount}
-// comment={item.comment}
-// liked={item.liked}
-// navigation={navigation}
-
 export default function Post(props) {
     const {
         avatar,
@@ -51,12 +43,20 @@ export default function Post(props) {
         }
         setActive(!active);
     }
-    useEffect(() => {
 
-        Image.getSize(props.image, (imgWidth, imgHeight) => {
-            setRatio(width / imgWidth);
-            setImgHeight(imgHeight);
-        })
+    // useEffect(() => {
+    //     Image.getSize(props.image, (imgWidth, imgHeight) => {
+    //         setRatio(width / imgWidth);
+    //         setImgHeight(imgHeight);
+    //     })
+    // })
+
+    useEffect(() => {
+        const imgProps = Image.resolveAssetSource(props.image);
+        const imgWidth  = imgProps.width;
+        const imgHeight = imgProps.height;
+        setRatio(width / imgWidth);
+        setImgHeight(imgHeight);
     })
 
 
@@ -67,7 +67,7 @@ export default function Post(props) {
             commentCount: commentCountState,
             share: shareCountState,
             image: props.image,
-            imageHeight: imgHeight,
+            imageHeight: imgHeight * ratio,
             avatar: props.avatar,
             name: props.name,
             status: props.status
@@ -86,7 +86,8 @@ export default function Post(props) {
                 <Text>{props.status}</Text>
             </Block>
             <Block flex={false} style={styles.imageContainer} >
-                <Image resizeMode="contain" source={{ uri: props.image }}
+                {/* <Image resizeMode="contain" source={{ uri: props.image }} */}
+                <Image resizeMode="contain" source={props.image}
                     style={{
                         ...styles.image,
                         height: imgHeight * ratio

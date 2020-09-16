@@ -15,6 +15,7 @@ const colors = {
   border: "#616164",
   brow: "#ab6d03",
   green: "#32a852",
+  blue: "#2d8afc",
 };
 
 const sizes = {

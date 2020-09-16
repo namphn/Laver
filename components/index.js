@@ -13,6 +13,7 @@ import FriendStatus from "./FriendStatus"
 import FriendMessage from "./FriendMessage"
 import PeopleSearch from './PeopleSearch'
 import Post from "./Post"
+import InComment from "./InComment"
 
 export { 
     Block, 
@@ -28,5 +29,6 @@ export {
     FriendStatus,
     FriendMessage,
     PeopleSearch,
-    Post
+    Post,
+    InComment
 };

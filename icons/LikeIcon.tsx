@@ -8,9 +8,9 @@ export default function LikeIcon(props) {
             width={20}
             height={20}
             viewBox="0 0 24 24"
-            fill={props.active ? theme.colors.primary : "none"}
-            stroke={props.active ? theme.colors.primary : theme.colors.border}
-            strokeWidth={2}
+            fill={props.active ? theme.colors.blue : "none"}
+            stroke={props.active ? theme.colors.white: theme.colors.border}
+            strokeWidth={1}
             strokeLinecap="round"
             strokeLinejoin="round"
         >
