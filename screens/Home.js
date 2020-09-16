@@ -67,7 +67,7 @@ export default function Home({ navigation }) {
         {
             name: "Phạm Hoàng Nam",
             avatar: mocks.profile.avatar,
-            status: "Thành cổ Ousaka, Nhật Bản let's Go.... 日本へ行きましょう！！",
+            status: "Thành cổ Oosaka, Nhật Bản let's Go.... 日本へ行きましょう！！",
             image: mocks.images.image3,
             likeCount: 87,
             comment: 15,

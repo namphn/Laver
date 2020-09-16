@@ -5,6 +5,7 @@ import Text from "./Text";
 import Block from "./Block";
 import Button from "./Button";
 import { theme } from "../constants";
+import FeatherIcon from "react-native-vector-icons/Feather"
 
 export default function Input(props) {
     

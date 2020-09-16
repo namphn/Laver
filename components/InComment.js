@@ -4,7 +4,8 @@ import {
     Image,
     StyleSheet,
     TouchableOpacity,
-    Dimensions
+    Dimensions,
+    FlatList
 } from "react-native"
 import { theme, mocks } from "../constants"
 
@@ -20,53 +21,57 @@ export default function InComment(props) {
         childComment
     } = props;
 
-    const renderChildComment = () => {
-        console.log("sad")
-        // return (
-        //     <Block flex={false}>
-        //         <Block flex={false} row center space="between">
-        //             <TouchableOpacity style={styles.postHeader}>
-        //                 <Image source={avatar} style={styles.avatar} />
-        //                 <Text style={styles.name}>{name}</Text>
-        //             </TouchableOpacity>
-        //             <Text style={{
-        //                 paddingRight: 10,
-        //                 fontSize: 11
-        //             }}>12 min</Text>
-        //         </Block>
-        //         <Block flex={false} style={styles.content}>
-        //             <Text>{content}</Text>
-        //         </Block>
-        //         <TouchableOpacity style={{ ...styles.content, paddingTop: 5 }}>
-        //             <Text bold color={theme.colors.blue}>Reply</Text>
-        //         </TouchableOpacity>
-        //     </Block>
-        // )
+    const renderChildComment = ({ item }) => {
+        return (
+            <Block flex={false} style={{ paddingLeft: 40 }}>
+                <Block flex={false} row center space="between">
+                    <TouchableOpacity style={styles.postHeader}>
+                        <Image source={item.avatar} style={styles.avatar} />
+                        <Text style={styles.name}>{item.name}</Text>
+                    </TouchableOpacity>
+                    <Text style={{
+                        paddingRight: 10,
+                        fontSize: 11
+                    }}>12 min</Text>
+                </Block>
+                <Block flex={false} style={styles.content}>
+                    <Text>{item.content}</Text>
+                </Block>
+            </Block>
+        )
     }
 
     return (
-        <Block flex={false}>
-            <Block flex={false} row center space="between">
-                <TouchableOpacity style={styles.postHeader}>
-                    <Image source={avatar} style={styles.avatar} />
-                    <Text style={styles.name}>{name}</Text>
+        <Block flex={false} >
+            <Block flex={false}>
+                <Block flex={false} row center space="between">
+                    <TouchableOpacity style={styles.postHeader}>
+                        <Image source={avatar} style={styles.avatar} />
+                        <Text style={styles.name}>{name}</Text>
+                    </TouchableOpacity>
+                    <Text style={{
+                        paddingRight: 10,
+                        fontSize: 11
+                    }}>12 min</Text>
+                </Block>
+                <Block flex={false} style={styles.content}>
+                    <Text>{content}</Text>
+                </Block>
+                <TouchableOpacity style={{ ...styles.content, paddingTop: 5 }}>
+                    <Text bold color={theme.colors.blue}>Reply</Text>
                 </TouchableOpacity>
-                <Text style={{
-                    paddingRight: 10,
-                    fontSize: 11
-                }}>12 min</Text>
+                {
+                    childComment ? (
+                        <FlatList
+                            showsVerticalScrollIndicator={false}
+                            data={childComment}
+                            renderItem={renderChildComment}
+                            style={{ marginTop: 5 }}
+                        ></FlatList>
+                    ) : null
+
+                }
             </Block>
-            <Block flex={false} style={styles.content}>
-                <Text>{content}</Text>
-            </Block>
-            <TouchableOpacity style={{ ...styles.content, paddingTop: 5 }}>
-                <Text bold color={theme.colors.blue}>Reply</Text>
-            </TouchableOpacity>
-            {
-                childComment ? (
-                    renderChildComment
-                ) : null
-            }
         </Block>
     )
 }
@@ -77,7 +82,8 @@ const styles = StyleSheet.create({
     },
     avatar: {
         height: width / 10,
-        width: width / 10
+        width: width / 10,
+        borderRadius: width / 2
     },
     postHeader: {
         flexDirection: "row",

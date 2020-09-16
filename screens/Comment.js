@@ -4,15 +4,18 @@ import {
     Dimensions,
     Image,
     TouchableOpacity,
-    ScrollView
+    ScrollView,
+    TextInput
 } from "react-native"
 import {
     Text,
     Block,
-    InComment
+    InComment,
+    Input
 } from "../components"
 import { theme, mocks } from "../constants"
 import Icon from "react-native-vector-icons/MaterialIcons"
+import FeatherIcon from "react-native-vector-icons/Feather"
 import { FlatList } from "react-native-gesture-handler"
 
 const { width, height } = Dimensions.get("window");
@@ -51,7 +54,7 @@ export default function Comment(props) {
             childComment: [
                 {
                     name: "Phạm Hoàng Nam",
-                    avatar: mocks.profile.avatar,
+                    avatar: mocks.images.image1,
                     content: "Vcl",
                     image: mocks.images.image1,
                 }
@@ -79,46 +82,74 @@ export default function Comment(props) {
     }
 
     return (
-        <Block flex={false} color="white">
-            <Block flex={false} style={styles.header}>
-                <TouchableOpacity onPress={goBack}>
-                    <Icon name="arrow-back" size={24} style={styles.backButton} />
-                </TouchableOpacity>
-            </Block>
-            <ScrollView>
-                <Block flex={false}>
-                    <TouchableOpacity style={styles.postHeader}>
-                        <Image source={avatar} style={styles.avatar} />
-                        <Text style={styles.name}>{name}</Text>
+        <Block flex={1} color="white" style={{ paddingBottom: 105 }}>
+            <Block flex={false}>
+                <Block flex={false} style={styles.header}>
+                    <TouchableOpacity onPress={goBack}>
+                        <Icon name="arrow-back" size={24} style={styles.backButton} />
                     </TouchableOpacity>
                 </Block>
-                <Block flex={false} style={styles.status}>
-                    <Text>{status}</Text>
-                </Block>
-                <Block flex={false} style={{ ...styles.imageContainer }} >
-                    {/* <Image resizeMode="contain" source={{ uri: image }} */}
-                    <Image resizeMode="contain" source={image}
-                        style={{
-                            ...styles.image,
-                            height: imageHeight
-                        }} />
-                </Block>
+                <ScrollView>
+                    <Block flex={false}>
+                        <TouchableOpacity style={styles.postHeader}>
+                            <Image source={avatar} style={styles.avatar} />
+                            <Text style={styles.name}>{name}</Text>
+                        </TouchableOpacity>
+                    </Block>
+                    <Block flex={false} style={styles.status}>
+                        <Text>{status}</Text>
+                    </Block>
+                    <Block flex={false} style={{ ...styles.imageContainer }} >
+                        {/* <Image resizeMode="contain" source={{ uri: image }} */}
+                        <Image resizeMode="contain" source={image}
+                            style={{
+                                ...styles.image,
+                                height: imageHeight
+                            }} />
+                    </Block>
 
-                <Block flex={false} >
-                    <Text h4 style={{
-                        paddingTop: 10,
-                        paddingLeft: 10,
-                        fontWeight: "bold",
-                        fontSize: 15
-                    }} bold>Comments</Text>
-                </Block>
-                <FlatList
-                    showsVerticalScrollIndicator={false}
-                    data={data}
-                    renderItem={renderComment}
-                    style={{ marginTop: 10 }}
-                ></FlatList>
-            </ScrollView>
+                    <Block flex={false} >
+                        <Text h4 style={{
+                            paddingTop: 10,
+                            paddingLeft: 10,
+                            fontWeight: "bold",
+                            fontSize: 15
+                        }} bold>Comments</Text>
+                    </Block>
+                    <FlatList
+                        showsVerticalScrollIndicator={false}
+                        data={data}
+                        renderItem={renderComment}
+                        style={{ marginTop: 10 }}
+                    ></FlatList>
+                </ScrollView>
+            </Block>
+            <Block color="white" style={styles.commentInput} row space="between" center>
+                <TouchableOpacity>
+                    <Block flex={false} row center style={{ paddingLeft: 10 }}>
+                        <Image style={{ height: 35, width: 35 }} source={mocks.icons.camera} />
+                    </Block>
+                </TouchableOpacity>
+                <Input
+                    placeholder="Comment"
+                    style={styles.textInput}
+                    rightLabel={
+                        <TouchableOpacity>
+                            <FeatherIcon
+                                name="send"
+                                size={23}
+                                color={theme.colors.gray2}
+                            />
+                        </TouchableOpacity>
+
+                    }
+                    rightStyle={{
+                        alignItems: "center",
+                        marginRight: 15,
+                        backgroundColor: "transparent",
+                    }}
+                />
+            </Block>
         </Block>
     )
 }
@@ -132,7 +163,7 @@ const styles = StyleSheet.create({
     postHeader: {
         flexDirection: "row",
         alignItems: 'center',
-        paddingLeft: 10,
+        paddingLeft: 20,
         paddingTop: 10
     },
     name: {
@@ -168,6 +199,24 @@ const styles = StyleSheet.create({
         paddingBottom: 30,
         height: height / 16
     },
+    commentInput: {
+        height: 50,
+        width: width,
+        position: "absolute",
+        bottom: 0,
+    },
+    textInput: {
+        height: 45,
+        backgroundColor: theme.colors.white,
+        fontSize: 15,
+        borderRadius: 25,
+        borderWidth: 0.5,
+        width: width - 70,
+        marginRight: 10,
+        alignItems: "center",
+        paddingHorizontal: 20,
+    },
+
 })
 
 

@@ -112,6 +112,7 @@ const categories = [
     checkin: require("../assets/icons/check_in.png"),
     gif: require("../assets/icons/gif.png"),
     question: require("../assets/icons/question.png"),
+    camera: require("../assets/icons/camera.png")
   }
   
   export { categories, explore, products, profile, images, icons };
