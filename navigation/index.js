@@ -24,6 +24,7 @@ import ChatIcon from "../icons/ChatIcon"
 import { theme } from "../constants";
 import Upload from "../screens/Upload"
 import Comment from "../screens/Comment"
+import ReplyComment from "../screens/ReplyComment"
 
 const AppStack = createStackNavigator();
 
@@ -196,6 +197,7 @@ export default Navigation = () => {
                             <AppStack.Screen name="Post" component={FullPost} />
                             <AppStack.Screen name="Upload" component={Upload} />
                             <AppStack.Screen name="Comment" component={Comment} />
+                            <AppStack.Screen name="ReplyComment" component={ReplyComment} />
                         </>
                     ) : (
                             <>

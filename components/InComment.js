@@ -18,8 +18,20 @@ export default function InComment(props) {
         avatar,
         content,
         image,
-        childComment
+        childComment,
+        navigation,
+        replyComment
     } = props;
+
+    const goToReply = () => {
+        navigation.navigate("ReplyComment", {
+            avatar: avatar,
+            name: name,
+            content: content,
+            image: image,
+            childComment: childComment
+        })
+    }
 
     const renderChildComment = ({ item }) => {
         return (
@@ -57,9 +69,17 @@ export default function InComment(props) {
                 <Block flex={false} style={styles.content}>
                     <Text>{content}</Text>
                 </Block>
-                <TouchableOpacity style={{ ...styles.content, paddingTop: 5 }}>
-                    <Text bold color={theme.colors.blue}>Reply</Text>
-                </TouchableOpacity>
+                {
+                    replyComment ? null : (
+                        <TouchableOpacity
+                            style={{ ...styles.content, paddingTop: 5 }}
+                            onPress={goToReply}
+                        >
+                            <Text bold color={theme.colors.blue}>Reply</Text>
+                        </TouchableOpacity>
+                    )
+                }
+
                 {
                     childComment ? (
                         <FlatList

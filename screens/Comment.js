@@ -77,6 +77,7 @@ export default function Comment(props) {
                 content={item.content}
                 image={item.image}
                 childComment={item.childComment}
+                navigation={navigation}
             />
         )
     }
