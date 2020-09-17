@@ -4,176 +4,254 @@ import {
     StyleSheet,
     Image,
     Dimensions,
-    TouchableOpacity
+    TouchableOpacity,
+    FlatList
 } from "react-native"
-import GlobalStyles from "../GlobalStyles"
 import { Block, Badge, Card, Text } from "../components"
-import { theme } from "../constants"
+import { theme, mocks } from "../constants"
 import Icon from "react-native-vector-icons/MaterialIcons"
 import { ScrollView } from "react-native-gesture-handler"
 
 const { width, height } = Dimensions.get("window");
 
+const followers = [
+    {
+        id: "1",
+        avatar: mocks.images.image1,
+    },
+    {
+        id: "2",
+        avatar: mocks.images.image2,
+    },
+    {
+        id: "3",
+        avatar: mocks.images.image3,
+    },
+    {
+        id: "4",
+        avatar: mocks.images.image4,
+    },
+    {
+        id: "5",
+        avatar: mocks.images.image5,
+    },
+    {
+        id: "6",
+        avatar: mocks.images.image6,
+    },
+    {
+        id: "1",
+        avatar: mocks.images.image1,
+    },
+    {
+        id: "2",
+        avatar: mocks.images.image2,
+    },
+    {
+        id: "3",
+        avatar: mocks.images.image3,
+    },
+    {
+        id: "4",
+        avatar: mocks.images.image4,
+    },
+    {
+        id: "5",
+        avatar: mocks.images.image5,
+    },
+    {
+        id: "6",
+        avatar: mocks.images.image6,
+    },
+]
+
+const post = [
+    {
+        image1: mocks.images.image1,
+        image2: mocks.images.image2,
+        image3: mocks.images.image3,
+    },
+    {
+        image1: mocks.images.image4,
+        image2: mocks.images.image5,
+        image3: mocks.images.image6,
+    },
+    {
+        image1: mocks.images.image1,
+        image2: mocks.images.image2,
+        image3: mocks.images.image3,
+    },
+    {
+        image1: mocks.images.image4,
+        image2: mocks.images.image5,
+        image3: mocks.images.image6,
+    },
+    {
+        image1: mocks.images.image1,
+        image2: mocks.images.image2,
+        image3: mocks.images.image3,
+    },
+    {
+        image1: mocks.images.image4,
+        image2: mocks.images.image5,
+        image3: mocks.images.image6,
+    },
+    {
+        image1: mocks.images.image1,
+        image2: mocks.images.image1,
+        image3: mocks.images.image1,
+    },
+
+]
+
+
+const renderFollowers = ({ item }) => {
+    return (
+        <Image
+            source={item.avatar}
+            style={{
+                width: 50,
+                height: 50,
+                borderRadius: 50,
+                marginLeft: 10
+            }}
+        />
+    )
+}
+
+const renderPosts = ({ item }) => {
+    return (
+        <Block row flex={false} space="between" style={{paddingBottom: 3}}>
+            <Image source={item.image1} style={styles.imagePost} resizeMode="contain"/>
+            <Image source={item.image2} style={styles.imagePost} resizeMode="contain"/>
+            <Image source={item.image3} style={styles.imagePost} resizeMode="contain"/>
+        </Block>
+    )
+}
+
 export default function Profile() {
     return (
-        <SafeAreaView style={GlobalStyles.droidSafeArea}>
-            <Block >
-                <Block flex={false}>
-                    <Image source={require("../assets/images/plants_1.png")} style={styles.cover} resizeMode="cover" />
-                </Block>
-                <Block flex={false} >
-                    <Block flex={false} left padding={100} style={styles.info}>
-                        <Block flex={false} style={styles.name}>
-                            <Text h2 bold>Phạm Hoàng Nam</Text>
+        <SafeAreaView>
+            <ScrollView showsVerticalScrollIndicator={false}>
+                <Block flex={false} color="white" style={{ paddingBottom: 20, marginBottom: 5 }}>
+                    <Block flex={false} color="white">
+                        <Block flex={false}>
+                            <Image
+                                source={mocks.profile.avatar}
+                                style={styles.cover}
+                                resizeMode="cover"
+                                blurRadius={1}
+                            />
                         </Block>
-                        <Block flex={false} wrap row space="between">
-                            <Block flex={false} row>
-                                <Icon name="location-on" size={17} color="#0dd686" style={{ paddingRight: 4 }} />
-                                <Text bold color={theme.colors.brow}>Hà Nội</Text>
-                            </Block>
-                            <Block flex={false} row>
-                                <Icon name="location-city" size={17} color="#0dd686" style={{ paddingRight: 4 }} />
-                                <Text bold color={theme.colors.brow}>Việt Nam</Text>
-                            </Block>
+                        <Block flex={false} style={styles.avatarContainer}>
+                            <Image source={mocks.profile.avatar} style={styles.avatar} />
                         </Block>
-                        <Block flex={false} style={styles.description}>
-                            <Text>my favorite foods are oners that are made with love and happoness. follow me fo ther best tasbes in Viet Nam</Text>
+                    </Block>
+                    <Block flex={false} style={{ paddingTop: width / 8 + 20 }} center >
+                        <Text h2 bold>Phạm Hoàng Nam</Text>
+                    </Block>
+                    <Block row middle padding={10} style={{ paddingTop: 5 }} flex={false}>
+                        <Block flex={false} row style={{ paddingRight: 10 }}>
+                            <Icon name="location-on" size={17} color="#0dd686" style={{ paddingRight: 4 }} />
+                            <Text bold color={theme.colors.brow}>Hà Nội</Text>
                         </Block>
-                        <Block flex={false} wrap row space="between" style={styles.follow}>
-                            <Block flex={false}>
-                                <Text bold h2>212</Text>
-                                <Text h3 color="gray" >Followers</Text>
-                            </Block>
-                            <Block flex={false}>
-                                <Text bold h2>2.5K</Text>
-                                <Text h3 color="gray" >Following</Text>
-                            </Block>
+                        <Block flex={false} row>
+                            <Icon name="location-city" size={17} color="#0dd686" style={{ paddingRight: 4 }} />
+                            <Text bold color={theme.colors.brow}>Việt Nam</Text>
+                        </Block>
+                    </Block>
+                    <Block flex={false} style={{ paddingRight: 40, paddingLeft: 40, paddingTop: 10 }} middle>
+                        <Text style={{ textAlign: 'center' }}>I'm a positive person. I love to travel and eat. Alway available for chat</Text>
+                    </Block>
+                    <Block flex={false} row space="between" style={{ paddingTop: 20 }}>
+                        <Block center style={styles.partition}>
+                            <Text bold h2>807</Text>
+                            <Text>Following</Text>
+                        </Block>
+                        <Block center style={styles.partition}>
+                            <Text bold h2>86</Text>
+                            <Text>Folowers</Text>
+                        </Block>
+                        <Block center>
+                            <Text bold h2>890</Text>
+                            <Text>Posts</Text>
                         </Block>
                     </Block>
                 </Block>
-                <ScrollView style={styles.listContainer} showsVerticalScrollIndicator={false}>
-                    <Block row>
-                        <Block row flex={false} center style={styles.count}>
-                            <Block flex={false}>
-                                <Text h2 bold color={theme.colors.brow}>110</Text>
-                                <Text >Foods</Text>
-                            </Block>
-                        </Block>
-                        <Block>
-                            <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
-                                <TouchableOpacity style={styles.ListImage}>
-                                    <Image source={require("../assets/images/explore_4.png")} style={styles.image} />
-                                </TouchableOpacity>
-                                <TouchableOpacity style={styles.ListImage}>
-                                    <Image source={require("../assets/images/explore_4.png")} style={styles.image} />
-                                </TouchableOpacity><TouchableOpacity style={styles.ListImage}>
-                                    <Image source={require("../assets/images/explore_4.png")} style={styles.image} />
-                                </TouchableOpacity><TouchableOpacity style={styles.ListImage}>
-                                    <Image source={require("../assets/images/explore_4.png")} style={styles.image} />
-                                </TouchableOpacity><TouchableOpacity style={styles.ListImage}>
-                                    <Image source={require("../assets/images/explore_4.png")} style={styles.image} />
-                                </TouchableOpacity>
-                            </ScrollView>
-                        </Block>
-                    </Block>
-                    <Block row>
-                        <Block row flex={false} center style={styles.count}>
-                            <Block flex={false}>
-                                <Text h2 bold color={theme.colors.brow}>65</Text>
-                                <Text >Travel</Text>
-                            </Block>
-                        </Block>
-                        <Block>
-                            <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
-                                <TouchableOpacity style={styles.ListImage}>
-                                    <Image source={require("../assets/images/explore_4.png")} style={styles.image} />
-                                </TouchableOpacity>
-                                <TouchableOpacity style={styles.ListImage}>
-                                    <Image source={require("../assets/images/explore_4.png")} style={styles.image} />
-                                </TouchableOpacity><TouchableOpacity style={styles.ListImage}>
-                                    <Image source={require("../assets/images/explore_4.png")} style={styles.image} />
-                                </TouchableOpacity><TouchableOpacity style={styles.ListImage}>
-                                    <Image source={require("../assets/images/explore_4.png")} style={styles.image} />
-                                </TouchableOpacity><TouchableOpacity style={styles.ListImage}>
-                                    <Image source={require("../assets/images/explore_4.png")} style={styles.image} />
-                                </TouchableOpacity>
-                            </ScrollView>
-                        </Block>
-                    </Block>
+                <Block flex={false}
+                    style={{
+                        marginBottom: 5
+                    }}
+                    color="white">
+                    <Block flex={false} row space="between"
+                        style={{
+                            paddingTop: 5,
+                            paddingLeft: 20,
+                            paddingRight: 20
+                        }}>
+                        <Text bold>Followers</Text>
+                        <TouchableOpacity>
+                            <Text bold color={theme.colors.blue}>View All</Text>
+                        </TouchableOpacity>
 
-                    <Block row>
-                        <Block row flex={false} center style={styles.count}>
-                            <Block flex={false}>
-                                <Text h2 bold color={theme.colors.brow}>90</Text>
-                                <Text >Selfy</Text>
-                            </Block>
-                        </Block>
-                        <Block>
-                            <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
-                                <TouchableOpacity style={styles.ListImage}>
-                                    <Image source={require("../assets/images/explore_4.png")} style={styles.image} />
-                                </TouchableOpacity>
-                                <TouchableOpacity style={styles.ListImage}>
-                                    <Image source={require("../assets/images/explore_4.png")} style={styles.image} />
-                                </TouchableOpacity><TouchableOpacity style={styles.ListImage}>
-                                    <Image source={require("../assets/images/explore_4.png")} style={styles.image} />
-                                </TouchableOpacity><TouchableOpacity style={styles.ListImage}>
-                                    <Image source={require("../assets/images/explore_4.png")} style={styles.image} />
-                                </TouchableOpacity><TouchableOpacity style={styles.ListImage}>
-                                    <Image source={require("../assets/images/explore_4.png")} style={styles.image} />
-                                </TouchableOpacity>
-                            </ScrollView>
-                        </Block>
                     </Block>
-                    
-                </ScrollView>
-
-            </Block>
+                    <FlatList
+                        showsHorizontalScrollIndicator={false}
+                        data={followers}
+                        renderItem={renderFollowers}
+                        horizontal={true}
+                        style={{
+                            marginTop: 10,
+                            paddingBottom: 10,
+                            marginBottom: 5
+                        }}
+                    ></FlatList>
+                </Block>
+                <Block flex={false} color="white">
+                    <Block flex={false} style={{
+                        paddingLeft: 20,
+                        paddingBottom: 20
+                    }}>
+                        <Text bold>Pots</Text>
+                    </Block>
+                    <FlatList
+                        showsVerticalScrollIndicator={false}
+                        data={post}
+                        renderItem={renderPosts}
+                        style={{
+                            paddingBottom: 10,
+                            marginBottom: 5,
+                            backgroundColor: "white"
+                        }}
+                    />
+                </Block>
+            </ScrollView>
         </SafeAreaView>
     )
 }
 
 const styles = StyleSheet.create({
-    header: {
-        paddingHorizontal: theme.sizes.base * 2,
-        paddingBottom: theme.sizes.base * 2,
-        paddingTop: theme.sizes.base
-    },
     cover: {
-        height: height / 4,
+        height: height / 7,
         width: width,
-        borderRadius: 10
     },
-    info: {
-        paddingHorizontal: width / 8,
-        paddingTop: 10
+    avatar: {
+        width: width / 4,
+        height: width / 4,
+        borderRadius: width / 8,
     },
-    description: {
-        paddingTop: 5
+    avatarContainer: {
+        position: "absolute",
+        top: height / 12,
+        left: width / 2 - width / 8
     },
-    name: {
-        paddingBottom: 10
+    partition: {
+        borderRightWidth: 0.5,
+        borderRightColor: theme.colors.gray
     },
-    follow: {
-        paddingTop: 8
-    },
-    ListImage: {
-        paddingLeft: width / 8,
-        paddingTop: 15,
-        flexDirection: "row",
-        paddingLeft: 10,
-        paddingBottom: 20
-    },
-    image: {
-        borderRadius: 12,
-        width: width/4,
-        height: width/4
-    },
-    listContainer: {
-        paddingLeft: 10,
-        paddingRight: 10
-    },
-    count: {
-        width: 60
+    imagePost: {
+        width: width/3 - 3,
+        height: width/3 - 3,
+        resizeMode: "contain"
     }
 })

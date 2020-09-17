@@ -5,113 +5,6 @@ import { theme } from "../constants";
 
 export default function Block(props) {
 
-    const handleMargins = () => {
-        const { margin } = props;
-
-        if (typeof margin === "number") {
-            return {
-                marginTop: margin,
-                marginBottom: margin,
-                marginLeft: margin,
-                marginRight: margin
-            }
-        }
-
-        if (typeof margin === "object") {
-            const marginSize = Object.keys(margin).length;
-
-            switch (marginSize) {
-                
-                case 1:
-                    return {
-                        marginTop: margin[0],
-                        marginTop: margin[0],
-                        marginBottom: margin[0],
-                        marginLeft: margin[0],
-                        marginRight: margin[0]
-                    };
-
-                case 2:
-                    return {
-                        marginTop: margin[0],
-                        marginBottom: margin[1],
-                        marginLeft: margin[0],
-                        marginRight: margin[1]
-                    };
-
-                case 3:
-                    return {
-                        marginTop: margin[0],
-                        marginBottom: margin[1],
-                        marginLeft: margin[2],
-                        marginRight: margin[1]
-                    };
-
-                case 4:
-                    return {
-                        marginTop: margin[0],
-                        marginBottom: margin[1],
-                        marginLeft: margin[2],
-                        marginRight: margin[1]
-                    };
-
-                default:
-                    return {
-                        marginTop: margin[0],
-                        marginRight: margin[1],
-                        marginBottom: margin[2],
-                        marginLeft: margin[3]
-                    };
-            }
-        }
-    }
-
-    const handlePaddings = () => {
-        const { padding } = props;
-        if (typeof padding === "number") {
-            return {
-                paddingTop: padding,
-                paddingRight: padding,
-                paddingBottom: padding,
-                paddingLeft: padding
-            };
-        }
-
-        if (typeof padding === "object") {
-            const paddingSize = Object.keys(padding).length;
-            switch (paddingSize) {
-                case 1:
-                    return {
-                        paddingTop: padding[0],
-                        paddingRight: padding[0],
-                        paddingBottom: padding[0],
-                        paddingLeft: padding[0]
-                    };
-                case 2:
-                    return {
-                        paddingTop: padding[0],
-                        paddingRight: padding[1],
-                        paddingBottom: padding[0],
-                        paddingLeft: padding[1]
-                    };
-                case 3:
-                    return {
-                        paddingTop: padding[0],
-                        paddingRight: padding[1],
-                        paddingBottom: padding[2],
-                        paddingLeft: padding[1]
-                    };
-                default:
-                    return {
-                        paddingTop: padding[0],
-                        paddingRight: padding[1],
-                        paddingBottom: padding[2],
-                        paddingLeft: padding[3]
-                    };
-            }
-        }
-    }
-
     const {
         flex,
         row,
@@ -126,8 +19,6 @@ export default function Block(props) {
         shadow,
         color,
         space,
-        padding,
-        margin,
         animated,
         wrap,
         style,
@@ -146,8 +37,6 @@ export default function Block(props) {
         right && styles.right,
         top && styles.top,
         bottom && styles.bottom,
-        margin && { handleMargins },
-        padding && { handlePaddings },
         card && styles.card,
         shadow && styles.shadow,
         space && { justifyContent: `space-${space}` },
