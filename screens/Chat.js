@@ -106,7 +106,7 @@ export default function Chat(props) {
 
     const renderFriendStatus = ({ item }) => {
         return (
-            <FriendStatus avatar={item.avatar} online={item.online}/>
+            <FriendStatus avatar={item.avatar} online={item.online} />
         )
     }
 
@@ -119,7 +119,7 @@ export default function Chat(props) {
     return (
         <SafeAreaView style={[GlobalStyles.droidSafeArea,]}>
             <Block flex={false} row center space="between" style={[styles.header, styles.mainContainer]}>
-                <Text h2 bold>Tin nhắn</Text>
+                <Text h2 bold>Messages</Text>
                 <Button onPress={() => navigation.navigate("Profile")}>
                     <Image source={mocks.profile.avatar} style={styles.avatar} />
                 </Button>
@@ -143,19 +143,44 @@ export default function Chat(props) {
 
                         />
                     </Block>
+                    <Block
+                        flex={false}
+                        style={{
+                            paddingLeft: 20,
+                            paddingTop: 20
+                        }}
+                    >
+                        <Text bold>
+                            <Text>20 </Text>
+                            <Text>
+                                Friends Online
+                            </Text>
+                        </Text>
+                    </Block>
                     <Block row flex={false} style={styles.messageList}>
                         <FlatList
-                        horizontal
-                        showsHorizontalScrollIndicator={false}
-                        data={friendStatus}
-                        renderItem={renderFriendStatus}
+                            horizontal
+                            showsHorizontalScrollIndicator={false}
+                            data={friendStatus}
+                            renderItem={renderFriendStatus}
                         />
+                    </Block>
+                    <Block
+                        flex={false}
+                        style={{
+                            paddingLeft: 20,
+                            paddingTop: 20
+                        }}
+                    >
+                        <Text bold>
+                            Recent Conversations
+                        </Text>
                     </Block>
                     <Block flex={false} style={styles.mainContainer}>
                         <FlatList
-                        showsVerticalScrollIndicator={false}
-                        data={listMessage}
-                        renderItem={renderMessage}
+                            showsVerticalScrollIndicator={false}
+                            data={listMessage}
+                            renderItem={renderMessage}
                         />
                     </Block>
                 </ScrollView>
@@ -166,8 +191,7 @@ export default function Chat(props) {
 
 const styles = StyleSheet.create({
     header: {
-        paddingHorizontal: theme.sizes.base / 1.33,
-        paddingTop: theme.sizes.base
+        paddingHorizontal: theme.sizes.base
     },
     avatar: {
         height: theme.sizes.base * 2.2,
@@ -200,7 +224,6 @@ const styles = StyleSheet.create({
 
     },
     messageList: {
-        marginTop: 10
     },
     stories: {
         paddingLeft: width / 20

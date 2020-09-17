@@ -1,11 +1,10 @@
-import React from "react"
+import React, {useEffect} from "react"
 import {
-    SafeAreaView,
     StyleSheet,
     Image,
     Dimensions,
-    View,
-    TouchableOpacity
+    TouchableOpacity,
+    FlatList
 } from "react-native"
 import {
     Text,
@@ -21,26 +20,41 @@ const { width, height } = Dimensions.get("window");
 
 export default function People(props) {
 
-    const { navigation } = props;
+    const {
+        navigation,
+    } = props;
+
+    const renderImages = ({ item }) => {
+        return (
+            <Image resizeMode="contain" source={item.url} style={styles.image} />
+        )
+    }
 
     return (
-        <TouchableOpacity>
-            <Block flex={false} style={styles.container} color="white" shadow>
-                <Image source={props.avatar} style={styles.friendAvatar} />
-                <Block flex={false} center >
-                    <Text style={styles.friendName}>{props.name}</Text>
-                    <Text>
-                        <Text>{props.city + ","}</Text>
-                        <Text>{props.country}</Text>
-                    </Text>
+        <Block style={styles.mainContainer}>
+            <TouchableOpacity>
+                <Block flex={false} style={styles.container} center>
+                    <Image source={props.avatar} style={styles.friendAvatar} />
+                    <Block flex={false} >
+                        <Text style={styles.friendName}>{props.name}</Text>
+                    </Block>
                 </Block>
-                <Block flex={false} style={styles.followButtonContainer}>
-                    <Button gradient style={styles.followButton} center startColor={theme.colors.green} endColor="#28f7ed">
-                        <Text bold center color="white">Follow</Text>
-                    </Button>
-                </Block>
+            </TouchableOpacity>
+            <Block flex={false}>
+                {
+                    props.images ? (
+                        <FlatList
+                            showsVerticalScrollIndicator={false}
+                            data={props.images}
+                            renderItem={renderImages}
+                            style={{ paddingTop: 5 }}
+                            horizontal={true}
+                            showsHorizontalScrollIndicator={false}
+                        ></FlatList>
+                    ) : null
+                }
             </Block>
-        </TouchableOpacity>
+        </Block>
     )
 }
 
@@ -49,20 +63,18 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         paddingLeft: width / 20,
         paddingRight: width / 20,
-        marginTop: 15,
         paddingTop: 15,
-        justifyContent: "space-between",
         borderBottomColor: "white",
-        borderBottomWidth: 2
     },
     friendAvatar: {
-        width: width / 7,
-        height: width / 7,
+        width: width / 10,
+        height: width / 10,
+        borderRadius: width / 20
     },
     friendName: {
-        paddingTop: width / 60,
         fontWeight: "bold",
-        fontSize: 16
+        fontSize: 16,
+        paddingLeft: 20,
     },
     followButtonContainer: {
         height: width / 40,
@@ -70,5 +82,16 @@ const styles = StyleSheet.create({
     followButton: {
         height: 35,
         width: width / 6,
+    },
+    image: {
+        height: 100,
+        width: 100,
+        resizeMode: "contain",
+        margin: 5
+    },
+    mainContainer: {
+        shadowOffset: {width: 2, height: 2},
+        shadowColor: "black",
+        shadowOpacity: 0.2,
     }
 })

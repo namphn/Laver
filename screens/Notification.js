@@ -123,7 +123,7 @@ export default function Notification() {
             <Block>
                 <Block flex={false} row center space="between" style={styles.header}>
                     <Text h2 bold >
-                        Thông báo
+                        Notifications
                     </Text>
                     {renderSearch()}
                 </Block>
@@ -148,7 +148,8 @@ const styles = StyleSheet.create({
         paddingBottom: theme.sizes.base * 2,
         paddingTop: theme.sizes.base,
         paddingLeft: width / 20,
-        paddingRight: width / 20
+        paddingRight: width / 20,
+        paddingHorizontal: theme.sizes.base
     },
     search: {
         height: theme.sizes.base * 2,

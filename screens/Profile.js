@@ -76,7 +76,6 @@ export default function Profile() {
                             </ScrollView>
                         </Block>
                     </Block>
-                
                     <Block row>
                         <Block row flex={false} center style={styles.count}>
                             <Block flex={false}>

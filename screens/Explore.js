@@ -24,43 +24,105 @@ export default function Explore() {
             avatar: mocks.profile.avatar,
             name: "Phạm Hoàng Nam",
             city: "Thái Nguyên",
-            country: "Việt Nam" 
+            country: "Việt Nam",
+            images: [
+                {
+                    url: mocks.images.image1
+                },
+                {
+                    url: mocks.images.image2
+                },
+                {
+                    url: mocks.images.image3
+                },
+                {
+                    url: mocks.images.image4
+                },
+                {
+                    url: mocks.images.image5
+                },
+                {
+                    url: mocks.images.image6
+                }
+            ]
         },
         {
-            avatar: mocks.profile.avatar,
-            name: "Phạm Hoàng Nam",
+            avatar: mocks.images.image1,
+            name: "Nam Phạm Hoàng",
             city: "Thái Nguyên",
-            country: "Việt Nam" 
+            country: "Việt Nam",
+            images: [
+                {
+                    url: mocks.images.image6
+                },
+                {
+                    url: mocks.images.image5
+                },
+                {
+                    url: mocks.images.image4
+                },
+                {
+                    url: mocks.images.image3
+                },
+                {
+                    url: mocks.images.image2
+                },
+                {
+                    url: mocks.images.image1
+                }
+            ]
         },
         {
-            avatar: mocks.profile.avatar,
-            name: "Phạm Hoàng Nam",
+            avatar: mocks.images.image6,
+            name: "Phạm Nam",
             city: "Thái Nguyên",
-            country: "Việt Nam" 
+            country: "Việt Nam",
+            images: [
+                {
+                    url: mocks.images.image1
+                },
+                {
+                    url: mocks.images.image3
+                },
+                {
+                    url: mocks.images.image2
+                },
+                {
+                    url: mocks.images.image4
+                },
+                {
+                    url: mocks.images.image5
+                },
+                {
+                    url: mocks.images.image6
+                }
+            ]
         },
-        {
-            avatar: mocks.profile.avatar,
-            name: "Phạm Hoàng Nam",
+         {
+            avatar: mocks.images.image6,
+            name: "Phạm Nam",
             city: "Thái Nguyên",
-            country: "Việt Nam" 
-        },
-        {
-            avatar: mocks.profile.avatar,
-            name: "Phạm Hoàng Nam",
-            city: "Thái Nguyên",
-            country: "Việt Nam" 
-        },
-        {
-            avatar: mocks.profile.avatar,
-            name: "Phạm Hoàng Nam",
-            city: "Thái Nguyên",
-            country: "Việt Nam" 
-        },
-        {
-            avatar: mocks.profile.avatar,
-            name: "Phạm Hoàng Nam",
-            city: "Thái Nguyên",
-            country: "Việt Nam" 
+            country: "Việt Nam",
+            images: [
+                {
+                    url: mocks.images.image1
+                },
+                {
+                    url: mocks.images.image3
+                },
+                {
+                    url: mocks.images.image2
+                },
+                {
+                    url: mocks.images.image4
+                },
+                {
+                    url: mocks.images.image5
+                },
+                {
+                    url: mocks.images.image6
+                }
+            ]
         },
     ];
 
@@ -70,6 +132,7 @@ export default function Explore() {
                 name={item.name}
                 city={item.city}
                 country={item.country}
+                images={item.images}
             />
         )
     }
@@ -113,13 +176,6 @@ export default function Explore() {
                                 placeholder="Search"
                                 placeholderTextColor={theme.colors.gray2}
                                 style={styles.searchInput}
-                                // onFocus={() => handleSearchFocus(true)}
-                                // onBlur={() => handleSearchFocus(false)}
-                                // onChangeText={text => setState({ searchString: text })}
-                                // value={searchString}
-                                // onRightPress={() =>
-                                //     isEditing ? setState({ searchString: null }) : null
-                                // }
                                 rightStyle={styles.searchRight}
                                 rightLabel={
                                     <IonIcon
@@ -134,9 +190,9 @@ export default function Explore() {
                         </Block>
                         <Block flex={false} style={styles.mainContainer}>
                             <Block flex={false} style={styles.recentResult}>
-                                <Text bold>Kết quả tìm kiếm</Text>
+                                <Text bold>Result</Text>
                             </Block>
-                            <Block flex={false} style={styles.container}>
+                            <Block flex={false} >
                                 <FlatList
                                 data={data}
                                 renderItem={renderResult}

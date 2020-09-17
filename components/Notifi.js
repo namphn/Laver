@@ -14,7 +14,7 @@ export default function Notifi(props) {
 
     const notifiStyle = [
         {
-            backgroundColor: visiable ? "white" : "#ecfae8"
+            backgroundColor: visiable ? "white" : theme.colors.gray3
         }
     ]
 

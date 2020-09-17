@@ -12,6 +12,7 @@ const colors = {
   white: "#FFFFFF",
   gray: "#9DA3B4",
   gray2: "#C5CCD6",
+  gray3: "#f2f2f2",
   border: "#616164",
   brow: "#ab6d03",
   green: "#32a852",

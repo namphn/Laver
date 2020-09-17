@@ -147,7 +147,7 @@ export default function Comment(props) {
                     rightStyle={{
                         alignItems: "center",
                         marginRight: 15,
-                        backgroundColor: "transparent",
+                        backgroundColor: "transparent"
                     }}
                 />
             </Block>
