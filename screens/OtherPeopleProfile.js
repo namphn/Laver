@@ -133,10 +133,25 @@ const renderPosts = ({ item }) => {
     )
 }
 
-export default function OtherPeopleProfile() {
+
+export default function OtherPeopleProfile({ navigation }) {
+
+    const goToMessage = () => {
+        navigation.navigate("Message");
+    }
+
+    const goBack = () => {
+        navigation.goBack();
+    }
+
     return (
         <SafeAreaView>
             <ScrollView showsVerticalScrollIndicator={false}>
+                <Block flex={false} row center style={styles.header}>
+                    <TouchableOpacity onPress={goBack}>
+                        <Icon name="arrow-back" size={24} style={styles.backButton} />
+                    </TouchableOpacity>
+                </Block>
                 <Block flex={false} color="white" style={{ paddingBottom: 20, marginBottom: 5 }}>
                     <Block flex={false} color="white">
                         <Block flex={false}>
@@ -167,7 +182,7 @@ export default function OtherPeopleProfile() {
                     <Block flex={false} style={{ paddingRight: 40, paddingLeft: 40, paddingTop: 10 }} middle>
                         <Text style={{ textAlign: 'center' }}>I'm a positive person. I love to travel and eat. Alway available for chat</Text>
                     </Block>
-                    <Block row center middle style={{paddingTop: 10}}>
+                    <Block row center middle style={{ paddingTop: 10 }}>
                         <Block flex={false}>
                             <Button gradient
                                 style={{
@@ -175,11 +190,12 @@ export default function OtherPeopleProfile() {
                                     borderRadius: 30,
                                     ...styles.middleStyle
                                 }}>
-                                    <Text h4 color={theme.colors.white}>FOLLOWING</Text>
+                                <Text h4 color={theme.colors.white}>FOLLOWING</Text>
                             </Button>
                         </Block>
                         <Block flex={false} style={{ paddingLeft: 20 }}>
                             <Button
+                                onPress={goToMessage}
                                 style={{
                                     width: width / 3,
                                     borderRadius: 30,
@@ -288,5 +304,15 @@ const styles = StyleSheet.create({
     middleStyle: {
         justifyContent: "center",
         alignItems: "center"
-    }
+    },
+    header: {
+        position: "absolute",
+        paddingTop: theme.sizes.base,
+        height: height / 12,
+        zIndex: 1,
+        width: width,
+    },
+    backButton: {
+        paddingLeft: 20
+    },
 })

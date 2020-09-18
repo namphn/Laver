@@ -27,6 +27,7 @@ import Comment from "../screens/Comment"
 import ReplyComment from "../screens/ReplyComment"
 import OtherPeopleProfile from "../screens/OtherPeopleProfile"
 import Message from "../screens/Message"
+import Followers from "../screens/Followers"
 
 const AppStack = createStackNavigator();
 
@@ -202,6 +203,7 @@ export default Navigation = () => {
                             <AppStack.Screen name="ReplyComment" component={ReplyComment} />
                             <AppStack.Screen name="OtherPeopleProfile" component={OtherPeopleProfile} />
                             <AppStack.Screen name="Message" component={Message} />
+                            <AppStack.Screen name="Followers" component={Followers} />
                         </>
                     ) : (
                             <>

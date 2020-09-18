@@ -17,7 +17,7 @@ import { FlatList } from "react-native-gesture-handler"
 
 const { width, height } = Dimensions.get("window");
 
-export default function Explore() {
+export default function Explore({navigation}) {
 
     const data = [
         {
@@ -98,7 +98,7 @@ export default function Explore() {
                 }
             ]
         },
-         {
+        {
             avatar: mocks.images.image6,
             name: "Phạm Nam",
             city: "Thái Nguyên",
@@ -128,11 +128,13 @@ export default function Explore() {
 
     const renderResult = ({ item }) => {
         return (
-            <PeopleSearch avatar={item.avatar}
+            <PeopleSearch
+                avatar={item.avatar}
                 name={item.name}
                 city={item.city}
                 country={item.country}
                 images={item.images}
+                navigation={navigation}
             />
         )
     }
@@ -194,8 +196,8 @@ export default function Explore() {
                             </Block>
                             <Block flex={false} >
                                 <FlatList
-                                data={data}
-                                renderItem={renderResult}
+                                    data={data}
+                                    renderItem={renderResult}
                                 />
                             </Block>
                         </Block>
@@ -268,7 +270,7 @@ const styles = StyleSheet.create({
         paddingBottom: 2
     },
     container: {
-      paddingTop: 10
+        paddingTop: 10
     },
     recentResult: {
         paddingTop: 15,

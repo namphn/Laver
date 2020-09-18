@@ -18,7 +18,7 @@ import IonIcon from "react-native-vector-icons/Octicons"
 
 const { width, height } = Dimensions.get("window");
 
-export default function People(props) {
+export default function PeopleSearch(props) {
 
     const {
         navigation,
@@ -30,9 +30,13 @@ export default function People(props) {
         )
     }
 
+    const goToProfileScreen = () => {
+        navigation.navigate("OtherPeopleProfile");
+    }
+
     return (
         <Block style={styles.mainContainer}>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={goToProfileScreen}>
                 <Block flex={false} style={styles.container} center>
                     <Image source={props.avatar} style={styles.friendAvatar} />
                     <Block flex={false} >

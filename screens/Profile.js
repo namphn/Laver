@@ -15,6 +15,7 @@ import {
 import { theme, mocks } from "../constants"
 import Icon from "react-native-vector-icons/MaterialIcons"
 import { ScrollView } from "react-native-gesture-handler"
+import navigation from "../navigation"
 
 const { width, height } = Dimensions.get("window");
 
@@ -22,50 +23,62 @@ const followers = [
     {
         id: "1",
         avatar: mocks.images.image1,
+        name: "Phạm Hoàng Nam",
     },
     {
         id: "2",
         avatar: mocks.images.image2,
+        name: "Phạm Hoàng Nam",
     },
     {
         id: "3",
         avatar: mocks.images.image3,
+        name: "Phạm Hoàng Nam",
     },
     {
         id: "4",
         avatar: mocks.images.image4,
+        name: "Phạm Hoàng Nam",
     },
     {
         id: "5",
         avatar: mocks.images.image5,
+        name: "Phạm Hoàng Nam",
     },
     {
         id: "6",
         avatar: mocks.images.image6,
+        name: "Phạm Hoàng Nam",
     },
     {
         id: "1",
         avatar: mocks.images.image1,
+        name: "Phạm Hoàng Nam",
     },
     {
         id: "2",
         avatar: mocks.images.image2,
+        name: "Phạm Hoàng Nam",
     },
     {
         id: "3",
         avatar: mocks.images.image3,
+        name: "Phạm Hoàng Nam",
     },
     {
         id: "4",
         avatar: mocks.images.image4,
+        name: "Phạm Hoàng Nam",
     },
     {
         id: "5",
         avatar: mocks.images.image5,
+        name: "Phạm Hoàng Nam",
     },
     {
         id: "6",
         avatar: mocks.images.image6,
+        name: "Phạm Hoàng Nam",
     },
 ]
 
@@ -108,7 +121,6 @@ const post = [
 
 ]
 
-
 const renderFollowers = ({ item }) => {
     return (
         <Image
@@ -133,7 +145,14 @@ const renderPosts = ({ item }) => {
     )
 }
 
-export default function Profile() {
+export default function Profile({navigation}) {
+
+    const goToFollowers = () => {
+        navigation.navigate("Followers", {
+            followers: followers
+        });
+    }
+
     return (
         <SafeAreaView>
             <ScrollView showsVerticalScrollIndicator={false}>
@@ -194,7 +213,7 @@ export default function Profile() {
                             paddingRight: 20
                         }}>
                         <Text bold>Followers</Text>
-                        <TouchableOpacity>
+                        <TouchableOpacity onPress={goToFollowers}>
                             <Text bold color={theme.colors.blue}>View All</Text>
                         </TouchableOpacity>
 
