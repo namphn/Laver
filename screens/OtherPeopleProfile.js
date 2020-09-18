@@ -7,9 +7,9 @@ import {
     TouchableOpacity,
     FlatList
 } from "react-native"
-import { 
-    Block, 
-    Text ,
+import {
+    Block,
+    Text,
     Button
 } from "../components"
 import { theme, mocks } from "../constants"
@@ -125,15 +125,15 @@ const renderFollowers = ({ item }) => {
 
 const renderPosts = ({ item }) => {
     return (
-        <Block row flex={false} space="between" style={{paddingBottom: 3}}>
-            <Image source={item.image1} style={styles.imagePost} resizeMode="contain"/>
-            <Image source={item.image2} style={styles.imagePost} resizeMode="contain"/>
-            <Image source={item.image3} style={styles.imagePost} resizeMode="contain"/>
+        <Block row flex={false} space="between" style={{ paddingBottom: 3 }}>
+            <Image source={item.image1} style={styles.imagePost} resizeMode="contain" />
+            <Image source={item.image2} style={styles.imagePost} resizeMode="contain" />
+            <Image source={item.image3} style={styles.imagePost} resizeMode="contain" />
         </Block>
     )
 }
 
-export default function Profile() {
+export default function OtherPeopleProfile() {
     return (
         <SafeAreaView>
             <ScrollView showsVerticalScrollIndicator={false}>
@@ -166,6 +166,33 @@ export default function Profile() {
                     </Block>
                     <Block flex={false} style={{ paddingRight: 40, paddingLeft: 40, paddingTop: 10 }} middle>
                         <Text style={{ textAlign: 'center' }}>I'm a positive person. I love to travel and eat. Alway available for chat</Text>
+                    </Block>
+                    <Block row center middle style={{paddingTop: 10}}>
+                        <Block flex={false}>
+                            <Button gradient
+                                style={{
+                                    width: width / 3,
+                                    borderRadius: 30,
+                                    ...styles.middleStyle
+                                }}>
+                                    <Text h4 color={theme.colors.white}>FOLLOWING</Text>
+                            </Button>
+                        </Block>
+                        <Block flex={false} style={{ paddingLeft: 20 }}>
+                            <Button
+                                style={{
+                                    width: width / 3,
+                                    borderRadius: 30,
+                                    borderWidth: 2,
+                                    height: 46,
+                                    borderColor: theme.colors.green,
+                                    ...styles.middleStyle
+                                }}
+                            >
+                                <Text h4 color={theme.colors.green}>MESSAGE</Text>
+                            </Button>
+                        </Block>
+
                     </Block>
                     <Block flex={false} row space="between" style={{ paddingTop: 20 }}>
                         <Block center style={styles.partition}>
@@ -254,8 +281,12 @@ const styles = StyleSheet.create({
         borderRightColor: theme.colors.gray
     },
     imagePost: {
-        width: width/3 - 3,
-        height: width/3 - 3,
+        width: width / 3 - 3,
+        height: width / 3 - 3,
         resizeMode: "contain"
+    },
+    middleStyle: {
+        justifyContent: "center",
+        alignItems: "center"
     }
 })

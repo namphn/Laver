@@ -1,7 +1,13 @@
 import React from "react"
-import { View, Image, StyleSheet, Dimensions } from "react-native"
+import {
+    View,
+    Image,
+    StyleSheet,
+    Dimensions,
+    TouchableOpacity
+} from "react-native"
 import Text from "./Text"
-import { ThemeColors } from "react-navigation"
+import Block from "./Block"
 import { theme } from "../constants"
 
 const { width, height } = Dimensions.get("window");
@@ -19,22 +25,21 @@ export default function Notifi(props) {
     ]
 
     return (
-        <View style={[styles.container, notifiStyle]}>
-            <Image source={require("../assets/images/explore_3.png")}
-                style={styles.avatar}
-            />
-            <View style={styles.content}>
-                <Text>
-                    <Text>{props.name + " "}</Text>
-                    <Text>đã bình luận hình ảnh của bạn</Text>
-                    <Text>Hãy xem Nam nói gì về bạn nào!!</Text>
-                </Text>
-            </View>
-
-        </View>
+        <TouchableOpacity>
+            <Block flex={false} style={[styles.container, notifiStyle]}>
+                <Image source={require("../assets/images/explore_3.png")}
+                    style={styles.avatar}
+                />
+                <Block flex={false} style={styles.content}>
+                    <Text>
+                        <Text>{props.name + " "}</Text>
+                        <Text>đã bình luận hình ảnh của bạn </Text>
+                        <Text>Hãy xem Nam nói gì về bạn nào!!</Text>
+                    </Text>
+                </Block>
+            </Block>
+        </TouchableOpacity>
     )
-
-
 }
 
 const styles = StyleSheet.create({

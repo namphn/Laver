@@ -9,7 +9,7 @@ import IonIcon from "react-native-vector-icons/FontAwesome"
 
 const { width, height } = Dimensions.get("window");
 
-export default function Notification() {
+export default function Notification({navigation}) {
 
     const [state, setState] = useState({
         searchFocus: new Animated.Value(0.6),
@@ -73,10 +73,72 @@ export default function Notification() {
             time: "",
             visiable: true
         },
+        {
+            name: "Phạm Hoàng Nam",
+            image: "",
+            content: "",
+            time: "",
+            visiable: false
+        },
+        {
+            name: "Nguyễn Hữu Thanh",
+            image: "",
+            content: "",
+            time: "",
+            visiable: true
+        },
+        {
+            name: "Vũ Ngọc Sáng",
+            image: "",
+            content: "",
+            time: "",
+            visiable: false
+        },
+        {
+            name: "Nguyễn Ngọc Khôi",
+            image: "",
+            content: "",
+            time: "",
+            visiable: true
+        },
+        {
+            name: "Phạm Hoàng Nam",
+            image: "",
+            content: "",
+            time: "",
+            visiable: false
+        },
+        {
+            name: "Nguyễn Hữu Thanh",
+            image: "",
+            content: "",
+            time: "",
+            visiable: true
+        },
+        {
+            name: "Vũ Ngọc Sáng",
+            image: "",
+            content: "",
+            time: "",
+            visiable: false
+        },
+        {
+            name: "Nguyễn Ngọc Khôi",
+            image: "",
+            content: "",
+            time: "",
+            visiable: true
+        },
     ];
 
     const render = ({ item }) => (
-        <Notifi name={item.name} content={item.content} time={item.time} visiable={item.visiable} />
+        <Notifi 
+        name={item.name} 
+        content={item.content} 
+        time={item.time} 
+        visiable={item.visiable} 
+        navigation={navigation}
+        />
     );
 
     const handleSearchFocus = (status) => {

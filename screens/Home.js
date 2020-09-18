@@ -54,15 +54,17 @@ export default function Home({ navigation }) {
             likeCount: 99,
             comment: 15,
             liked: true,
+            me: true,
         },
         {
-            name: "Phạm Hoàng Nam",
-            avatar: mocks.profile.avatar,
+            name: "Nguyễn Hữu Thanh",
+            avatar: mocks.images.image1,
             status: "Đường tình anh thua, đường đua anh chấp!",
             image: mocks.images.image2,
             likeCount: 53,
             comment: 15,
             liked: false,
+            me: false,
         },
         {
             name: "Phạm Hoàng Nam",
@@ -72,6 +74,7 @@ export default function Home({ navigation }) {
             likeCount: 87,
             comment: 15,
             liked: false,
+            me: true,
         },
         {
             name: "Phạm Hoàng Nam",
@@ -81,6 +84,7 @@ export default function Home({ navigation }) {
             likeCount: 78,
             comment: 15,
             liked: false,
+            me: true,
         },
         {
             name: "Phạm Hoàng Nam",
@@ -90,6 +94,7 @@ export default function Home({ navigation }) {
             likeCount: 45,
             comment: 15,
             liked: true,
+            me: true,
         },
         {
             name: "Phạm Hoàng Nam",
@@ -99,6 +104,7 @@ export default function Home({ navigation }) {
             likeCount: 58,
             comment: 15,
             liked: false,
+            me: true,
         }
     ]
 
@@ -112,10 +118,10 @@ export default function Home({ navigation }) {
                 comment={item.comment}
                 liked={item.liked}
                 navigation={navigation}
+                me={item.me}
             />
         )
     }
-
 
     return (
         <SafeAreaView style={{ paddingBottom: 170 }}>

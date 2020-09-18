@@ -74,10 +74,19 @@ export default function Post(props) {
         })
     }
 
+    const goToProfileScreen = () => {
+        if(props.me == true) {
+            navigation.navigate("Profile");
+        } 
+        else {
+            navigation.navigate("OtherPeopleProfile");
+        }
+    }
+
     return (
         <Block flex={false} color="white" style={styles.container} >
             <Block>
-                <TouchableOpacity style={styles.postHeader}>
+                <TouchableOpacity style={styles.postHeader} onPress={goToProfileScreen}>
                     <Image source={props.avatar} style={styles.avatar} />
                     <Text style={styles.name}>{props.name}</Text>
                 </TouchableOpacity>
@@ -130,7 +139,8 @@ const styles = StyleSheet.create({
     },
     avatar: {
         height: width / 10,
-        width: width / 10
+        width: width / 10,
+        borderRadius: width / 20
     },
     postHeader: {
         flexDirection: "row",
