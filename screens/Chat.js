@@ -112,7 +112,13 @@ export default function Chat(props) {
 
     const renderMessage = ({ item }) => {
         return (
-            <FriendMessage avatar={item.avatar} online={item.online} name={item.name} message={item.message} />
+            <FriendMessage
+                avatar={item.avatar}
+                online={item.online}
+                name={item.name}
+                message={item.message}
+                navigation={navigation}
+            />
         )
     }
 

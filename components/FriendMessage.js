@@ -23,8 +23,12 @@ export default function FriendMessage(props) {
 
     const { navigation } = props;
 
+    const goToMessage = () => {
+        navigation.navigate("Message");
+    }
+
     return (
-        <TouchableOpacity style={styles.ListImage} style={styles.container}>
+        <TouchableOpacity style={styles.ListImage} style={styles.container} onPress={goToMessage}>
             <Image source={props.avatar} style={styles.friendAvatar} />
             {
                 props.online ?

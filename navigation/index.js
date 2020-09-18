@@ -26,6 +26,7 @@ import Upload from "../screens/Upload"
 import Comment from "../screens/Comment"
 import ReplyComment from "../screens/ReplyComment"
 import OtherPeopleProfile from "../screens/OtherPeopleProfile"
+import Message from "../screens/Message"
 
 const AppStack = createStackNavigator();
 
@@ -200,6 +201,7 @@ export default Navigation = () => {
                             <AppStack.Screen name="Comment" component={Comment} />
                             <AppStack.Screen name="ReplyComment" component={ReplyComment} />
                             <AppStack.Screen name="OtherPeopleProfile" component={OtherPeopleProfile} />
+                            <AppStack.Screen name="Message" component={Message} />
                         </>
                     ) : (
                             <>
