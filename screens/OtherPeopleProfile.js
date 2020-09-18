@@ -22,50 +22,62 @@ const followers = [
     {
         id: "1",
         avatar: mocks.images.image1,
+        name: "Phạm Hoàng Nam",
     },
     {
         id: "2",
         avatar: mocks.images.image2,
+        name: "Phạm Hoàng Nam",
     },
     {
         id: "3",
         avatar: mocks.images.image3,
+        name: "Phạm Hoàng Nam",
     },
     {
         id: "4",
         avatar: mocks.images.image4,
+        name: "Phạm Hoàng Nam",
     },
     {
         id: "5",
         avatar: mocks.images.image5,
+        name: "Phạm Hoàng Nam",
     },
     {
         id: "6",
         avatar: mocks.images.image6,
+        name: "Phạm Hoàng Nam",
     },
     {
         id: "1",
         avatar: mocks.images.image1,
+        name: "Phạm Hoàng Nam",
     },
     {
         id: "2",
         avatar: mocks.images.image2,
+        name: "Phạm Hoàng Nam",
     },
     {
         id: "3",
         avatar: mocks.images.image3,
+        name: "Phạm Hoàng Nam",
     },
     {
         id: "4",
         avatar: mocks.images.image4,
+        name: "Phạm Hoàng Nam",
     },
     {
         id: "5",
         avatar: mocks.images.image5,
+        name: "Phạm Hoàng Nam",
     },
     {
         id: "6",
         avatar: mocks.images.image6,
+        name: "Phạm Hoàng Nam",
     },
 ]
 
@@ -142,6 +154,12 @@ export default function OtherPeopleProfile({ navigation }) {
 
     const goBack = () => {
         navigation.goBack();
+    }
+
+    const goToFollowers = () => {
+        navigation.navigate("Followers", {
+            followers: followers
+        });
     }
 
     return (
@@ -237,7 +255,7 @@ export default function OtherPeopleProfile({ navigation }) {
                             paddingRight: 20
                         }}>
                         <Text bold>Followers</Text>
-                        <TouchableOpacity>
+                        <TouchableOpacity onPress={goToFollowers}>
                             <Text bold color={theme.colors.blue}>View All</Text>
                         </TouchableOpacity>
 

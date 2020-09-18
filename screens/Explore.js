@@ -157,7 +157,6 @@ export default function Explore({navigation}) {
 
         return (
             <Block animated middle style={[styles.search, styles.header]} flex={searchFocus}>
-
             </Block>
         );
     }
@@ -198,6 +197,7 @@ export default function Explore({navigation}) {
                                 <FlatList
                                     data={data}
                                     renderItem={renderResult}
+                                    removeClippedSubviews={true}
                                 />
                             </Block>
                         </Block>

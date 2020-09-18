@@ -64,6 +64,7 @@ export default function Followers({ navigation, route }) {
                     data={followers}
                     renderItem={renderFollowers}
                     style={{ marginTop: 10, paddingLeft: 20 }}
+                    removeClippedSubviews={true}
                 ></FlatList>
             </Block>
         </SafeAreaView>
