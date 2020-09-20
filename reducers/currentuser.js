@@ -7,28 +7,24 @@ const currenUser = (state = initialState, action) => {
         case actionType.LOGIN:
             return {
                 ...state,
-                user: action.payload,
                 loggedIn: true
             }
 
         case actionType.LOGOUT:
             return {
                 ...state,
-                user: {},
                 loggedIn: false
             }
 
         case actionType.REGISTER:
             return {
                 ...state,
-                user: {},
                 loggedIn: false
             }
 
         default:
             return {
                 ...state,
-                user: {},
                 loggedIn: false
             }
     }

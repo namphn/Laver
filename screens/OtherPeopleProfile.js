@@ -124,7 +124,7 @@ const post = [
 const renderFollowers = ({ item }) => {
     return (
         <Image
-            source={item.avatar}
+            source={{uri: item.avatar}}
             style={{
                 width: 50,
                 height: 50,
@@ -137,10 +137,10 @@ const renderFollowers = ({ item }) => {
 
 const renderPosts = ({ item }) => {
     return (
-        <Block row flex={false} space="between" style={{ paddingBottom: 3 }}>
-            <Image source={item.image1} style={styles.imagePost} resizeMode="contain" />
-            <Image source={item.image2} style={styles.imagePost} resizeMode="contain" />
-            <Image source={item.image3} style={styles.imagePost} resizeMode="contain" />
+        <Block row flex={false} space="between" style={{paddingBottom: 3}}>
+            <Image source={{uri: item.image1}} style={styles.imagePost} resizeMode="contain" />
+            <Image source={{uri: item.image2}} style={styles.imagePost} resizeMode="contain" />
+            <Image source={{uri: item.image3}} style={styles.imagePost} resizeMode="contain" />
         </Block>
     )
 }
@@ -174,14 +174,14 @@ export default function OtherPeopleProfile({ navigation }) {
                     <Block flex={false} color="white">
                         <Block flex={false}>
                             <Image
-                                source={mocks.profile.avatar}
+                                source={{uri: mocks.profile.avatar}}
                                 style={styles.cover}
                                 resizeMode="cover"
-                                blurRadius={1}
+                                blurRadius={2}
                             />
                         </Block>
                         <Block flex={false} style={styles.avatarContainer}>
-                            <Image source={mocks.profile.avatar} style={styles.avatar} />
+                            <Image source={{uri: mocks.profile.avatar}} style={styles.avatar} />
                         </Block>
                     </Block>
                     <Block flex={false} style={{ paddingTop: width / 8 + 20 }} center >
@@ -226,7 +226,6 @@ export default function OtherPeopleProfile({ navigation }) {
                                 <Text h4 color={theme.colors.green}>MESSAGE</Text>
                             </Button>
                         </Block>
-
                     </Block>
                     <Block flex={false} row space="between" style={{ paddingTop: 20 }}>
                         <Block center style={styles.partition}>
@@ -317,7 +316,8 @@ const styles = StyleSheet.create({
     imagePost: {
         width: width / 3 - 3,
         height: width / 3 - 3,
-        resizeMode: "contain"
+        resizeMode: "contain",
+        aspectRatio: 1.5, 
     },
     middleStyle: {
         justifyContent: "center",

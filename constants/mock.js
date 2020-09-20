@@ -78,33 +78,33 @@ const categories = [
     username: "react-ui-kit",
     location: "Europe",
     email: "contact@react-ui-kit.com",
-    avatar: require("../assets/images/avatar.png"),
+    avatar: "https://scontent.fhan3-2.fna.fbcdn.net/v/t1.0-9/91395730_981211518939618_7934745555857571840_o.jpg?_nc_cat=111&_nc_sid=85a577&_nc_ohc=ZAYfZRk3WVYAX_S6Cxh&_nc_ht=scontent.fhan3-2.fna&oh=518be0f33af2d619d99b12442b113cdf&oe=5F8B5852",
     budget: 1000,
     monthly_cap: 5000,
     notifications: true,
     newsletter: false
   };
 
-  // const images = {
-  //   image1: "https://cdn.pixabay.com/photo/2018/07/26/07/45/valais-3562988__340.jpg",
-  //   image2: "https://cdn.pixabay.com/photo/2019/07/14/08/08/night-4336403__340.jpg",
-  //   image3: "https://cdn.pixabay.com/photo/2020/08/31/09/33/beach-5531919__340.jpg",
-  //   image4: "https://cdn.pixabay.com/photo/2020/08/29/08/33/woman-5526487__340.jpg",
-  //   image5: "https://cdn.pixabay.com/photo/2020/09/01/06/00/sky-5534319__340.jpg",
-  //   image6: "https://cdn.pixabay.com/photo/2020/04/09/14/42/girls-5021801_960_720.jpg",
-  //   image7: "https://cdn.pixabay.com/photo/2019/06/22/18/26/woman-4292185_960_720.jpg",
-  //   image8: "https://cdn.pixabay.com/photo/2019/06/22/18/26/woman-4292185_960_720.jpg",
-  //   image9: "https://cdn.pixabay.com/photo/2020/04/26/14/09/girl-5095383_960_720.jpg"
-  // }
-
   const images = {
-    image1: require("../assets/images/image1.jpg"),
-    image2: require("../assets/images/image2.jpg"),
-    image3: require("../assets/images/image3.jpg"),
-    image4: require("../assets/images/image4.jpg"),
-    image5: require("../assets/images/image5.jpg"),
-    image6: require("../assets/images/image6.jpg"),
+    image1: "https://cdn.pixabay.com/photo/2018/07/26/07/45/valais-3562988__340.jpg",
+    image2: "https://cdn.pixabay.com/photo/2019/07/14/08/08/night-4336403__340.jpg",
+    image3: "https://cdn.pixabay.com/photo/2020/08/31/09/33/beach-5531919__340.jpg",
+    image4: "https://cdn.pixabay.com/photo/2020/08/29/08/33/woman-5526487__340.jpg",
+    image5: "https://cdn.pixabay.com/photo/2020/09/01/06/00/sky-5534319__340.jpg",
+    image6: "https://cdn.pixabay.com/photo/2020/04/09/14/42/girls-5021801_960_720.jpg",
+    image7: "https://cdn.pixabay.com/photo/2019/06/22/18/26/woman-4292185_960_720.jpg",
+    image8: "https://cdn.pixabay.com/photo/2019/06/22/18/26/woman-4292185_960_720.jpg",
+    image9: "https://cdn.pixabay.com/photo/2020/04/26/14/09/girl-5095383_960_720.jpg"
   }
+
+  // const images = {
+  //   image1: require("../assets/images/image1.jpg"),
+  //   image2: require("../assets/images/image2.jpg"),
+  //   image3: require("../assets/images/image3.jpg"),
+  //   image4: require("../assets/images/image4.jpg"),
+  //   image5: require("../assets/images/image5.jpg"),
+  //   image6: require("../assets/images/image6.jpg"),
+  // }
 
   const icons = {
     image_video: require("../assets/icons/image_video.png"),

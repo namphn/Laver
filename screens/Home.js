@@ -138,7 +138,7 @@ export default function Home({ navigation }) {
                         Laver
                 </Text>
                     <Button onPress={() => navigation.navigate("Profile")}>
-                        <Image source={mocks.profile.avatar} style={styles.avatar} />
+                        <Image source={{ uri: mocks.profile.avatar }} style={styles.avatar} />
                     </Button>
                 </Block>
             </Animated.View>
@@ -151,7 +151,7 @@ export default function Home({ navigation }) {
                             alignItems: "center",
                             paddingLeft: 10
                         }}>
-                            <Image source={mocks.profile.avatar} style={styles.postAvatar} />
+                            <Image source={{ uri: mocks.profile.avatar }} style={styles.postAvatar} />
                             <Block style={styles.postStatusButton}>
                                 <TouchableOpacity onPress={() => navigation.navigate("Upload")}>
                                     <Text style={{
@@ -189,6 +189,7 @@ const styles = StyleSheet.create({
     avatar: {
         height: theme.sizes.base * 2.2,
         width: theme.sizes.base * 2.2,
+        borderRadius: 30,
         alignContent: "center"
     },
     tabs: {
@@ -247,6 +248,7 @@ const styles = StyleSheet.create({
     postAvatar: {
         height: width / 10,
         width: width / 10,
-        paddingLeft: 20
+        paddingLeft: 20,
+        borderRadius: width / 20
     }
 });

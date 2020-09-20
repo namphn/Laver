@@ -93,7 +93,7 @@ export default function Comment(props) {
                 <ScrollView>
                     <Block flex={false}>
                         <TouchableOpacity style={styles.postHeader}>
-                            <Image source={avatar} style={styles.avatar} />
+                            <Image source={{uri: avatar}} style={styles.avatar} />
                             <Text style={styles.name}>{name}</Text>
                         </TouchableOpacity>
                     </Block>
@@ -102,7 +102,7 @@ export default function Comment(props) {
                     </Block>
                     <Block flex={false} style={{ ...styles.imageContainer }} >
                         {/* <Image resizeMode="contain" source={{ uri: image }} */}
-                        <Image resizeMode="contain" source={image}
+                        <Image resizeMode="contain" source={{uri: image}}
                             style={{
                                 ...styles.image,
                                 height: imageHeight
@@ -159,7 +159,8 @@ export default function Comment(props) {
 const styles = StyleSheet.create({
     avatar: {
         height: width / 10,
-        width: width / 10
+        width: width / 10,
+        borderRadius: width / 20
     },
     postHeader: {
         flexDirection: "row",

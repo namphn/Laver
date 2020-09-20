@@ -38,7 +38,7 @@ export default function Followers({ navigation, route }) {
                     paddingBottom: 20,
                 }}>
                 <Block flex={false}>
-                    <Image source={item.avatar} style={styles.avatar} />
+                    <Image source={{uri: item.avatar}} style={styles.avatar} />
                 </Block>
                 <Block style={{
                     paddingLeft: 20

@@ -25,7 +25,7 @@ export default function FriendStatus(props) {
 
     return (
         <TouchableOpacity style={styles.ListImage} style={styles.container}>
-            <Image source={props.avatar} style={styles.friendAvatar} />
+            <Image source={{uri: props.avatar}} style={styles.friendAvatar} />
             {
                 props.online ?  <IonIcon name="primitive-dot" color={theme.colors.green} size={20} style={styles.onlineDot}/> : null
             }
@@ -47,5 +47,6 @@ const styles = StyleSheet.create({
     friendAvatar: {
         width: width / 8,
         height: width / 8,
+        borderRadius: 30
     }
 })

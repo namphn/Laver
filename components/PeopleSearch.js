@@ -26,7 +26,7 @@ export default function PeopleSearch(props) {
 
     const renderImages = ({ item }) => {
         return (
-            <Image resizeMode="contain" source={item.url} style={styles.image} />
+            <Image resizeMode="contain" source={{uri: item.url}} style={styles.image} />
         )
     }
 
@@ -38,7 +38,7 @@ export default function PeopleSearch(props) {
         <Block style={styles.mainContainer}>
             <TouchableOpacity onPress={goToProfileScreen}>
                 <Block flex={false} style={styles.container} center>
-                    <Image source={props.avatar} style={styles.friendAvatar} />
+                    <Image source={{uri: props.avatar}} style={styles.friendAvatar} />
                     <Block flex={false} >
                         <Text style={styles.friendName}>{props.name}</Text>
                     </Block>
@@ -88,10 +88,11 @@ const styles = StyleSheet.create({
         width: width / 6,
     },
     image: {
-        height: 100,
+        height: "100%",
         width: 100,
-        resizeMode: "contain",
-        margin: 5
+        resizeMode: "stretch",
+        margin: 5,
+        aspectRatio: 1.5
     },
     mainContainer: {
         shadowOffset: {width: 2, height: 2},

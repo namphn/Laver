@@ -29,7 +29,7 @@ export default function FriendMessage(props) {
 
     return (
         <TouchableOpacity style={styles.ListImage} style={styles.container} onPress={goToMessage}>
-            <Image source={props.avatar} style={styles.friendAvatar} />
+            <Image source={{uri: props.avatar}} style={styles.friendAvatar} />
             {
                 props.online ?
                     <IonIcon name="primitive-dot" color={theme.colors.green} size={20} style={styles.onlineDot} />
@@ -57,6 +57,7 @@ const styles = StyleSheet.create({
     friendAvatar: {
         width: width / 7,
         height: width / 7,
+        borderRadius: 30
     },
     friendName: {
         paddingTop: width / 60,

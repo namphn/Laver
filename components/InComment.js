@@ -38,7 +38,7 @@ export default function InComment(props) {
             <Block flex={false} style={{ paddingLeft: 40 }}>
                 <Block flex={false} row center space="between">
                     <TouchableOpacity style={styles.postHeader}>
-                        <Image source={item.avatar} style={styles.avatar} />
+                        <Image source={{uri: item.avatar}} style={styles.avatar} />
                         <Text style={styles.name}>{item.name}</Text>
                     </TouchableOpacity>
                     <Text style={{
@@ -58,7 +58,7 @@ export default function InComment(props) {
             <Block flex={false}>
                 <Block flex={false} row center space="between">
                     <TouchableOpacity style={styles.postHeader}>
-                        <Image source={avatar} style={styles.avatar} />
+                        <Image source={{uri: avatar}} style={styles.avatar} />
                         <Text style={styles.name}>{name}</Text>
                     </TouchableOpacity>
                     <Text style={{

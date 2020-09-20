@@ -43,7 +43,7 @@ export default function ReplyComment(props) {
             <Block flex={false} style={{ paddingLeft: 40 }}>
                 <Block flex={false} row center space="between">
                     <TouchableOpacity style={styles.postHeader}>
-                        <Image source={item.avatar} style={styles.avatar} />
+                        <Image source={{uri: item.avatar}} style={styles.avatar} />
                         <Text style={styles.name}>{item.name}</Text>
                     </TouchableOpacity>
                     <Text style={{

@@ -127,7 +127,7 @@ export default function Chat(props) {
             <Block flex={false} row center space="between" style={[styles.header, styles.mainContainer]}>
                 <Text h2 bold>Messages</Text>
                 <Button onPress={() => navigation.navigate("Profile")}>
-                    <Image source={mocks.profile.avatar} style={styles.avatar} />
+                    <Image source={{uri: mocks.profile.avatar}} style={styles.avatar} />
                 </Button>
             </Block>
             <Block flex={false}>
@@ -201,7 +201,8 @@ const styles = StyleSheet.create({
     },
     avatar: {
         height: theme.sizes.base * 2.2,
-        width: theme.sizes.base * 2.2
+        width: theme.sizes.base * 2.2,
+        borderRadius: 30
     },
     searchInput: {
         fontSize: theme.sizes.caption,

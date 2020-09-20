@@ -171,8 +171,8 @@ const TabNavScreen = () => {
 export default Navigation = () => {
 
     const dispatch = useDispatch();
-    // const isLoggedIn = useSelector(state => state.loggedIn)
-    const isLoggedIn = true;
+    const isLoggedIn = useSelector(state => state.loggedIn)
+    // const isLoggedIn = true;
     let userToken;
 
     useEffect(() => {

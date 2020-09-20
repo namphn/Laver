@@ -44,20 +44,20 @@ export default function Post(props) {
         setActive(!active);
     }
 
-    // useEffect(() => {
-    //     Image.getSize(props.image, (imgWidth, imgHeight) => {
-    //         setRatio(width / imgWidth);
-    //         setImgHeight(imgHeight);
-    //     })
-    // })
-
     useEffect(() => {
-        const imgProps = Image.resolveAssetSource(props.image);
-        const imgWidth  = imgProps.width;
-        const imgHeight = imgProps.height;
-        setRatio(width / imgWidth);
-        setImgHeight(imgHeight);
+        Image.getSize(props.image, (imgWidth, imgHeight) => {
+            setRatio(width / imgWidth);
+            setImgHeight(imgHeight);
+        })
     })
+
+    // useEffect(() => {
+    //     const imgProps = Image.resolveAssetSource(props.image);
+    //     const imgWidth  = imgProps.width;
+    //     const imgHeight = imgProps.height;
+    //     setRatio(width / imgWidth);
+    //     setImgHeight(imgHeight);
+    // })
 
 
     const navigateToCommentScreen = () => {
@@ -87,7 +87,7 @@ export default function Post(props) {
         <Block flex={false} color="white" style={styles.container} >
             <Block>
                 <TouchableOpacity style={styles.postHeader} onPress={goToProfileScreen}>
-                    <Image source={props.avatar} style={styles.avatar} />
+                    <Image source={{uri: props.avatar}} style={styles.avatar} />
                     <Text style={styles.name}>{props.name}</Text>
                 </TouchableOpacity>
             </Block>
@@ -95,8 +95,8 @@ export default function Post(props) {
                 <Text>{props.status}</Text>
             </Block>
             <Block flex={false} style={styles.imageContainer} >
-                {/* <Image resizeMode="contain" source={{ uri: props.image }} */}
-                <Image resizeMode="contain" source={props.image}
+                <Image resizeMode="contain" source={{ uri: props.image }}
+                // {/* <Image resizeMode="contain" source={props.image} */}
                     style={{
                         ...styles.image,
                         height: imgHeight * ratio

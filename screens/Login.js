@@ -1,9 +1,10 @@
-import React, { useEffect } from "react"
+import React, { useEffect, useState } from "react"
 import {
     Image,
     Dimensions,
     StyleSheet,
-    TouchableOpacity
+    TouchableOpacity,
+    Keyboard
 } from "react-native"
 import {
     Block,
@@ -14,6 +15,7 @@ import {
 import { theme } from "../constants"
 import Animated, { Easing } from "react-native-reanimated"
 import { TapGestureHandler, State } from "react-native-gesture-handler"
+import { Auth } from "../services"
 
 const { width, height } = Dimensions.get("window");
 
@@ -65,7 +67,9 @@ function runTiming(clock, value, dest) {
 
 export default function Login({ navigation }) {
 
-    const buttonOpacity = new Value(1);
+    const [buttonOpacity, setButtonOpacity] = useState(new Value(1));
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
 
     const onStateChange = event([
         {
@@ -126,6 +130,11 @@ export default function Login({ navigation }) {
         outputRange: [180, 360],
         extrapolate: Extrapolate.CLAMP
     });
+
+    const login = () => {
+        Keyboard.dismiss();
+        Auth.login(email, password)
+    }
 
     return (
         <Block flex={1} color="white" bottom>
@@ -188,21 +197,23 @@ export default function Login({ navigation }) {
                         placeholder="Email"
                         placeholderTextColor={theme.colors.gray2}
                         style={styles.textInput}
+                        onChangeText={email => setEmail(email)}
                     />
                     <Input
+                        secure={true}
                         placeholder="Password"
                         placeholderTextColor={theme.colors.gray2}
                         style={styles.textInput}
+                        onChangeText={password => setPassword(password)}
                     />
-                    <Animated.View style={{ ...styles.button }}>
-                        <TouchableOpacity>
+                    <TouchableOpacity onPress={login} style={{ ...styles.button }}>
+                        <Animated.View>
                             <Text style={{ ...styles.text, fontWeight: "bold" }}>SIGN IN</Text>
-                        </TouchableOpacity>
-                    </Animated.View>
+                        </Animated.View>
+                    </TouchableOpacity>
                 </Animated.View>
             </Block>
         </Block>
-
     )
 }
 
@@ -231,13 +242,13 @@ const styles = StyleSheet.create({
         shadowOffset: { width: 2, height: 2 },
         shadowColor: "black",
         shadowOpacity: 0.2,
-        elevation: 5
+        elevation: 3,
     },
     text: {
         fontSize: 18
     },
     textInput: {
-        fontSize: theme.sizes.caption,
+        fontSize: theme.sizes.header,
         borderWidth: 0.5,
         borderColor: "black",
         paddingLeft: theme.sizes.base / 1.333,
@@ -256,7 +267,11 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         position: "absolute",
         top: -20,
-        left: width / 2 - 20
+        left: width / 2 - 20,
+        shadowOffset: { width: 2, height: 2 },
+        shadowColor: "black",
+        shadowOpacity: 0.2,
+        elevation: 3,
     }
 })
 

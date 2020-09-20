@@ -5,7 +5,7 @@ import Text from "./Text";
 import Block from "./Block";
 import Button from "./Button";
 import { theme } from "../constants";
-import FeatherIcon from "react-native-vector-icons/Feather"
+import Icon from "react-native-vector-icons/Ionicons"
 
 export default function Input(props) {
     
@@ -67,23 +67,16 @@ const renderLabel = (props) => {
 const renderToggle = (props, state) => {
     const { secure, rightLabel } = props;
     const { toggleSecure } = state;
+    const [toggleSecureState, setToggleSecure] = useState(toggleSecure)
 
     if (!secure) return null;
 
     return (
         <Button
             style={styles.toggle}
-            onPress={() => this.setState({ toggleSecure: !toggleSecure })}
+            onPress={() => setToggleSecure({ toggleSecureState: !toggleSecureState })}
         >
-            {rightLabel ? (
-                rightLabel
-            ) : (
-                    <Icon.Ionicons
-                        color={theme.colors.gray}
-                        size={theme.sizes.font * 1.35}
-                        name={!toggleSecure ? "md-eye" : "md-eye-off"}
-                    />
-                )}
+  
         </Button>
     );
 }
