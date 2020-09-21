@@ -1,5 +1,5 @@
-import Auth from "./Auth"
+import * as Auth from "./Auth"
 
 export {
-    Auth
+    Auth,
 }

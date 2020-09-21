@@ -4,18 +4,20 @@ import {
     Dimensions,
     StyleSheet,
     TouchableOpacity,
-    Keyboard
+    Keyboard,
+    AsyncStorage,
+    ActivityIndicator
 } from "react-native"
 import {
     Block,
-    Button,
     Text,
     Input
 } from "../components"
 import { theme } from "../constants"
 import Animated, { Easing } from "react-native-reanimated"
 import { TapGestureHandler, State } from "react-native-gesture-handler"
-import { Auth } from "../services"
+// import { Auth } from "../services"
+// import {authenAction} from "../actions"
 
 const { width, height } = Dimensions.get("window");
 
@@ -70,6 +72,11 @@ export default function Login({ navigation }) {
     const [buttonOpacity, setButtonOpacity] = useState(new Value(1));
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [loading, setLoading] = useState(false);
+
+    const loadingStyle = [
+        loading && styles.loading
+    ]
 
     const onStateChange = event([
         {
@@ -131,10 +138,32 @@ export default function Login({ navigation }) {
         extrapolate: Extrapolate.CLAMP
     });
 
+    axios = require("axios");
+
     const login = () => {
         Keyboard.dismiss();
-        Auth.login(email, password)
+        setLoading(true)
+        axios.post("http://10.128.13.151:8081/user/login", {
+            email: email,
+            password: password
+        })
+            .then(function (response) {
+                setLoading(false)
+                try {
+                    AsyncStorage.setItem(
+                        "token",
+                        response.data.token
+                    );
+                } catch (error) {
+
+                }
+            })
+            .catch(function (error) {
+                setLoading(false)
+                console.log(error);
+            });
     }
+
 
     return (
         <Block flex={1} color="white" bottom>
@@ -198,6 +227,7 @@ export default function Login({ navigation }) {
                         placeholderTextColor={theme.colors.gray2}
                         style={styles.textInput}
                         onChangeText={email => setEmail(email)}
+                        editable={!loading}
                     />
                     <Input
                         secure={true}
@@ -205,10 +235,18 @@ export default function Login({ navigation }) {
                         placeholderTextColor={theme.colors.gray2}
                         style={styles.textInput}
                         onChangeText={password => setPassword(password)}
+                        editable={!loading}
                     />
-                    <TouchableOpacity onPress={login} style={{ ...styles.button }}>
+                    <TouchableOpacity onPress={login} style={{ ...styles.button }} disabled={loading}>
                         <Animated.View>
-                            <Text style={{ ...styles.text, fontWeight: "bold" }}>SIGN IN</Text>
+                            {
+                                loading ? (
+                                    <ActivityIndicator size="large"/>
+                                ) : (
+                                        <Text style={{ ...styles.text, fontWeight: "bold" }}>SIGN IN</Text>
+                                    )
+                            }
+
                         </Animated.View>
                     </TouchableOpacity>
                 </Animated.View>
@@ -272,6 +310,9 @@ const styles = StyleSheet.create({
         shadowColor: "black",
         shadowOpacity: 0.2,
         elevation: 3,
+    },
+    loading: {
+        opacity: 1
     }
 })
 

@@ -6,7 +6,7 @@ axios = require('axios');
 
 function login(email, password){
 
-    axios.post("https://f5cfbdf56a6d.ngrok.io/user/login", {
+    axios.post("http://10.128.13.151:8081/user/login", {
         email: email,
         password: password
     })
@@ -19,6 +19,6 @@ function login(email, password){
 }
 
 
-export const Auth = {
+export {
     login,
-}
+};

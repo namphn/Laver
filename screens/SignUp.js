@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState } from "react"
 import {
     Text,
     Block,
@@ -11,19 +11,51 @@ import {
     TouchableOpacity,
     Image,
     Dimensions,
-    TextInput
+    Keyboard,
 } from "react-native"
 import Icon from "react-native-vector-icons/MaterialIcons"
-import MCIcon from "react-native-vector-icons/MaterialCommunityIcons"
 import { theme, mocks } from "../constants"
 import GlobalStyles from "../GlobalStyles"
-
+import { API } from "../constants"
+import api from "../constants/api"
 const { width, height } = Dimensions.get("window");
 
 export default function SignUp({ navigation }) {
 
+    const [email, setEmail] = useState("");
+    const [name, setName] = useState("");
+    const [password, setPassword] = useState("");
+    const [ConfirmPassword, setConfirmPassword] = useState("");
+    const [invalidConfirm, setInvalidConfirm] = useState(false)
+
     const goBack = () => {
         navigation.goBack();
+    }
+
+    const sigupSubmit = () => {
+        Keyboard.dismiss();
+
+        if (password != ConfirmPassword) {
+            setInvalidConfirm(true);
+        }
+        else {
+            setInvalidConfirm(false);
+
+            const apiUrl = API.root + API.user.sigup;
+            console.log(apiUrl)
+
+            axios.post(apiUrl, {
+                email: email,
+                password: password,
+                name: name
+            })
+                .then(function (response) {
+                    console.log(response.data);
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+        }
     }
 
     return (
@@ -33,11 +65,13 @@ export default function SignUp({ navigation }) {
                     <Icon name="arrow-back" size={24} style={styles.backButton} />
                 </TouchableOpacity>
             </Block>
-            <Block flex={1} center style={styles.headerText}>
+
+            <Block flex={1} center>
                 <Image source={require("../assets/icon.png")} style={styles.headerImage} />
                 <Text paddingLeft h1 bold>Let's Get Started</Text>
-                <Text paddingLeft h4 gray>Create an account to Laver to get All friends</Text>
+
             </Block>
+
             <Block flex={3} center style={{
                 paddingTop: 50
             }}>
@@ -46,28 +80,42 @@ export default function SignUp({ navigation }) {
                     placeholderTextColor={theme.colors.gray2}
                     style={styles.textInput}
                     email
+                    onChangeText={text => setEmail(text)}
                 />
                 <Input
                     placeholder="Name"
                     placeholderTextColor={theme.colors.gray2}
                     style={styles.textInput}
+                    onChangeText={text => setName(text)}
                 />
                 <Input
                     placeholder="Password"
                     placeholderTextColor={theme.colors.gray2}
                     style={styles.textInput}
+                    secure
+                    onChangeText={text => setPassword(text)}
                 />
                 <Input
                     placeholder="Confirm Password"
                     placeholderTextColor={theme.colors.gray2}
                     style={styles.textInput}
+                    secure
+                    onChangeText={text => setConfirmPassword(text)}
                 />
+                {
+                    invalidConfirm ? (
+                        <Block flex={false} left>
+                            <Text h4 color="red">Invalid confirm Password</Text>
+                        </Block>
+                    ) : null
+                }
+
                 <Block flex={false} left>
                     <Button style={{ marginTop: 10 }}>
                         <Text h4 color={theme.colors.green}>Forgot Password</Text>
                     </Button>
                 </Block>
-                <Button style={styles.singUpButton}>
+                <Button style={styles.singUpButton} onPress={sigupSubmit}>
                     <Text h3 color="white" bold>
                         Sign Up
                     </Text>
@@ -111,7 +159,7 @@ const styles = StyleSheet.create({
         height: (height - height / 10 - height / 16 - height / 2) / 5
     },
     textInput: {
-        fontSize: theme.sizes.caption,
+        fontSize: 18,
         borderWidth: 0.5,
         borderColor: "black",
         paddingLeft: theme.sizes.base / 1.333,
@@ -142,5 +190,8 @@ const styles = StyleSheet.create({
         elevation: 5,
         width: width / 2,
         marginTop: 20
+    },
+    text: {
+        fontSize: 18
     },
 })

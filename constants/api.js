@@ -1,7 +1,7 @@
 export default API = {
-    root: "https://10.245.51.194:8081",
+    root: "http://10.128.13.151:8081",
     user: {
-        root: "/user",
-        login: "/login"
+        login: "/user/login",
+        sigup: "/user/register"
     }
 }
