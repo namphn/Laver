@@ -1,24 +1,48 @@
-import { API } from "../constants"
-import {} from "../actions"
+import { API, status } from "../constants"
+import {
+    logInDispatch,
+    logOutDispatch
+} from "../actions/autthenAction"
 
-axios = require('axios');
 
+const axios = require('axios');
 
-function login(email, password){
-
-    axios.post("http://10.128.13.151:8081/user/login", {
+export function login(email, password) {
+    axios.post(API.root + API.user.login, {
         email: email,
         password: password
     })
         .then(function (response) {
-            console.log(response.data);
+            try {
+                AsyncStorage.setItem(
+                    "token",
+                    response.data.token
+                );
+
+                logInDispatch(token);
+                return true;
+
+            } catch (error) {
+                return false;
+            }
         })
         .catch(function (error) {
-            console.log(error);
+            return false;
         });
 }
 
+export function sigup(email, password, name) {
+    const apiUrl = API.root + API.user.sigup;
 
-export {
-    login,
-};
+    axios.post(apiUrl, {
+        email: email,
+        password: password,
+        name: name
+    })
+        .then(function (response) {
+            return response.data.status;
+        })
+        .catch(function (error) {
+            return status.ERROR;
+        });
+}

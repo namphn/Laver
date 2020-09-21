@@ -16,8 +16,7 @@ import {
 import { theme } from "../constants"
 import Animated, { Easing } from "react-native-reanimated"
 import { TapGestureHandler, State } from "react-native-gesture-handler"
-// import { Auth } from "../services"
-// import {authenAction} from "../actions"
+import { login } from "../services/Auth"
 
 const { width, height } = Dimensions.get("window");
 
@@ -73,6 +72,7 @@ export default function Login({ navigation }) {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(false);
 
     const loadingStyle = [
         loading && styles.loading
@@ -138,30 +138,13 @@ export default function Login({ navigation }) {
         extrapolate: Extrapolate.CLAMP
     });
 
-    axios = require("axios");
 
-    const login = () => {
+    const login = async  () => {
         Keyboard.dismiss();
         setLoading(true)
-        axios.post("http://10.128.13.151:8081/user/login", {
-            email: email,
-            password: password
-        })
-            .then(function (response) {
-                setLoading(false)
-                try {
-                    AsyncStorage.setItem(
-                        "token",
-                        response.data.token
-                    );
-                } catch (error) {
-
-                }
-            })
-            .catch(function (error) {
-                setLoading(false)
-                console.log(error);
-            });
+        var resposne = await login(email,password);
+        setLoading(false);
+        if(!resposne) setError(true);
     }
 
 
@@ -207,7 +190,7 @@ export default function Login({ navigation }) {
                         top: null,
                         justifyContent: "center"
                     }}>
-                    <TapGestureHandler onHandlerStateChange={onCloseState}>
+                    <TapGestureHandler onHandlerStateChange={onCloseState} editable={loading}>
                         <Animated.View style={styles.closeButton}>
                             <TouchableOpacity>
                                 <Animated.Text style={{
@@ -241,7 +224,7 @@ export default function Login({ navigation }) {
                         <Animated.View>
                             {
                                 loading ? (
-                                    <ActivityIndicator size="large"/>
+                                    <ActivityIndicator size="large" />
                                 ) : (
                                         <Text style={{ ...styles.text, fontWeight: "bold" }}>SIGN IN</Text>
                                     )

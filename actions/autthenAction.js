@@ -1,14 +1,12 @@
 import { useDispatch } from 'react-redux'
 import { actionType } from "../constants"
 
-const dispatch = useDispatch()
-
-function logOut(){
-    dispatch({ type: actionType.LOGOUT })
+export function logOutDispatch(){
+    useDispatch({ type: actionType.LOGOUT })
 }
 
-function logIn(token){
-    dispatch(
+export function logInDispatch(token){
+    useDispatch(
         {
             type: actionType.LOGIN,
             payload: {
@@ -17,7 +15,3 @@ function logIn(token){
         })
 }
 
-export {
-    logIn,
-    logOut
-}

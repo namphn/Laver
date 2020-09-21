@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, useRef } from "react"
 import {
     Text,
     Block,
@@ -12,13 +12,16 @@ import {
     Image,
     Dimensions,
     Keyboard,
+    ActivityIndicator,
+    Animated
 } from "react-native"
 import Icon from "react-native-vector-icons/MaterialIcons"
 import { theme, mocks } from "../constants"
 import GlobalStyles from "../GlobalStyles"
-import { API } from "../constants"
+import { API, status } from "../constants"
 import api from "../constants/api"
 const { width, height } = Dimensions.get("window");
+import { sigup } from "../services/Auth"
 
 export default function SignUp({ navigation }) {
 
@@ -27,12 +30,21 @@ export default function SignUp({ navigation }) {
     const [password, setPassword] = useState("");
     const [ConfirmPassword, setConfirmPassword] = useState("");
     const [invalidConfirm, setInvalidConfirm] = useState(false)
+    const [loading, setLoading] = useState(false);
+    const [succes, setSucces] = useState(true);
+    const [error, setError] = useState(true);
+
+    var errorContent = "";
 
     const goBack = () => {
         navigation.goBack();
     }
 
-    const sigupSubmit = () => {
+    const returnRegister = () => {
+        setSucces(false);
+    }
+
+    const sigupSubmit = async () => {
         Keyboard.dismiss();
 
         if (password != ConfirmPassword) {
@@ -40,22 +52,20 @@ export default function SignUp({ navigation }) {
         }
         else {
             setInvalidConfirm(false);
+            setLoading(true);
+            const response = await sigup(email, password, name);
+            setLoading(false);
 
-            const apiUrl = API.root + API.user.sigup;
-            console.log(apiUrl)
-
-            axios.post(apiUrl, {
-                email: email,
-                password: password,
-                name: name
-            })
-                .then(function (response) {
-                    console.log(response.data);
-                })
-                .catch(function (error) {
-                    console.log(error);
-                });
+            if (response == status.SENT_MAIL) {
+                setSucces(true);
+            }
+            else {
+                if (response == status.EMAIL_ALREADY_EXISTS) errorContent = "Your email was registered."
+                if (response == status.INVALID_EMAIL) errorContent = "Your email does not exist"
+                if (response == status.ERROR) errorContent = "There is a system error, please report to the admin"
+            }
         }
+
     }
 
     return (
@@ -65,62 +75,109 @@ export default function SignUp({ navigation }) {
                     <Icon name="arrow-back" size={24} style={styles.backButton} />
                 </TouchableOpacity>
             </Block>
-
             <Block flex={1} center>
                 <Image source={require("../assets/icon.png")} style={styles.headerImage} />
                 <Text paddingLeft h1 bold>Let's Get Started</Text>
 
             </Block>
+            {
+                succes == false ? (
+                    <Block flex={3} center style={{
+                        paddingTop: 50,
+                    }}>
+                        <Input
+                            placeholder="Email"
+                            placeholderTextColor={theme.colors.gray2}
+                            style={styles.textInput}
+                            email
+                            onChangeText={text => setEmail(text)}
+                            editable={!loading}
+                        />
+                        <Input
+                            placeholder="Name"
+                            placeholderTextColor={theme.colors.gray2}
+                            style={styles.textInput}
+                            onChangeText={text => setName(text)}
+                            editable={!loading}
+                        />
+                        <Input
+                            placeholder="Password"
+                            placeholderTextColor={theme.colors.gray2}
+                            style={styles.textInput}
+                            secure
+                            onChangeText={text => setPassword(text)}
+                            editable={!loading}
+                        />
+                        <Input
+                            placeholder="Confirm Password"
+                            placeholderTextColor={theme.colors.gray2}
+                            style={styles.textInput}
+                            secure
+                            onChangeText={text => setConfirmPassword(text)}
+                            editable={!loading}
+                        />
+                        {
+                            invalidConfirm ? (
+                                <Block flex={false} left>
+                                    <Text h4 color="red">Invalid confirm Password</Text>
+                                </Block>
+                            ) : null
+                        }
 
-            <Block flex={3} center style={{
-                paddingTop: 50
-            }}>
-                <Input
-                    placeholder="Email"
-                    placeholderTextColor={theme.colors.gray2}
-                    style={styles.textInput}
-                    email
-                    onChangeText={text => setEmail(text)}
-                />
-                <Input
-                    placeholder="Name"
-                    placeholderTextColor={theme.colors.gray2}
-                    style={styles.textInput}
-                    onChangeText={text => setName(text)}
-                />
-                <Input
-                    placeholder="Password"
-                    placeholderTextColor={theme.colors.gray2}
-                    style={styles.textInput}
-                    secure
-                    onChangeText={text => setPassword(text)}
-                />
-                <Input
-                    placeholder="Confirm Password"
-                    placeholderTextColor={theme.colors.gray2}
-                    style={styles.textInput}
-                    secure
-                    onChangeText={text => setConfirmPassword(text)}
-                />
-                {
-                    invalidConfirm ? (
                         <Block flex={false} left>
-                            <Text h4 color="red">Invalid confirm Password</Text>
+                            <Button style={{ marginTop: 10 }}>
+                                <Text h4 color={theme.colors.green}>Forgot Password</Text>
+                            </Button>
                         </Block>
-                    ) : null
-                }
+                        <Button style={styles.singUpButton} onPress={sigupSubmit}>
+                            {
+                                loading ? (
+                                    <ActivityIndicator size="large" color={theme.colors.white} />
+                                ) : (
+                                        <Text h3 color="white" bold>
+                                            Sign Up
+                                        </Text>
+                                    )
+                            }
+                        </Button>
+                    </Block>
+                ) : (
+                        <Block flex={false} style={styles.succes} center>
+                            {
+                                error == true ? (
+                                    <Block flex={false} center>
+                                        <Block>
+                                            <Text bold h2>
+                                                Error
+                                                </Text>
+                                            <Text h3>{errorContent}</Text>
+                                        </Block>
+                                        <Block flex={2}>
+                                            <Button style={styles.singUpButton} onPress={returnRegister}>
+                                                <Text h3 color="white" bold>OK</Text>
+                                            </Button>
+                                        </Block>
+                                    </Block>
+                                ) : (
+                                        <Block flex={false} center>
+                                            <Block>
+                                                <Text bold h2>
+                                                    Registration Success.
+                                                </Text>
+                                                <Text h3>Please check your email to verify your email.</Text>
+                                            </Block>
+                                            <Block flex={2}>
+                                                <Button style={styles.singUpButton} onPress={goBack}>
+                                                    <Text h3 color="white" bold>OK</Text>
+                                                </Button>
+                                            </Block>
+                                        </Block>
+                                    )
+                            }
 
-                <Block flex={false} left>
-                    <Button style={{ marginTop: 10 }}>
-                        <Text h4 color={theme.colors.green}>Forgot Password</Text>
-                    </Button>
-                </Block>
-                <Button style={styles.singUpButton} onPress={sigupSubmit}>
-                    <Text h3 color="white" bold>
-                        Sign Up
-                    </Text>
-                </Button>
-            </Block>
+                        </Block>
+                    )
+            }
         </SafeAreaView>
     )
 }
@@ -194,4 +251,11 @@ const styles = StyleSheet.create({
     text: {
         fontSize: 18
     },
+    succes: {
+        paddingTop: 20,
+        position: "absolute",
+        top: height / 2 - 100,
+        height: 200,
+        width: width - 10,
+    }
 })
