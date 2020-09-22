@@ -4,33 +4,24 @@ import { Provider } from "react-redux"
 import { createStore } from "redux"
 import rootReducer from "./reducers"
 import { useDispatch, useSelector } from "react-redux"
-import { AsyncStorage } from 'react-native';
+import { AsyncStorage } from 'react-native'
+import { composeWithDevTools } from "remote-redux-devtools"
 
 console.disableYellowBox = true;
 
+let composeEnhancers = composeWithDevTools({
+  realtime: true,
+  name: 'Your Instance Name',
+  hostname: 'localhost',
+  port: 19002
+});
+
 const store = createStore(
-  rootReducer
+  rootReducer,
+  composeEnhancers()
 )
 
-_retrieveData = async () => {
-  try {
-    const token = await AsyncStorage.getItem("token");
-    if (token !== null) {
-      console.log(token);
-    } else {
-      
-    }
-  } catch (error) {
-
-  }
-};
-
 export default function App() {
-
-  useEffect(() => {
-
-  }, [])
-
   return (
     <Provider store={store}>
       <Navigation />

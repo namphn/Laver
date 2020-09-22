@@ -31,10 +31,9 @@ export default function SignUp({ navigation }) {
     const [ConfirmPassword, setConfirmPassword] = useState("");
     const [invalidConfirm, setInvalidConfirm] = useState(false)
     const [loading, setLoading] = useState(false);
-    const [succes, setSucces] = useState(true);
-    const [error, setError] = useState(true);
-
-    var errorContent = "";
+    const [succes, setSucces] = useState(false);
+    const [error, setError] = useState(false);
+    const [errorContent, setErrorContent] = useState("")
 
     const goBack = () => {
         navigation.goBack();
@@ -42,6 +41,7 @@ export default function SignUp({ navigation }) {
 
     const returnRegister = () => {
         setSucces(false);
+        setError(false);
     }
 
     const sigupSubmit = async () => {
@@ -54,15 +54,17 @@ export default function SignUp({ navigation }) {
             setInvalidConfirm(false);
             setLoading(true);
             const response = await sigup(email, password, name);
-            setLoading(false);
-
             if (response == status.SENT_MAIL) {
                 setSucces(true);
+                setLoading(false)
             }
-            else {
-                if (response == status.EMAIL_ALREADY_EXISTS) errorContent = "Your email was registered."
-                if (response == status.INVALID_EMAIL) errorContent = "Your email does not exist"
-                if (response == status.ERROR) errorContent = "There is a system error, please report to the admin"
+            if(response != null) {
+                setSucces(true);
+                setError(true);
+                setLoading(false)
+                if (response == status.EMAIL_ALREADY_EXISTS) setErrorContent("Your email was registered.");
+                if (response == status.INVALID_EMAIL) setErrorContent("Your email does not exist");
+                if (response == status.ERROR) setErrorContent("There is a system error, please report to the admin");
             }
         }
 
@@ -117,7 +119,7 @@ export default function SignUp({ navigation }) {
                             editable={!loading}
                         />
                         {
-                            invalidConfirm ? (
+                            invalidConfirm == true ? (
                                 <Block flex={false} left>
                                     <Text h4 color="red">Invalid confirm Password</Text>
                                 </Block>
@@ -131,7 +133,7 @@ export default function SignUp({ navigation }) {
                         </Block>
                         <Button style={styles.singUpButton} onPress={sigupSubmit}>
                             {
-                                loading ? (
+                                loading == true ? (
                                     <ActivityIndicator size="large" color={theme.colors.white} />
                                 ) : (
                                         <Text h3 color="white" bold>

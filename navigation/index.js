@@ -169,26 +169,9 @@ const TabNavScreen = () => {
 
 
 export default Navigation = () => {
-
-    const dispatch = useDispatch();
+    useEffect(() => {console.log("render")});
     const isLoggedIn = useSelector(state => state.loggedIn)
     // const isLoggedIn = true;
-    let userToken;
-
-    useEffect(() => {
-        const bootstrapAsync = async () => {
-            try {
-                userToken = await AsyncStorage.getItem("userToken");
-            } catch (e) {
-
-            }
-
-            dispatch({ type: 'RESTORE_TOKEN', token: userToken })
-        }
-
-        bootstrapAsync();
-    }, []);
-
 
     return (
         <NavigationContainer>

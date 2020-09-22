@@ -3,38 +3,39 @@ import {
     logInDispatch,
     logOutDispatch
 } from "../actions/autthenAction"
+import {AsyncStorage} from "react-native"
 
 
 const axios = require('axios');
 
 export function login(email, password) {
-    axios.post(API.root + API.user.login, {
+    let response = axios.post(API.root + API.user.login, {
         email: email,
         password: password
     })
         .then(function (response) {
-            try {
+
+            if (response.data.status == status.ACCEPT) {
                 AsyncStorage.setItem(
                     "token",
                     response.data.token
                 );
-
-                logInDispatch(token);
-                return true;
-
-            } catch (error) {
-                return false;
+                logInDispatch(response.data.token);
+                return response.data.status;
             }
+            if (response != null) return response.data.status;
         })
         .catch(function (error) {
-            return false;
+            return status.error;
         });
+
+    return response;
 }
 
-export function sigup(email, password, name) {
+export async function sigup(email, password, name) {
     const apiUrl = API.root + API.user.sigup;
 
-    axios.post(apiUrl, {
+    let response = await axios.post(apiUrl, {
         email: email,
         password: password,
         name: name
@@ -45,4 +46,6 @@ export function sigup(email, password, name) {
         .catch(function (error) {
             return status.ERROR;
         });
+    console.log(response)
+    return response;
 }

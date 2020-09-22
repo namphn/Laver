@@ -5,15 +5,16 @@ import {
     StyleSheet,
     TouchableOpacity,
     Keyboard,
-    AsyncStorage,
-    ActivityIndicator
+    ActivityIndicator,
+    Modal,
+    TouchableHighlight
 } from "react-native"
 import {
     Block,
     Text,
     Input
 } from "../components"
-import { theme } from "../constants"
+import { theme, status } from "../constants"
 import Animated, { Easing } from "react-native-reanimated"
 import { TapGestureHandler, State } from "react-native-gesture-handler"
 import { login } from "../services/Auth"
@@ -73,10 +74,7 @@ export default function Login({ navigation }) {
     const [password, setPassword] = useState("");
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(false);
-
-    const loadingStyle = [
-        loading && styles.loading
-    ]
+    const [errorContent, setErrorContent] = useState("");
 
     const onStateChange = event([
         {
@@ -139,14 +137,17 @@ export default function Login({ navigation }) {
     });
 
 
-    const login = async  () => {
+    const loginSubmit = async () => {
         Keyboard.dismiss();
         setLoading(true)
-        var resposne = await login(email,password);
+        var resposne = await login(email, password);
         setLoading(false);
-        if(!resposne) setError(true);
+        if(resposne!=null) {
+            if(resposne != status.ACCEPT) {
+                setErrorContent(resposne);
+            }
+        }
     }
-
 
     return (
         <Block flex={1} color="white" bottom>
@@ -220,7 +221,7 @@ export default function Login({ navigation }) {
                         onChangeText={password => setPassword(password)}
                         editable={!loading}
                     />
-                    <TouchableOpacity onPress={login} style={{ ...styles.button }} disabled={loading}>
+                    <TouchableOpacity onPress={loginSubmit} style={{ ...styles.button }} disabled={loading}>
                         <Animated.View>
                             {
                                 loading ? (
@@ -234,6 +235,25 @@ export default function Login({ navigation }) {
                     </TouchableOpacity>
                 </Animated.View>
             </Block>
+            <Modal
+                animationType="slide"
+                transparent={true}
+                visible={error}
+            >
+                <Block flex={false} style={styles.centeredView}>
+                    <Block style={styles.modalView}>
+                        <Text style={styles.modalText} bold>{errorContent}</Text>
+                        <TouchableHighlight
+                            style={{ ...styles.openButton}}
+                            onPress={() => {
+                                setError(!error);
+                            }}
+                        >
+                            <Text style={styles.textStyle}>OK</Text>
+                        </TouchableHighlight>
+                    </Block>
+                </Block>
+            </Modal>
         </Block>
     )
 }
@@ -296,6 +316,46 @@ const styles = StyleSheet.create({
     },
     loading: {
         opacity: 1
+    },
+    centeredView: {
+        position:"absolute",
+        top: height / 2,
+        left: width / 2 - (width - 100)/2,
+        justifyContent: "center",
+        alignItems: "center",
+    },
+    modalView: {
+        backgroundColor: "white",
+        borderRadius: 20,
+        padding: 35,
+        paddingBottom: 20,
+        alignItems: "center",
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 2
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+        elevation: 5,
+        width: width - 100
+    },
+    openButton: {
+        backgroundColor: theme.colors.green,
+        borderRadius: 20,
+        padding: 10,
+        width: (width - 100 ) / 2,
+        elevation: 2
+    },
+    textStyle: {
+        color: "white",
+        fontWeight: "bold",
+        textAlign: "center"
+    },
+    modalText: {
+        marginBottom: 15,
+        textAlign: "center",
+        fontWeight: "bold"
     }
 })
 
