@@ -5,20 +5,12 @@ import { createStore } from "redux"
 import rootReducer from "./reducers"
 import { useDispatch, useSelector } from "react-redux"
 import { AsyncStorage } from 'react-native'
-import { composeWithDevTools } from "remote-redux-devtools"
 
 console.disableYellowBox = true;
-
-let composeEnhancers = composeWithDevTools({
-  realtime: true,
-  name: 'Your Instance Name',
-  hostname: 'localhost',
-  port: 19002
-});
-
+ 
 const store = createStore(
   rootReducer,
-  composeEnhancers()
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 )
 
 export default function App() {

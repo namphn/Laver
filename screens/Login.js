@@ -7,7 +7,9 @@ import {
     Keyboard,
     ActivityIndicator,
     Modal,
-    TouchableHighlight
+    TouchableHighlight,
+    TouchableWithoutFeedback,
+    View
 } from "react-native"
 import {
     Block,
@@ -78,26 +80,26 @@ export default function Login({ navigation }) {
 
     const onStateChange = event([
         {
-            nativeEvent: ({ state }) =>
-                block([
-                    cond(
-                        eq(state, State.END),
-                        set(buttonOpacity, runTiming(new Clock(), 1, 0))
-                    )
-                ])
+            nativeEvent: ({ state }) => block([
+                cond(
+                    eq(state, State.END),
+                    set(buttonOpacity, runTiming(new Clock(), 1, 0))
+                )
+            ])
         }
     ]);
 
+
     const onCloseState = event([
         {
-            nativeEvent: ({ state }) =>
-                block([
-                    cond(
-                        eq(state, State.END),
-                        set(buttonOpacity, runTiming(new Clock(), 0, 1))
-                    )
-                ])
-        }
+            nativeEvent: ({ state }) => block([
+                cond(
+                    eq(state, State.END),
+                    set(buttonOpacity, runTiming(new Clock(), 0, 1)),
+                )
+            ])
+
+        },
     ]);
 
     const buttonY = interpolate(buttonOpacity, {
@@ -142,8 +144,8 @@ export default function Login({ navigation }) {
         setLoading(true)
         var resposne = await login(email, password);
         setLoading(false);
-        if(resposne!=null) {
-            if(resposne != status.ACCEPT) {
+        if (resposne != null) {
+            if (resposne != status.ACCEPT) {
                 setErrorContent(resposne);
             }
         }
@@ -191,19 +193,17 @@ export default function Login({ navigation }) {
                         top: null,
                         justifyContent: "center"
                     }}>
-                    <TapGestureHandler onHandlerStateChange={onCloseState} editable={loading}>
+                    <TapGestureHandler onHandlerStateChange={onCloseState} >
                         <Animated.View style={styles.closeButton}>
-                            <TouchableOpacity>
-                                <Animated.Text style={{
-                                    fontSize: 20,
-                                    transform: [{
-                                        rotate: concat(rotateCross,
-                                            "deg")
-                                    }]
-                                }}>
-                                    X
+                            <Animated.Text style={{
+                                fontSize: 20,
+                                transform: [{
+                                    rotate: concat(rotateCross,
+                                        "deg")
+                                }]
+                            }}>
+                                X
                                 </Animated.Text>
-                            </TouchableOpacity>
                         </Animated.View>
                     </TapGestureHandler>
                     <Input
@@ -244,7 +244,7 @@ export default function Login({ navigation }) {
                     <Block style={styles.modalView}>
                         <Text style={styles.modalText} bold>{errorContent}</Text>
                         <TouchableHighlight
-                            style={{ ...styles.openButton}}
+                            style={{ ...styles.openButton }}
                             onPress={() => {
                                 setError(!error);
                             }}
@@ -318,9 +318,9 @@ const styles = StyleSheet.create({
         opacity: 1
     },
     centeredView: {
-        position:"absolute",
+        position: "absolute",
         top: height / 2,
-        left: width / 2 - (width - 100)/2,
+        left: width / 2 - (width - 100) / 2,
         justifyContent: "center",
         alignItems: "center",
     },
@@ -344,7 +344,7 @@ const styles = StyleSheet.create({
         backgroundColor: theme.colors.green,
         borderRadius: 20,
         padding: 10,
-        width: (width - 100 ) / 2,
+        width: (width - 100) / 2,
         elevation: 2
     },
     textStyle: {
