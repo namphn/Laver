@@ -7,7 +7,9 @@ import {
     Keyboard,
     ActivityIndicator,
     Modal,
-    TouchableHighlight
+    TouchableHighlight,
+    TouchableWithoutFeedback,
+    View
 } from "react-native"
 import {
     Block,
@@ -17,9 +19,8 @@ import {
 import { theme, status } from "../constants"
 import Animated, { Easing } from "react-native-reanimated"
 import { TapGestureHandler, State } from "react-native-gesture-handler"
-import { login } from "../services/Auth"
+import { loginApi } from "../services/Auth"
 import { useDispatch, useSelector } from "react-redux"
-import * as AuthService from "../services/Auth"
 
 const { width, height } = Dimensions.get("window");
 
@@ -70,37 +71,35 @@ function runTiming(clock, value, dest) {
 }
 
 export default function Login({ navigation }) {
-
     const [buttonOpacity, setButtonOpacity] = useState(new Value(1));
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(false);
     const [errorContent, setErrorContent] = useState("");
-    const temp = useSelector(state => state.temp);
 
     const onStateChange = event([
         {
-            nativeEvent: ({ state }) =>
-                block([
-                    cond(
-                        eq(state, State.END),
-                        set(buttonOpacity, runTiming(new Clock(), 1, 0))
-                    )
-                ])
+            nativeEvent: ({ state }) => block([
+                cond(
+                    eq(state, State.END),
+                    set(buttonOpacity, runTiming(new Clock(), 1, 0))
+                )
+            ])
         }
     ]);
 
+
     const onCloseState = event([
         {
-            nativeEvent: ({ state }) =>
-                block([
-                    cond(
-                        eq(state, State.END),
-                        set(buttonOpacity, runTiming(new Clock(), 0, 1))
-                    )
-                ])
-        }
+            nativeEvent: ({ state }) => block([
+                cond(
+                    eq(state, State.END),
+                    set(buttonOpacity, runTiming(new Clock(), 0, 1)),
+                )
+            ])
+
+        },
     ]);
 
     const buttonY = interpolate(buttonOpacity, {
@@ -142,13 +141,12 @@ export default function Login({ navigation }) {
 
     const loginSubmit = async () => {
         Keyboard.dismiss();
-        setLoading(true)
-        var resposne = await login(email, password);
+        setLoading(true);
+        var resposne = await loginApi(email, password);
         setLoading(false);
         if (resposne != null) {
             if (resposne != status.ACCEPT) {
                 setErrorContent(resposne);
-                AuthService.login();
             }
         }
     }
@@ -195,19 +193,17 @@ export default function Login({ navigation }) {
                         top: null,
                         justifyContent: "center"
                     }}>
-                    <TapGestureHandler onHandlerStateChange={onCloseState} editable={loading}>
+                    <TapGestureHandler onHandlerStateChange={onCloseState} >
                         <Animated.View style={styles.closeButton}>
-                            <TouchableOpacity>
-                                <Animated.Text style={{
-                                    fontSize: 20,
-                                    transform: [{
-                                        rotate: concat(rotateCross,
-                                            "deg")
-                                    }]
-                                }}>
-                                    X
+                            <Animated.Text style={{
+                                fontSize: 20,
+                                transform: [{
+                                    rotate: concat(rotateCross,
+                                        "deg")
+                                }]
+                            }}>
+                                X
                                 </Animated.Text>
-                            </TouchableOpacity>
                         </Animated.View>
                     </TapGestureHandler>
                     <Input

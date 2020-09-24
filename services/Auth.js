@@ -9,8 +9,8 @@ import {loginAction} from "../actions/autthenAction"
 
 const axios = require('axios');
 
-export function login(email, password) {
-    const dispatch = useDispatch();
+export function loginApi(email, password) {
+
     let response = axios.post(API.root + API.user.login, {
         email: email,
         password: password
@@ -21,8 +21,7 @@ export function login(email, password) {
                     "token",
                     response.data.token
                 );
-                console.log(response.data)
-                dispatch(loginAction);
+                useDispatch(loginAction());
                 return response.data.status;
             }
             if (response != null) return response.data.status;
@@ -34,7 +33,7 @@ export function login(email, password) {
     return response;
 }
 
-export async function sigup(email, password, name) {
+export async function sigupApi(email, password, name) {
     const apiUrl = API.root + API.user.sigup;
 
     let response = await axios.post(apiUrl, {

@@ -109,7 +109,6 @@ const TabBarIconContainer = (props) => {
             </View >
         )
     }
-    return
 
 }
 

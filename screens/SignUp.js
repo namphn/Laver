@@ -54,9 +54,12 @@ export default function SignUp({ navigation }) {
             setInvalidConfirm(false);
             setLoading(true);
             const response = await sigup(email, password, name);
+            console.log(response)
             if (response == status.SENT_MAIL) {
+                console.log("suc");
+                setError(false);
                 setSucces(true);
-                setLoading(false)
+                setLoading(false);
             }
             if(response != null) {
                 setSucces(true);
@@ -64,7 +67,7 @@ export default function SignUp({ navigation }) {
                 setLoading(false)
                 if (response == status.EMAIL_ALREADY_EXISTS) setErrorContent("Your email was registered.");
                 if (response == status.INVALID_EMAIL) setErrorContent("Your email does not exist");
-                if (response == status.ERROR) setErrorContent("There is a system error, please report to the admin");
+                if (response == status.ERROR) setErrorContent("There is a system error or network's broblem");
             }
         }
 

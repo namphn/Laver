@@ -4,9 +4,10 @@ export function logOutAction() {
     return{ type: actionType.LOGOUT };
 }
 
-export function loginAction() {
-        return {
-            type: actionType.LOGIN,
-        }
+export const loginAction = () => {
+    console.log("login action")
+        return ({
+            type: "LOGIN",
+        })
 }
 
