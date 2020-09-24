@@ -3,7 +3,6 @@ import { actionType } from "../constants"
 const initialState = [];
 
 const currenUser = (state = initialState, action) => {
-    console.log("reducer")
     switch (action.type) {
         case actionType.LOGIN:
             return {

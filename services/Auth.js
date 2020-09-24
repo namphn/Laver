@@ -1,16 +1,9 @@
 import { API, status } from "../constants"
-import {
-    logInDispatch,
-    logOutDispatch
-} from "../actions/autthenAction"
 import { AsyncStorage } from "react-native"
-import { useDispatch } from "react-redux"
-import {loginAction} from "../actions/autthenAction"
 
 const axios = require('axios');
 
 export function loginApi(email, password) {
-
     let response = axios.post(API.root + API.user.login, {
         email: email,
         password: password
@@ -21,15 +14,14 @@ export function loginApi(email, password) {
                     "token",
                     response.data.token
                 );
-                useDispatch(loginAction());
                 return response.data.status;
             }
             if (response != null) return response.data.status;
         })
         .catch(function (error) {
+            console.log(error)
             return status.error;
         });
-
     return response;
 }
 

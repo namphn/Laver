@@ -65,9 +65,9 @@ export default function SignUp({ navigation }) {
                 setSucces(true);
                 setError(true);
                 setLoading(false)
-                if (response == status.EMAIL_ALREADY_EXISTS) setErrorContent("Your email was registered.");
-                if (response == status.INVALID_EMAIL) setErrorContent("Your email does not exist");
-                if (response == status.ERROR) setErrorContent("There is a system error or network's broblem");
+                if (response == status.EMAIL_ALREADY_EXISTS.header) setErrorContent(status.EMAIL_ALREADY_EXISTS.content);
+                if (response == status.INVALID_EMAIL.header) setErrorContent(status.INVALID_EMAIL.content);
+                if (response == status.ERROR.header) setErrorContent(status.ERROR.content);
             }
         }
 

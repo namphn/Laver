@@ -1,9 +1,25 @@
 const SENT_MAIL = "SENT EMAIL";
-const ERROR = "ERROR"; 
-const EMAIL_ALREADY_EXISTS = "EMAIL ALREADY EXISTS";
-const INVALID_EMAIL = "INVALID EMAIL ADDRESS";
+const ERROR = {
+    header: "ERROR",
+    content: "There is a system error or network's broblem"
+}; 
+const EMAIL_ALREADY_EXISTS = {
+    header: "EMAIL ALREADY EXISTS",
+    content: "Your email was registered."
+};
+const INVALID_EMAIL = {
+    header: "INVALID EMAIL ADDRESS",
+    content: "Your email does not exist."
+};
 const ACCEPT = "ACCEPT";
-const INVALID_PASSWORD = "INVALID PASSWORD";
+const INVALID_PASSWORD = {
+    header: "INVALID PASSWORD",
+    content: "Your password you input is wrong!"
+};
+const ACCOUNT_IS_INACTIVE = {
+    header: "ACCOUNT IS INACTIVE",
+    content: "Check your email to active account."
+} 
 
 export {
     SENT_MAIL,
@@ -11,5 +27,6 @@ export {
     EMAIL_ALREADY_EXISTS,
     INVALID_EMAIL,
     ACCEPT,
-    INVALID_PASSWORD
+    INVALID_PASSWORD,
+    ACCOUNT_IS_INACTIVE
 }

@@ -28,6 +28,7 @@ import ReplyComment from "../screens/ReplyComment"
 import OtherPeopleProfile from "../screens/OtherPeopleProfile"
 import Message from "../screens/Message"
 import Followers from "../screens/Followers"
+import { loginAction } from "../actions/autthenAction"
 
 const AppStack = createStackNavigator();
 
@@ -168,9 +169,21 @@ const TabNavScreen = () => {
 
 
 export default Navigation = () => {
-    useEffect(() => {console.log("render")});
+
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        async function getToken() {
+            token = await AsyncStorage.getItem("token");
+            console.log("hello");
+            console.log(token)
+            if (token != null) {
+                dispatch(loginAction)
+            }
+        }
+    });
+    
     const isLoggedIn = useSelector(state => state.currentUser.loggedIn)
-    // const isLoggedIn = true;
 
     return (
         <NavigationContainer>

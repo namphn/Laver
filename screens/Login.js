@@ -71,12 +71,14 @@ function runTiming(clock, value, dest) {
 }
 
 export default function Login({ navigation }) {
+    const dispatch = useDispatch();
     const [buttonOpacity, setButtonOpacity] = useState(new Value(1));
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(false);
     const [errorContent, setErrorContent] = useState("");
+    const [errorHeade, setErrorHeade] = useState("");
 
     const onStateChange = event([
         {
@@ -138,15 +140,34 @@ export default function Login({ navigation }) {
         extrapolate: Extrapolate.CLAMP
     });
 
-
     const loginSubmit = async () => {
         Keyboard.dismiss();
         setLoading(true);
         var resposne = await loginApi(email, password);
         setLoading(false);
+
+        console.log(resposne)
+
         if (resposne != null) {
-            if (resposne != status.ACCEPT) {
-                setErrorContent(resposne);
+            switch (resposne) {
+
+                case status.ERROR.header:
+                    setErrorContent(status.ERROR.content);
+                    break;
+
+                case status.ACCEPT:
+                    dispatch({ type: "LOGIN" })
+                    break;
+
+                case status.ACCOUNT_IS_INACTIVE.header:
+                    setErrorContent(status.ACCOUNT_IS_INACTIVE.content);
+                    setError(true);
+                    break;
+
+                default:
+                    setErrorContent(status.ERROR.content);
+                    break;
+
             }
         }
     }
