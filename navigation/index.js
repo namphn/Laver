@@ -170,7 +170,7 @@ const TabNavScreen = () => {
 
 export default Navigation = () => {
     useEffect(() => {console.log("render")});
-    const isLoggedIn = useSelector(state => state.loggedIn)
+    const isLoggedIn = useSelector(state => state.currentUser.loggedIn)
     // const isLoggedIn = true;
 
     return (

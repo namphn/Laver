@@ -18,6 +18,8 @@ import { theme, status } from "../constants"
 import Animated, { Easing } from "react-native-reanimated"
 import { TapGestureHandler, State } from "react-native-gesture-handler"
 import { login } from "../services/Auth"
+import { useDispatch, useSelector } from "react-redux"
+import * as AuthService from "../services/Auth"
 
 const { width, height } = Dimensions.get("window");
 
@@ -75,6 +77,7 @@ export default function Login({ navigation }) {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(false);
     const [errorContent, setErrorContent] = useState("");
+    const temp = useSelector(state => state.temp);
 
     const onStateChange = event([
         {
@@ -142,9 +145,10 @@ export default function Login({ navigation }) {
         setLoading(true)
         var resposne = await login(email, password);
         setLoading(false);
-        if(resposne!=null) {
-            if(resposne != status.ACCEPT) {
+        if (resposne != null) {
+            if (resposne != status.ACCEPT) {
                 setErrorContent(resposne);
+                AuthService.login();
             }
         }
     }
@@ -244,7 +248,7 @@ export default function Login({ navigation }) {
                     <Block style={styles.modalView}>
                         <Text style={styles.modalText} bold>{errorContent}</Text>
                         <TouchableHighlight
-                            style={{ ...styles.openButton}}
+                            style={{ ...styles.openButton }}
                             onPress={() => {
                                 setError(!error);
                             }}
@@ -318,9 +322,9 @@ const styles = StyleSheet.create({
         opacity: 1
     },
     centeredView: {
-        position:"absolute",
+        position: "absolute",
         top: height / 2,
-        left: width / 2 - (width - 100)/2,
+        left: width / 2 - (width - 100) / 2,
         justifyContent: "center",
         alignItems: "center",
     },
@@ -344,7 +348,7 @@ const styles = StyleSheet.create({
         backgroundColor: theme.colors.green,
         borderRadius: 20,
         padding: 10,
-        width: (width - 100 ) / 2,
+        width: (width - 100) / 2,
         elevation: 2
     },
     textStyle: {

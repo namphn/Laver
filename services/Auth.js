@@ -3,24 +3,26 @@ import {
     logInDispatch,
     logOutDispatch
 } from "../actions/autthenAction"
-import {AsyncStorage} from "react-native"
-
+import { AsyncStorage } from "react-native"
+import { useDispatch } from "react-redux"
+import {loginAction} from "../actions/autthenAction"
 
 const axios = require('axios');
 
 export function login(email, password) {
+    const dispatch = useDispatch();
     let response = axios.post(API.root + API.user.login, {
         email: email,
         password: password
     })
         .then(function (response) {
-
             if (response.data.status == status.ACCEPT) {
                 AsyncStorage.setItem(
                     "token",
                     response.data.token
                 );
-                logInDispatch(response.data.token);
+                console.log(response.data)
+                dispatch(loginAction);
                 return response.data.status;
             }
             if (response != null) return response.data.status;
@@ -46,6 +48,5 @@ export async function sigup(email, password, name) {
         .catch(function (error) {
             return status.ERROR;
         });
-    console.log(response)
     return response;
 }
