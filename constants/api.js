@@ -1,5 +1,5 @@
 export default API = {
-    root: "https://083e9cb15f1f.ngrok.io",
+    root: "http://10.128.13.151:8084",
     user: {
         login: "/user/login",
         sigup: "/user/register"

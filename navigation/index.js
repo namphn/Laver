@@ -1,4 +1,4 @@
-import React, { useEffect } from "react"
+import React, { useEffect, useState } from "react"
 import { NavigationContainer } from "@react-navigation/native"
 import { createStackNavigator } from "@react-navigation/stack"
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs"
@@ -171,48 +171,56 @@ const TabNavScreen = () => {
 export default Navigation = () => {
 
     const dispatch = useDispatch();
+    const [loading, setLoading] = useState(true);
+
+    const getToken = async () => {
+        token = await AsyncStorage.getItem("token");
+        console.log(token)
+        if (token != null) {
+            dispatch(loginAction())
+        }
+        setLoading(false)
+    }
 
     useEffect(() => {
-        async function getToken() {
-            token = await AsyncStorage.getItem("token");
-            console.log("hello");
-            console.log(token)
-            if (token != null) {
-                dispatch(loginAction)
-            }
-        }
+        getToken();
     });
-    
+
     const isLoggedIn = useSelector(state => state.currentUser.loggedIn)
 
     return (
         <NavigationContainer>
-            <AppStack.Navigator mode="modal" headerMode="none">
-                {
-                    isLoggedIn ? (
-                        <>
-                            <AppStack.Screen name="App" component={TabNavScreen} />
-                            <AppStack.Screen name="Post" component={FullPost} />
-                            <AppStack.Screen name="Upload" component={Upload} />
-                            <AppStack.Screen name="Comment" component={Comment} />
-                            <AppStack.Screen name="ReplyComment" component={ReplyComment} />
-                            <AppStack.Screen name="OtherPeopleProfile" component={OtherPeopleProfile} />
-                            <AppStack.Screen name="Message" component={Message} />
-                            <AppStack.Screen name="Followers" component={Followers} />
-                        </>
-                    ) : (
+            { loading == false ? (
+                <AppStack.Navigator mode="modal" headerMode="none">
+                    {
+                        isLoggedIn ? (
                             <>
-                                <AppStack.Screen name="Login" component={Login} />
-                                <AppStack.Screen name="SignUp" component={SignUp} />
-                                <AppStack.Screen name="Forgot" component={Forgot} />
+                                <AppStack.Screen name="App" component={TabNavScreen} />
+                                <AppStack.Screen name="Post" component={FullPost} />
+                                <AppStack.Screen name="Upload" component={Upload} />
+                                <AppStack.Screen name="Comment" component={Comment} />
+                                <AppStack.Screen name="ReplyComment" component={ReplyComment} />
+                                <AppStack.Screen name="OtherPeopleProfile" component={OtherPeopleProfile} />
+                                <AppStack.Screen name="Message" component={Message} />
+                                <AppStack.Screen name="Followers" component={Followers} />
                             </>
-                        )
-                }
-            </AppStack.Navigator>
+                        ) : (
+                                <>
+                                    <AppStack.Screen name="Login" component={Login} />
+                                    <AppStack.Screen name="SignUp" component={SignUp} />
+                                    <AppStack.Screen name="Forgot" component={Forgot} />
+                                </>
+                            )
+                    }
+                </AppStack.Navigator>
+            ) : (
+                    <AppStack.Navigator mode="modal" headerMode="none">
+                        <AppStack.Screen name="Welcome" component={Welcome} />
+                    </AppStack.Navigator>
+                )
+            }
         </NavigationContainer>
     )
-
-
 }
 
 

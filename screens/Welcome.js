@@ -1,8 +1,14 @@
 import React from "react"
-import { Text } from "../components"
+import { Text, Block } from "../components"
+import { Image, Dimensions } from "react-native"
+
+
+const { width, height } = Dimensions.get("window");
 
 export default function Welcome() {
     return (
-        <Text bold center >Welcome</Text>
+        <Block>
+            <Image style={{ width: width, height: height}} source={require("../assets/splash.png")} />
+        </Block>
     )
 }
