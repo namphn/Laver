@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react"
 import { NavigationContainer } from "@react-navigation/native"
 import { createStackNavigator } from "@react-navigation/stack"
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs"
+import { createDrawerNavigator } from '@react-navigation/drawer';
 import { View } from "react-native"
 import { useDispatch, useSelector } from 'react-redux'
 import AsyncStorage from '@react-native-community/async-storage';
@@ -29,6 +30,9 @@ import OtherPeopleProfile from "../screens/OtherPeopleProfile"
 import Message from "../screens/Message"
 import Followers from "../screens/Followers"
 import { loginAction } from "../actions/autthenAction"
+
+
+const Drawer = createDrawerNavigator();
 
 const AppStack = createStackNavigator();
 
@@ -162,11 +166,19 @@ const TabNavScreen = () => {
             <TabNav.Screen name="Explore" component={Explore} />
             <TabNav.Screen name="Chat" component={Chat} />
             <TabNav.Screen name="Notification" component={Notification} />
-            <TabNav.Screen name="Profile" component={Profile} />
+            <TabNav.Screen name="Profile" component={ProfileSetting} />
         </TabNav.Navigator >
     )
 }
 
+const ProfileSetting = () => {
+    return (
+        <Drawer.Navigator drawerContent={props => <Setting {...props}/>} initialRouteName="Home">
+            <Drawer.Screen name="Profile" component={Profile} />
+            <Drawer.Screen name="Setting" component={Setting} />
+        </Drawer.Navigator>
+    )
+}
 
 export default Navigation = () => {
 

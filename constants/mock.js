@@ -79,6 +79,7 @@ const categories = [
     location: "Europe",
     email: "contact@react-ui-kit.com",
     avatar: "https://scontent.fhan3-2.fna.fbcdn.net/v/t1.0-9/91395730_981211518939618_7934745555857571840_o.jpg?_nc_cat=111&_nc_sid=85a577&_nc_ohc=ZAYfZRk3WVYAX_S6Cxh&_nc_ht=scontent.fhan3-2.fna&oh=518be0f33af2d619d99b12442b113cdf&oe=5F8B5852",
+    avatar1: require("../assets/images/avatar.png"),
     budget: 1000,
     monthly_cap: 5000,
     notifications: true,
