@@ -13,7 +13,7 @@ export function loginApi(email, password) {
             if (response.data.status == status.ACCEPT) {
                 AsyncStorage.setItem(
                     "token",
-                    response.data.token
+                    response.data.data.token
                 );
                 return response.data.status;
             }
@@ -40,4 +40,8 @@ export async function sigupApi(email, password, name) {
             return status.ERROR;
         });
     return response;
+}
+
+export async function logOut() {
+    await AsyncStorage.removeItem("token");
 }

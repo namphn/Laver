@@ -32,7 +32,7 @@ export default function Upload({ navigation }) {
                 <Text h3 paddingLeft>Create Posts</Text>
             </Block>
             <Block flex={false} row center style={styles.userInfor}>
-                <Image source={mocks.profile.avatar} style={styles.avatar} />
+                <Image source={{uri: mocks.profile.avatar}} style={styles.avatar} />
                 <Text paddingLeft h4 bold>Phạm Hoàng Nam</Text>
             </Block>
             <Block flex={false} style={styles.textInputContainer}>
@@ -54,7 +54,7 @@ export default function Upload({ navigation }) {
                         <Block flex={false} row center style={styles.item}>
                             <Image style={{ height: 35, width: 35 }} source={mocks.icons.tag} />
                             <Text paddingLeft h4>Tag Friends</Text>
-                        </Block>
+                        </Block> 
                     </TouchableOpacity>
                     <TouchableOpacity>
                         <Block flex={false} row center style={styles.item}>
@@ -93,6 +93,7 @@ const styles = StyleSheet.create({
     avatar: {
         height: height / 15,
         width: height / 15,
+        borderRadius: height / 30
     },
     userInfor: {
         paddingLeft: 10,

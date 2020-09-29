@@ -145,9 +145,6 @@ export default function Login({ navigation }) {
         setLoading(true);
         var resposne = await loginApi(email, password);
         setLoading(false);
-
-        console.log(resposne)
-
         if (resposne != null) {
             switch (resposne) {
 
@@ -161,6 +158,20 @@ export default function Login({ navigation }) {
 
                 case status.ACCOUNT_IS_INACTIVE.header:
                     setErrorContent(status.ACCOUNT_IS_INACTIVE.content);
+                    setError(true);
+                    break;
+
+                case status.INVALID_PASSWORD.header:
+                    setErrorContent(status.INVALID_PASSWORD.content);
+                    setError(true);
+                    break;
+                case status.INTERNAL_SERVER.header:
+                    setErrorContent(status.INTERNAL_SERVER.content);
+                    setError(true);
+                    break;
+
+                case status.HAVE_NOT_ACCOUNT.header:
+                    setErrorContent(status.HAVE_NOT_ACCOUNT.content);
                     setError(true);
                     break;
 

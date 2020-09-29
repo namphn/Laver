@@ -43,7 +43,8 @@ const tabBarOptions = {
     style: {
         backgroundColor: theme.colors.white,
         borderTopColor: "#343434",
-        paddingBottom: 12
+        paddingBottom: 12,
+        height: 50,
     },
 }
 
@@ -184,19 +185,19 @@ export default Navigation = () => {
 
     const dispatch = useDispatch();
     const [loading, setLoading] = useState(true);
+    const loggedIn = useSelector(state => state.loggedIn)
 
     const getToken = async () => {
         token = await AsyncStorage.getItem("token");
-        console.log(token)
         if (token != null) {
-            dispatch(loginAction())
+            dispatch(loginAction());
         }
         setLoading(false)
     }
 
     useEffect(() => {
         getToken();
-    });
+    },[loggedIn]);
 
     const isLoggedIn = useSelector(state => state.currentUser.loggedIn)
 

@@ -1,17 +1,59 @@
 import React from "react"
 import { Text, Block } from "../components"
-import { StyleSheet, Image } from "react-native"
-import {mocks} from "../constants"
+import {
+    StyleSheet,
+    Image,
+    Dimensions,
+    TouchableOpacity
+} from "react-native"
+import FeatherIcon from "react-native-vector-icons/Feather"
+import { mocks, theme } from "../constants"
+import Icon from "react-native-vector-icons/Feather"
+import {useDispatch} from "react-redux"
+import {logOutAction} from "../actions/autthenAction"
+import {logOut} from "../services/Auth"
+
+const { width, height } = Dimensions.get("window");
 
 export default function Setting() {
+
+    const dispatch = useDispatch();
+
+    const onLogoutPress = () => {
+        logOut();
+        dispatch(logOutAction());
+    }
+
     return (
-        <Block flex={false} style={styles.mainContainer}>
-            <Block style={{paddingTop: 20}} flex={false}>
+        <Block flex={false} >
+            <Block style={styles.header} flex={false}>
                 <Text h2 bold left >Setting</Text>
             </Block>
-            {/* <Block flex={false}>
-                <Image source={mocks.profile.avatar1}/>
-            </Block> */}
+            <Block flex={false} center style={{ paddingTop: 20 }}>
+                <Image style={styles.avatar} source={{ uri: mocks.profile.avatar }} />
+                <Block flex={false} style={{ paddingTop: 20 }}>
+                    <Text h4 bold>Phạm Hoàng Nam</Text>
+                </Block>
+                <TouchableOpacity >
+                    <Block flex={false} row style={{ paddingTop: 10 }}>
+                        <Icon size={15} name="edit" color={theme.colors.green} />
+                        <Block flex={false}
+                            style={{ paddingLeft: 10 }}>
+                            <Text color={theme.colors.green}>Edit profile</Text>
+                        </Block>
+
+                    </Block>
+                </TouchableOpacity>
+
+            </Block>
+            <TouchableOpacity style={styles.logout} onPress={onLogoutPress}>
+                <Block row>
+                    <Icon name="log-out" size={25} />
+                    <Block style={{ paddingLeft: 10 }}>
+                        <Text h3>Log out</Text>
+                    </Block>
+                </Block>
+            </TouchableOpacity>
         </Block>
     )
 }
@@ -19,5 +61,25 @@ export default function Setting() {
 const styles = StyleSheet.create({
     mainContainer: {
         paddingLeft: 20,
+    },
+    header: {
+        paddingTop: 20,
+        paddingLeft: 20,
+    },
+    avatar: {
+        width: width / 5,
+        height: width / 5,
+        borderRadius: width / 8,
+    },
+    logout: {
+        position: "absolute",
+        top: height - 50,
+        paddingLeft: 20,
+        paddingTop: 10,
+        paddingBottom: 15,
+        backgroundColor: theme.colors.gray2,
+        width: width/1.47,
+        borderTopColor: "black",
+        borderTopWidth: 0.5
     }
 })

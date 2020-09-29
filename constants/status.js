@@ -21,6 +21,16 @@ const ACCOUNT_IS_INACTIVE = {
     content: "Check your email to active account."
 } 
 
+const INTERNAL_SERVER = {
+    header: "INTERNAL SERVER ERROR",
+    content: "Something went wrong. Please contact us about this problem"
+}
+
+const HAVE_NOT_ACCOUNT = {
+    header: "HAVE NOT ACCOUNT",
+    content: "Check your email address or create a new account"
+}
+
 export {
     SENT_MAIL,
     ERROR,
@@ -28,5 +38,7 @@ export {
     INVALID_EMAIL,
     ACCEPT,
     INVALID_PASSWORD,
-    ACCOUNT_IS_INACTIVE
+    ACCOUNT_IS_INACTIVE,
+    INTERNAL_SERVER,
+    HAVE_NOT_ACCOUNT
 }
