@@ -27,17 +27,17 @@ export function loginApi(email, password) {
 
 export async function sigupApi(email, password, name) {
     const apiUrl = API.root + API.user.sigup;
-
     let response = await axios.post(apiUrl, {
         email: email,
         password: password,
         name: name
     })
         .then(function (response) {
+            console.log(response.data)
             return response.data.status;
         })
         .catch(function (error) {
-            return status.ERROR;
+            return status.ERROR.header;
         });
     return response;
 }

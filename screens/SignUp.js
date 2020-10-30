@@ -21,7 +21,7 @@ import GlobalStyles from "../GlobalStyles"
 import { API, status } from "../constants"
 import api from "../constants/api"
 const { width, height } = Dimensions.get("window");
-import { sigup } from "../services/Auth"
+import { sigupApi } from "../services/Auth"
 
 export default function SignUp({ navigation }) {
 
@@ -53,21 +53,26 @@ export default function SignUp({ navigation }) {
         else {
             setInvalidConfirm(false);
             setLoading(true);
-            const response = await sigup(email, password, name);
+            const response = await sigupApi(email, password, name);
             console.log(response)
             if (response == status.SENT_MAIL) {
-                console.log("suc");
                 setError(false);
                 setSucces(true);
                 setLoading(false);
             }
-            if(response != null) {
+            else if(response != null) {
                 setSucces(true);
                 setError(true);
                 setLoading(false)
                 if (response == status.EMAIL_ALREADY_EXISTS.header) setErrorContent(status.EMAIL_ALREADY_EXISTS.content);
                 if (response == status.INVALID_EMAIL.header) setErrorContent(status.INVALID_EMAIL.content);
                 if (response == status.ERROR.header) setErrorContent(status.ERROR.content);
+            }
+            else {
+                setSucces(true);
+                setError(true);
+                setLoading(false)
+                setErrorContent(status.ERROR.content);
             }
         }
 

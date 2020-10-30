@@ -73,7 +73,7 @@ const styles = StyleSheet.create({
     },
     logout: {
         position: "absolute",
-        top: height - 50,
+        top: height - 100,
         paddingLeft: 20,
         paddingTop: 10,
         paddingBottom: 15,
