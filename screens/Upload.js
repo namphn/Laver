@@ -9,19 +9,60 @@ import {
     TouchableOpacity,
     Image,
     Dimensions,
-    TextInput
+    TextInput,
+    Keyboard,
+    Animated
 } from "react-native"
 import Icon from "react-native-vector-icons/MaterialIcons"
 import { theme, mocks } from "../constants"
 import * as ImagePicker from 'expo-image-picker';
+import { TapGestureHandler, State } from "react-native-gesture-handler"
 
 const { width, height } = Dimensions.get("window");
 
 export default function Upload({ navigation }) {
     const [image, setImage] = useState(null);
+    const [postEnable, setPostEnable] = useState(false);
+    const [status, setStatus] = useState("");
+    const [keyBoardIsShowing, setKeyBoardIsShowing] = useState(false);
+    const [optionOpacity, setOptionOpacity] = useState(new Animated.Value(1));
+    const [rowOptionOpacity, setrowOptionOpacity] = useState(new Animated.Value(1));
+
+    Keyboard.addListener("keyboardDidShow", () => {
+        Animated.timing(optionOpacity, {
+            toValue: 0,
+            duration: 600,
+        }).start();
+        Animated.timing(rowOptionOpacity, {
+            toValue: 1,
+            duration: 600,
+        }).start();
+        setKeyBoardIsShowing(true)
+    });
+    Keyboard.addListener("keyboardDidHide", (e) => {
+        Animated.timing(optionOpacity, {
+            toValue: 1,
+            duration: 600,
+        }).start();
+        Animated.timing(rowOptionOpacity, {
+            toValue: 0,
+            duration: 600,
+        }).start();
+        setKeyBoardIsShowing(false)
+    });
+
+    const onStatusChange = (text) => {
+        setStatus(text);
+        if (text) setPostEnable(true);
+        else setPostEnable(false)
+    }
 
     const goBack = () => {
         navigation.goBack();
+    }
+
+    const postSubmit = () => {
+
     }
 
     const pickImage = async () => {
@@ -44,9 +85,9 @@ export default function Upload({ navigation }) {
                     </TouchableOpacity>
                     <Text h3 paddingLeft>Create Posts</Text>
                 </Block>
-                <Block flex={false} style={{paddingRight: 20}}>
-                    <TouchableOpacity>
-                        <Text h3>Post</Text>
+                <Block flex={false} style={{ paddingRight: 20 }}>
+                    <TouchableOpacity disabled={!postEnable}>
+                        <Text h3 color={!postEnable && theme.colors.gray}>Post</Text>
                     </TouchableOpacity>
                 </Block>
             </Block>
@@ -64,44 +105,91 @@ export default function Upload({ navigation }) {
                         { height: image ? null : height / 2 }
                     ]}
                     textAlignVertical="top"
+                    onChangeText={onStatusChange}
                 />
             </Block>
             <Block flex={false}>
-                {image && <Image style={{ position: "absolute", top: 0 }} source={{ uri: image }} style={{ width: width, height: "100%", resizeMode: "contain" }} />}
+                {image && <Image style={{ position: "absolute", top: 0 }}
+                    source={{ uri: image }}
+                    style={{ width: width, height: "100%", resizeMode: "contain" }} />}
             </Block>
 
-            {!image && <Block style={styles.option}>
-                <TouchableOpacity onPress={pickImage}>
-                    <Block flex={false} row center style={styles.item}>
-                        <Image style={{ height: 35, width: 35 }} source={mocks.icons.image_video} />
-                        <Text paddingLeft h4>Photo/Video</Text>
-                    </Block>
-                </TouchableOpacity>
-                <TouchableOpacity>
-                    <Block flex={false} row center style={styles.item}>
-                        <Image style={{ height: 35, width: 35 }} source={mocks.icons.tag} />
-                        <Text paddingLeft h4>Tag Friends</Text>
-                    </Block>
-                </TouchableOpacity>
-                <TouchableOpacity>
-                    <Block flex={false} row center style={styles.item}>
-                        <Image style={{ height: 35, width: 35 }} source={mocks.icons.checkin} />
-                        <Text paddingLeft h4>Check in</Text>
-                    </Block>
-                </TouchableOpacity>
-                <TouchableOpacity>
-                    <Block flex={false} row center style={styles.item}>
-                        <Image style={{ height: 35, width: 35 }} source={mocks.icons.gif} />
-                        <Text paddingLeft h4>Gif</Text>
-                    </Block>
-                </TouchableOpacity>
-                <TouchableOpacity>
-                    <Block flex={false} row center style={styles.item}>
-                        <Image style={{ height: 35, width: 35 }} source={mocks.icons.question} />
-                        <Text paddingLeft h4>Question</Text>
-                    </Block>
-                </TouchableOpacity>
+            {<Block style={[styles.option]} >
+                <Animated.View style={{
+                    opacity: optionOpacity
+                }}>
+                    <TouchableOpacity onPress={pickImage} disabled={keyBoardIsShowing}>
+                        <Block flex={false} row center style={[styles.item]}>
+                            <Image style={{ height: 35, width: 35 }} source={mocks.icons.image_video} />
+                            <Text paddingLeft h4>Photo/Video</Text>
+                        </Block>
+                    </TouchableOpacity>
+                    <TouchableOpacity disabled={keyBoardIsShowing}>
+                        <Block flex={false} row center style={styles.item}>
+                            <Image style={{ height: 35, width: 35 }} source={mocks.icons.tag} />
+                            <Text paddingLeft h4>Tag Friends</Text>
+                        </Block>
+                    </TouchableOpacity>
+                    <TouchableOpacity disabled={keyBoardIsShowing}>
+                        <Block flex={false} row center style={styles.item}>
+                            <Image style={{ height: 35, width: 35 }} source={mocks.icons.checkin} />
+                            <Text paddingLeft h4>Check in</Text>
+                        </Block>
+                    </TouchableOpacity>
+                    <TouchableOpacity disabled={keyBoardIsShowing}>
+                        <Block flex={false} row center style={styles.item}>
+                            <Image style={{ height: 35, width: 35 }} source={mocks.icons.gif} />
+                            <Text paddingLeft h4>Gif</Text>
+                        </Block>
+                    </TouchableOpacity>
+                    <TouchableOpacity disabled={keyBoardIsShowing}>
+                        <Block flex={false} row center style={styles.item}>
+                            <Image style={{ height: 35, width: 35 }} source={mocks.icons.question} />
+                            <Text paddingLeft h4>Question</Text>
+                        </Block>
+                    </TouchableOpacity>
+                </Animated.View>
             </Block>}
+            {
+                keyBoardIsShowing &&
+                <Block style={[styles.option]} row space="between">
+                    <Block>
+                        <TouchableOpacity onPress={pickImage} disabled={!keyBoardIsShowing}>
+                            <Block flex={false} row center style={[styles.item, { width: null }]}>
+                                <Image style={{ height: 35, width: 35 }} source={mocks.icons.image_video} />
+                            </Block>
+                        </TouchableOpacity>
+                    </Block>
+                    <Block>
+                        <TouchableOpacity disabled={!keyBoardIsShowing}>
+                            <Block flex={false} row center style={[styles.item, { width: null }]}>
+                                <Image style={{ height: 35, width: 35 }} source={mocks.icons.tag} />
+                            </Block>
+                        </TouchableOpacity>
+                    </Block>
+                    <Block>
+                        <TouchableOpacity disabled={!keyBoardIsShowing}>
+                            <Block flex={false} row center style={[styles.item, { width: null }]}>
+                                <Image style={{ height: 35, width: 35 }} source={mocks.icons.checkin} />
+                            </Block>
+                        </TouchableOpacity>
+                    </Block>
+                    <Block>
+                        <TouchableOpacity disabled={!keyBoardIsShowing}>
+                            <Block flex={false} row center style={[styles.item, { width: null }]}>
+                                <Image style={{ height: 35, width: 35 }} source={mocks.icons.gif} />
+                            </Block>
+                        </TouchableOpacity>
+                    </Block>
+                    <Block>
+                        <TouchableOpacity disabled={!keyBoardIsShowing}>
+                            <Block flex={false} row center style={[styles.item, { width: null }]}>
+                                <Image style={{ height: 35, width: 35 }} source={mocks.icons.question} />
+                            </Block>
+                        </TouchableOpacity>
+                    </Block>
+                </Block>
+            }
         </SafeAreaView>
     )
 }
@@ -132,12 +220,13 @@ const styles = StyleSheet.create({
     },
     textInput: {
         fontSize: 17,
+        paddingBottom: height / 14,
     },
     item: {
         borderTopColor: "gray",
-        width: width,
         borderTopWidth: 0.5,
-        height: height / 14
+        height: height / 14,
+        width: width
     },
     option: {
         position: "absolute",
