@@ -11,12 +11,14 @@ import {
     Dimensions,
     TextInput,
     Keyboard,
-    Animated
+    Animated,
+    AsyncStorage
 } from "react-native"
 import Icon from "react-native-vector-icons/MaterialIcons"
 import { theme, mocks } from "../constants"
 import * as ImagePicker from 'expo-image-picker';
 import { TapGestureHandler, State } from "react-native-gesture-handler"
+import { postToNewsFeed } from "../services/PostService"
 
 const { width, height } = Dimensions.get("window");
 
@@ -61,8 +63,17 @@ export default function Upload({ navigation }) {
         navigation.goBack();
     }
 
-    const postSubmit = () => {
-
+    const postSubmit = async    () => {
+        var data = new FormData();
+        let userId = await AsyncStorage.getItem("userId");
+        if(image) data.append("image" ,{
+            uri: image.uri,
+            name: "image",
+            type: image.type
+        });
+        data.append("userId", userId);
+        data.append("content", status);
+        postToNewsFeed(data);
     }
 
     const pickImage = async () => {
@@ -72,7 +83,8 @@ export default function Upload({ navigation }) {
         });
 
         if (!result.cancelled) {
-            setImage(result.uri);
+            setImage(result);
+            console.log(result)
         }
     };
 
@@ -86,7 +98,7 @@ export default function Upload({ navigation }) {
                     <Text h3 paddingLeft>Create Posts</Text>
                 </Block>
                 <Block flex={false} style={{ paddingRight: 20 }}>
-                    <TouchableOpacity disabled={!postEnable}>
+                    <TouchableOpacity disabled={!postEnable} onPress={postSubmit}>
                         <Text h3 color={!postEnable && theme.colors.gray}>Post</Text>
                     </TouchableOpacity>
                 </Block>
@@ -110,11 +122,11 @@ export default function Upload({ navigation }) {
             </Block>
             <Block flex={false}>
                 {image && <Image style={{ position: "absolute", top: 0 }}
-                    source={{ uri: image }}
+                    source={{ uri: image.uri }}
                     style={{ width: width, height: "100%", resizeMode: "contain" }} />}
             </Block>
 
-            {<Block style={[styles.option]} >
+            {!image && <Block style={[styles.option]} >
                 <Animated.View style={{
                     opacity: optionOpacity
                 }}>
@@ -151,7 +163,7 @@ export default function Upload({ navigation }) {
                 </Animated.View>
             </Block>}
             {
-                keyBoardIsShowing &&
+                keyBoardIsShowing && !image &&
                 <Block style={[styles.option]} row space="between">
                     <Block>
                         <TouchableOpacity onPress={pickImage} disabled={!keyBoardIsShowing}>

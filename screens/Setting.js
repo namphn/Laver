@@ -11,7 +11,7 @@ import { mocks, theme } from "../constants"
 import Icon from "react-native-vector-icons/Feather"
 import {useDispatch} from "react-redux"
 import {logOutAction} from "../actions/autthenAction"
-import {logOut} from "../services/Auth"
+import {logOut} from "../services/AuthService"
 
 const { width, height } = Dimensions.get("window");
 
@@ -44,13 +44,12 @@ export default function Setting() {
 
                     </Block>
                 </TouchableOpacity>
-
             </Block>
             <TouchableOpacity style={styles.logout} onPress={onLogoutPress}>
-                <Block row>
+                <Block row center>
                     <Icon name="log-out" size={25} />
-                    <Block style={{ paddingLeft: 10 }}>
-                        <Text h3>Log out</Text>
+                    <Block style={{ paddingLeft: 10 }} flex={false}>
+                        <Text h3 color={theme.colors.black}>Log out</Text>
                     </Block>
                 </Block>
             </TouchableOpacity>
@@ -76,10 +75,9 @@ const styles = StyleSheet.create({
         top: height - 100,
         paddingLeft: 20,
         paddingTop: 10,
-        paddingBottom: 15,
-        backgroundColor: theme.colors.gray2,
-        width: width/1.47,
+        paddingBottom: 15,      
         borderTopColor: "black",
+        width: width * 2/3,
         borderTopWidth: 0.5
     }
 })

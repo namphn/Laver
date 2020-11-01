@@ -19,7 +19,7 @@ import {
 import { theme, status } from "../constants"
 import Animated, { Easing } from "react-native-reanimated"
 import { TapGestureHandler, State } from "react-native-gesture-handler"
-import { loginApi } from "../services/Auth"
+import { loginApi } from "../services/AuthService"
 import { useDispatch, useSelector } from "react-redux"
 
 const { width, height } = Dimensions.get("window");
@@ -146,6 +146,7 @@ export default function Login({ navigation }) {
         var resposne = await loginApi(email, password);
         setLoading(false);
         if (resposne != null) {
+            console.log(resposne)
             switch (resposne) {
 
                 case status.ERROR.header:

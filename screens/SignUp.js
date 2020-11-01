@@ -21,7 +21,7 @@ import GlobalStyles from "../GlobalStyles"
 import { API, status } from "../constants"
 import api from "../constants/api"
 const { width, height } = Dimensions.get("window");
-import { sigupApi } from "../services/Auth"
+import { sigupApi } from "../services/AuthService"
 
 export default function SignUp({ navigation }) {
 

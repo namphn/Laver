@@ -3,7 +3,7 @@ import { NavigationContainer } from "@react-navigation/native"
 import { createStackNavigator } from "@react-navigation/stack"
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs"
 import { createDrawerNavigator } from '@react-navigation/drawer';
-import { View } from "react-native"
+import { View, Dimensions } from "react-native"
 import { useDispatch, useSelector } from 'react-redux'
 import AsyncStorage from '@react-native-community/async-storage';
 import Welcome from "../screens/Welcome"
@@ -37,6 +37,8 @@ const Drawer = createDrawerNavigator();
 const AppStack = createStackNavigator();
 
 const TabNav = createBottomTabNavigator();
+
+const { width, height } = Dimensions.get("window");
 
 const tabBarOptions = {
     showLabel: false,
@@ -174,7 +176,11 @@ const TabNavScreen = () => {
 
 const ProfileSetting = () => {
     return (
-        <Drawer.Navigator drawerContent={props => <Setting {...props}/>} initialRouteName="Home">
+        <Drawer.Navigator 
+        drawerStyle={{
+            width: width * 2/3,
+          }}
+        drawerContent={props => <Setting {...props}/>} initialRouteName="Home">
             <Drawer.Screen name="Profile" component={Profile} />
             <Drawer.Screen name="Setting" component={Setting} />
         </Drawer.Navigator>
