@@ -5,10 +5,11 @@ const axios = require("axios");
 
 export async function postToNewsFeed(data) {
     console.log("vao");
+    console.log(data)
     let token = await AsyncStorage.getItem("token");
     let path = API.root + API.posts.post;
     console.log(path)
-    let response = fetch(path, data,
+    let response = axios.post(path, data,
         {
             "Method": "POST",
             headers: {
@@ -17,7 +18,7 @@ export async function postToNewsFeed(data) {
             }
         })
         .then(function (response) {
-            console.log(response);
+            console.log(response.data);
         })
         .catch(function (error) {
             console.log(error)

@@ -68,8 +68,8 @@ export default function Upload({ navigation }) {
         let userId = await AsyncStorage.getItem("userId");
         if(image) data.append("image" ,{
             uri: image.uri,
-            name: "image",
-            type: image.type
+            name: "image.jpg",
+            type: "image/jpg"
         });
         data.append("userId", userId);
         data.append("content", status);
