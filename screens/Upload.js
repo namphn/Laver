@@ -112,7 +112,7 @@ export default function Upload({ navigation }) {
                 <TextInput
                     onSubmitEditing={() => Keyboard.dismiss()}
                     multiline
-                    placeholder="Post so mething . . ."
+                    placeholder="Post something . . ."
                     style={[
                         styles.textInput,
                         { height: image ? null : height / 2 }
