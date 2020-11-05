@@ -3,6 +3,7 @@ const LOGOUT = "LOGOUT";
 const REGISTER = "REGISTER";
 const UPLOADING = "UPLOADING";
 const UPLOADED = "UPLOADED";
+const UPLOAD_PROGRESS = "UPLOAD PROGRESS";
 
 export {
     LOGIN,
@@ -10,4 +11,5 @@ export {
     REGISTER,
     UPLOADING,
     UPLOADED,
+    UPLOAD_PROGRESS
 }
