@@ -24,3 +24,11 @@ export async function postToNewsFeed(data) {
         });
     return response;
 }
+
+const options = {
+    onUploadProgress: (progressEvent) => {
+        const {loaded, total} = progressEvent;
+        let percent = Math.floor(loaded * 100 / total);
+        console.log(percent);
+    }
+}

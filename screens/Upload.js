@@ -12,7 +12,8 @@ import {
     TextInput,
     Keyboard,
     Animated,
-    AsyncStorage
+    AsyncStorage,
+    ScrollView
 } from "react-native"
 import Icon from "react-native-vector-icons/MaterialIcons"
 import { theme, mocks } from "../constants"
@@ -63,10 +64,10 @@ export default function Upload({ navigation }) {
         navigation.goBack();
     }
 
-    const postSubmit = async    () => {
+    const postSubmit = async () => {
         var data = new FormData();
         let userId = await AsyncStorage.getItem("userId");
-        if(image) data.append("image" ,{
+        if (image) data.append("image", {
             uri: image.uri,
             name: "image",
             type: image.type
@@ -111,7 +112,7 @@ export default function Upload({ navigation }) {
                 <TextInput
                     onSubmitEditing={() => Keyboard.dismiss()}
                     multiline
-                    placeholder="Post something . . ."
+                    placeholder="Post so mething . . ."
                     style={[
                         styles.textInput,
                         { height: image ? null : height / 2 }
@@ -125,7 +126,6 @@ export default function Upload({ navigation }) {
                     source={{ uri: image.uri }}
                     style={{ width: width, height: "100%", resizeMode: "contain" }} />}
             </Block>
-
             {!image && <Block style={[styles.option]} >
                 <Animated.View style={{
                     opacity: optionOpacity

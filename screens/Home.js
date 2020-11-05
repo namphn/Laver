@@ -17,6 +17,7 @@ import {
     Post
 } from "../components"
 import { theme, mocks } from "../constants"
+import { useSelector } from "react-redux"
 
 const { width, height } = Dimensions.get("window");
 
@@ -25,6 +26,8 @@ export default function Home({ navigation }) {
         active: "Products",
         categories: []
     })
+
+    const uploading = useSelector(state => state.postUploading)
 
     const scrollY = new Animated.Value(0);
 
