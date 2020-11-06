@@ -8,8 +8,6 @@ import {
     ActivityIndicator,
     Modal,
     TouchableHighlight,
-    TouchableWithoutFeedback,
-    View
 } from "react-native"
 import {
     Block,

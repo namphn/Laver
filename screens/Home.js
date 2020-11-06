@@ -8,7 +8,8 @@ import {
     StyleSheet,
     FlatList,
     ScrollView,
-    Animated
+    Animated,
+    ProgressBarAndroid
 } from "react-native"
 import {
     Text,
@@ -163,6 +164,14 @@ export default function Home({ navigation }) {
                                     }}>post something. . .</Text>
                                 </TouchableOpacity>
                             </Block>
+                        </Block>
+                        <Block>
+                            <ProgressBarAndroid
+                                styleAttr="Horizontal"
+                                indeterminate={false}
+                                progress={0.5}
+                                color={theme.colors.green}
+                            />
                         </Block>
                     </ScrollView>
                     <FlatList

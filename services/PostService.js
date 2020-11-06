@@ -1,31 +1,29 @@
 import { API, status } from "../constants"
 import { AsyncStorage } from "react-native"
-import { useDispatch } from "react-redux"
 import { uploadStart, uploadEnd } from "../actions/postAction";
 
 const axios = require("axios");
 
 export async function postToNewsFeed(data) {
-    const dispatch = useDispatch();
-
-    dispatch(uploadStart)
+    const start = uploadStart();
+    console.log("dsad")
     let options = {
         "Method": "POST",
-                headers: {
-                    "Content-Type": "multipart/form-data",
-                    "Authorization": "Bearer " + token
-                },
+        headers: {
+            "Content-Type": "multipart/form-data",
+            "Authorization": "Bearer " + token
+        },
         onUploadProgress: (progressEvent) => {
-            const {loaded, total} = progressEvent;
+            const { loaded, total } = progressEvent;
             let percent = Math.floor(loaded * 100 / total);
             console.log(percent);
         }
     }
 
     let path = API.root + API.posts.post;
-    let response = axios.post(path, data,options)
+    let response = axios.post(path, data, options)
         .then(function (response) {
-            if(response.data.statusCode === "200") {
+            if (response.data.statusCode === "200") {
                 dispatch(uploadEnd);
             }
         })

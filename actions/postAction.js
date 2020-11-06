@@ -1,18 +1,28 @@
 import { actionType } from "../constants"
+import { useDispatch } from "react-redux"
 
 export function uploadStart() {
-    return{ type: actionType.UPLOADING };
+    const dispatch = useDispatch();
+    return () => {
+        dispatch({ type: actionType.UPLOADING });
+    };
 }
 
 export function uploadEnd() {
-    return{ type: actionType.UPLOADED };
-}
-
-export function uploadProgress(percent) {
-    return {
-        type: actionType.UPLOAD_PROGRESS,
-        payload: percent
+    const dispatch = useDispatch();
+    return () => {
+        dispatch({ type: actionType.UPLOADED })
     }
 }
 
- 
+export function uploadProgress(percent) {
+    const dispatch = useDispatch();
+    return () => {
+        dispatch({
+            type: actionType.UPLOAD_PROGRESS,
+            payload: percent
+        })
+    }
+}
+
+

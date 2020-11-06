@@ -20,10 +20,12 @@ import { theme, mocks } from "../constants"
 import * as ImagePicker from 'expo-image-picker';
 import { TapGestureHandler, State } from "react-native-gesture-handler"
 import { postToNewsFeed } from "../services/PostService"
+import { useDispatch } from "react-redux"
 
 const { width, height } = Dimensions.get("window");
 
 export default function Upload({ navigation }) {
+    const dispatch = useDispatch();
     const [image, setImage] = useState(null);
     const [postEnable, setPostEnable] = useState(false);
     const [status, setStatus] = useState("");
@@ -65,6 +67,7 @@ export default function Upload({ navigation }) {
     }
 
     const postSubmit = async () => {
+        
         var data = new FormData();
         let userId = await AsyncStorage.getItem("userId");
         if (image) data.append("image", {
@@ -74,7 +77,8 @@ export default function Upload({ navigation }) {
         });
         data.append("userId", userId);
         data.append("content", status);
-        postToNewsFeed(data);
+        postToNewsFeed(data, goBack);
+        goBack();
     }
 
     const pickImage = async () => {
