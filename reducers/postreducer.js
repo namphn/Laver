@@ -1,8 +1,7 @@
 import { actionType } from "../constants"
 
-const initialState = [];
-
-const currenUser = (state = initialState, action) => {
+const postState = (state = {}, action) => {
+    console.log(state)
     switch (action.type) {
         case actionType.UPLOADING:
             return {
@@ -30,4 +29,4 @@ const currenUser = (state = initialState, action) => {
     }
 }
 
-export default currenUser;
+export default postState;
