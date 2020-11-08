@@ -1,8 +1,6 @@
-import { actionType } from "../constants"
+import { actionType } from "../constants"   
 
-const initialState = [];
-
-const currenUser = (state = initialState, action) => {
+const currenUser = (state = {}, action) => {
     switch (action.type) {
         case actionType.LOGIN:
             return {

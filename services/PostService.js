@@ -5,7 +5,6 @@ import { uploadStart, uploadEnd } from "../actions/postAction";
 const axios = require("axios");
 
 export async function postToNewsFeed(data) {
-    const start = uploadStart();
     console.log("dsad")
     let options = {
         "Method": "POST",
@@ -24,7 +23,6 @@ export async function postToNewsFeed(data) {
     let response = axios.post(path, data, options)
         .then(function (response) {
             if (response.data.statusCode === "200") {
-                dispatch(uploadEnd);
             }
         })
         .catch(function (error) {

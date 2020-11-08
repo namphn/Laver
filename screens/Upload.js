@@ -21,6 +21,8 @@ import * as ImagePicker from 'expo-image-picker';
 import { TapGestureHandler, State } from "react-native-gesture-handler"
 import { postToNewsFeed } from "../services/PostService"
 import { useDispatch } from "react-redux"
+import { uploadStart } from "../actions/postAction"
+import { useSelector } from "react-redux"
 
 const { width, height } = Dimensions.get("window");
 
@@ -77,8 +79,10 @@ export default function Upload({ navigation }) {
         });
         data.append("userId", userId);
         data.append("content", status);
-        postToNewsFeed(data, goBack);
+        postToNewsFeed(data);
+      
         goBack();
+        dispatch(uploadStart());
     }
 
     const pickImage = async () => {
