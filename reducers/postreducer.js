@@ -1,7 +1,6 @@
 import { actionType } from "../constants"
 
-const postState = (state, action) => {
-    console.log(state)
+const postState = (state ={postUploading: false}, action) => {
     switch (action.type) {
         case actionType.UPLOADING:
             return {

@@ -79,9 +79,8 @@ export default function Upload({ navigation }) {
         });
         data.append("userId", userId);
         data.append("content", status);
-        postToNewsFeed(data);
       
-        goBack();
+        navigation.navigate("Home", {postdata: data});
         dispatch(uploadStart());
     }
 

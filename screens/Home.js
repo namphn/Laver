@@ -19,16 +19,34 @@ import {
 } from "../components"
 import { theme, mocks } from "../constants"
 import { useSelector } from "react-redux"
+import { useDispatch } from "react-redux"
+import { uploadEnd } from "../actions/postAction"
 
 const { width, height } = Dimensions.get("window");
+const axios = require("axios");
 
-export default function Home({ navigation }) {
+export default function Home({ navigation, route }) {
     const [state, setState] = useState({
         active: "Products",
         categories: []
     })
+    const [uploadingProcess, setUploadingProcess] = useState(1);
+    const dispatch = useDispatch();
 
-    const uploading = useSelector(state => state.postUploading)
+    const uploading = useSelector(state => state.postState.postUploading)
+    useEffect(() => {
+        if(uploading) {
+            const { newPost }  = route.params
+            postToNewsFeed(newPost);
+        }
+
+    }, [uploading]);
+
+    useEffect(() => {
+        if(setUploadingProcess == 1) {
+            dispatch(uploadEnd)
+        }
+    }, [setUploadingProcess])
 
     const scrollY = new Animated.Value(0);
 
@@ -127,6 +145,34 @@ export default function Home({ navigation }) {
         )
     }
 
+    function postToNewsFeed(data) {
+        console.log("Post data")
+        let options = {
+            "Method": "POST",
+            headers: {
+                "Content-Type": "multipart/form-data",
+                "Authorization": "Bearer " + token
+            },
+            onUploadProgress: (progressEvent) => {
+                const { loaded, total } = progressEvent;
+                let percent = Math.floor(loaded / total);
+                console.log(percent);
+                setUploadingProcess(percent);
+            }
+        }
+    
+        let path = API.root + API.posts.post;
+        let response = axios.post(path, data, options)
+            .then(function (response) {
+                if (response.data.statusCode === "200") {
+                }
+            })
+            .catch(function (error) {
+                console.log(error)
+            });
+        return response;
+    }
+
     return (
         <SafeAreaView style={{ paddingBottom: 170 }}>
             <Animated.View
@@ -165,14 +211,18 @@ export default function Home({ navigation }) {
                                 </TouchableOpacity>
                             </Block>
                         </Block>
-                        <Block>
+                        {
+                            uploading && uploadingProcess != 1&& 
+                            <Block>
                             <ProgressBarAndroid
                                 styleAttr="Horizontal"
                                 indeterminate={false}
-                                progress={0.5}
+                                progress={uploadingProcess}
                                 color={theme.colors.green}
                             />
                         </Block>
+                        }
+                        
                     </ScrollView>
                     <FlatList
                         onScroll={Animated.event(
