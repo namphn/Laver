@@ -3,6 +3,6 @@ import {combineReducers} from "redux"
 import postState from "./postreducer"
 
 export default rootReducer = combineReducers({
-    currentUser,
-    postState
+    currentUser: currentUser,
+    postState: postState
 })

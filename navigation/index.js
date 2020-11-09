@@ -191,7 +191,6 @@ export default Navigation = () => {
 
     const dispatch = useDispatch();
     const [loading, setLoading] = useState(true);
-    const loggedIn = useSelector(state => state.loggedIn)
 
     const getToken = async () => {
         token = await AsyncStorage.getItem("token");
@@ -203,7 +202,7 @@ export default Navigation = () => {
 
     useEffect(() => {
         getToken();
-    },[loggedIn]);
+    },[isLoggedIn]);
 
     const isLoggedIn = useSelector(state => state.currentUser.loggedIn)
 
