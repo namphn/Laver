@@ -1,6 +1,6 @@
 import { actionType } from "../constants"   
 
-const currenUser = (state = {}, action) => {
+const currenUser = (state, action) => {
     switch (action.type) {
         case actionType.LOGIN:
             return {
@@ -22,7 +22,7 @@ const currenUser = (state = {}, action) => {
 
         default:
             return {
-                loggedIn: false
+                ...state
             }
     }
 }

@@ -5,7 +5,6 @@ import { uploadStart, uploadEnd } from "../actions/postAction";
 const axios = require("axios");
 
 export async function postToNewsFeed(data) {
-    console.log("dsad")
     let options = {
         "Method": "POST",
         headers: {
