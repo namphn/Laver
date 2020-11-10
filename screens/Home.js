@@ -36,17 +36,12 @@ export default function Home({ navigation, route }) {
     const uploading = useSelector(state => state.postState.postUploading)
     useEffect(() => {
         if(uploading) {
-            const { newPost }  = route.params
-            postToNewsFeed(newPost);
+            const { postdata }  = route.params
+            console.log(postdata)
+            postToNewsFeed(postdata);
         }
 
     }, [uploading]);
-
-    useEffect(() => {
-        if(setUploadingProcess == 1) {
-            dispatch(uploadEnd)
-        }
-    }, [setUploadingProcess])
 
     const scrollY = new Animated.Value(0);
 
@@ -155,9 +150,10 @@ export default function Home({ navigation, route }) {
             },
             onUploadProgress: (progressEvent) => {
                 const { loaded, total } = progressEvent;
-                let percent = Math.floor(loaded / total);
+                let percent = parseFloat(loaded / total);
                 console.log(percent);
                 setUploadingProcess(percent);
+                if(percent == 1) dispatch(uploadEnd());
             }
         }
     
