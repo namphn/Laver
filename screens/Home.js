@@ -25,6 +25,69 @@ import { uploadEnd } from "../actions/postAction"
 const { width, height } = Dimensions.get("window");
 const axios = require("axios");
 
+const data = [
+    {
+        name: "Phạm Hoàng Nam",
+        avatar: mocks.profile.avatar,
+        status: "Đây là lí do người ta gọi anh là Lươn, Cao Bằng thế này thì không lươn mới lạ",
+        image: mocks.images.image1,
+        likeCount: 99,
+        comment: 15,
+        liked: true,
+        me: true,
+    },
+    {
+        name: "Nguyễn Hữu Thanh",
+        avatar: mocks.images.image1,
+        status: "Đường tình anh thua, đường đua anh chấp!",
+        image: mocks.images.image2,
+        likeCount: 53,
+        comment: 15,
+        liked: false,
+        me: false,
+    },
+    {
+        name: "Phạm Hoàng Nam",
+        avatar: mocks.profile.avatar,
+        status: "Thành cổ Oosaka, Nhật Bản let's Go.... 日本へ行きましょう！！",
+        image: mocks.images.image3,
+        likeCount: 87,
+        comment: 15,
+        liked: false,
+        me: true,
+    },
+    {
+        name: "Phạm Hoàng Nam",
+        avatar: mocks.profile.avatar,
+        status: "Xinh vchuong huhu T.T",
+        image: mocks.images.image4,
+        likeCount: 78,
+        comment: 15,
+        liked: false,
+        me: true,
+    },
+    {
+        name: "Phạm Hoàng Nam",
+        avatar: mocks.profile.avatar,
+        status: "Tiên sư chúng m",
+        image: mocks.images.image5,
+        likeCount: 45,
+        comment: 15,
+        liked: true,
+        me: true,
+    },
+    {
+        name: "Phạm Hoàng Nam",
+        avatar: mocks.profile.avatar,
+        status: "Ohhhh!",
+        image: mocks.images.image6,
+        likeCount: 58,
+        comment: 15,
+        liked: false,
+        me: true,
+    }
+]
+
 export default function Home({ navigation, route }) {
     const [state, setState] = useState({
         active: "Products",
@@ -62,68 +125,6 @@ export default function Home({ navigation, route }) {
         useNativeDriver: true
     })
 
-    const data = [
-        {
-            name: "Phạm Hoàng Nam",
-            avatar: mocks.profile.avatar,
-            status: "Đây là lí do người ta gọi anh là Lươn, Cao Bằng thế này thì không lươn mới lạ",
-            image: mocks.images.image1,
-            likeCount: 99,
-            comment: 15,
-            liked: true,
-            me: true,
-        },
-        {
-            name: "Nguyễn Hữu Thanh",
-            avatar: mocks.images.image1,
-            status: "Đường tình anh thua, đường đua anh chấp!",
-            image: mocks.images.image2,
-            likeCount: 53,
-            comment: 15,
-            liked: false,
-            me: false,
-        },
-        {
-            name: "Phạm Hoàng Nam",
-            avatar: mocks.profile.avatar,
-            status: "Thành cổ Oosaka, Nhật Bản let's Go.... 日本へ行きましょう！！",
-            image: mocks.images.image3,
-            likeCount: 87,
-            comment: 15,
-            liked: false,
-            me: true,
-        },
-        {
-            name: "Phạm Hoàng Nam",
-            avatar: mocks.profile.avatar,
-            status: "Xinh vchuong huhu T.T",
-            image: mocks.images.image4,
-            likeCount: 78,
-            comment: 15,
-            liked: false,
-            me: true,
-        },
-        {
-            name: "Phạm Hoàng Nam",
-            avatar: mocks.profile.avatar,
-            status: "Tiên sư chúng m",
-            image: mocks.images.image5,
-            likeCount: 45,
-            comment: 15,
-            liked: true,
-            me: true,
-        },
-        {
-            name: "Phạm Hoàng Nam",
-            avatar: mocks.profile.avatar,
-            status: "Ohhhh!",
-            image: mocks.images.image6,
-            likeCount: 58,
-            comment: 15,
-            liked: false,
-            me: true,
-        }
-    ]
 
     const renderPost = ({ item }) => {
         return (
