@@ -76,7 +76,6 @@ export default function Login({ navigation }) {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(false);
     const [errorContent, setErrorContent] = useState("");
-    const [errorHeade, setErrorHeade] = useState("");
 
     const onStateChange = event([
         {
@@ -152,7 +151,9 @@ export default function Login({ navigation }) {
                     break;
 
                 case status.ACCEPT:
-                    dispatch({ type: "LOGIN" })
+                    dispatch({
+                        type: "LOGIN",
+                    })
                     break;
 
                 case status.ACCOUNT_IS_INACTIVE.header:

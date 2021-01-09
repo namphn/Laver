@@ -131,7 +131,7 @@ export default function Upload({ navigation }) {
             <Block flex={false}>
                 {image && <Image style={{ position: "absolute", top: 0 }}
                     source={{ uri: image.uri }}
-                    style={{ width: width, height: "100%", resizeMode: "contain" }} />}
+                    style={{ width: width, height: "100%" }} />}
             </Block>
             {!image && <Block style={[styles.option]} >
                 <Animated.View style={{
@@ -234,8 +234,9 @@ const styles = StyleSheet.create({
         height: height / 10
     },
     textInputContainer: {
-        padding: 10,
-        paddingBottom: 0,
+        paddingTop: 10,
+        paddingLeft: 10,
+        paddingRight: 10,
     },
     textInput: {
         fontSize: 17,

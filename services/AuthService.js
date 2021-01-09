@@ -13,6 +13,7 @@ export function loginApi(email, password) {
         .then(function (response) {
             console.log(response.data);
             if (response.data.status == status.ACCEPT) {
+                console.log(response.data.data.userName)
                 AsyncStorage.setItem(
                     "token",
                     response.data.data.token
@@ -20,6 +21,10 @@ export function loginApi(email, password) {
                 AsyncStorage.setItem(
                     "userId",
                     response.data.data.userId
+                );
+                AsyncStorage.setItem(
+                    "userName",
+                    response.data.data.userName
                 );
                 return response.data.status;
             }
