@@ -1,11 +1,12 @@
 import { actionType } from "../constants"   
+import { AsyncStorage } from "react-native"
 
 const currenUser = (state, action) => {
     switch (action.type) {
         case actionType.LOGIN:
             return {
                 ...state,
-                loggedIn: true
+                loggedIn: true,
             }
 
         case actionType.LOGOUT:

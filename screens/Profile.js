@@ -5,11 +5,12 @@ import {
     Image,
     Dimensions,
     TouchableOpacity,
-    FlatList
+    FlatList,
+    AsyncStorage
 } from "react-native"
-import { 
-    Block, 
-    Text ,
+import {
+    Block,
+    Text,
     Button
 } from "../components"
 import { theme, mocks } from "../constants"
@@ -124,7 +125,21 @@ const post = [
 const renderFollowers = ({ item }) => {
     return (
         <Image
-            source={{uri: item.avatar}}
+            source={{ uri: item.avatar }}
+            style={{
+                width: 50,
+                height: 50,
+                borderRadius: 50,
+                marginLeft: 10
+            }}
+        />
+    )
+}
+
+const renderFollowing = ({ item }) => {
+    return (
+        <Image
+            source={{ uri: item.avatar }}
             style={{
                 width: 50,
                 height: 50,
@@ -137,15 +152,28 @@ const renderFollowers = ({ item }) => {
 
 const renderPosts = ({ item }) => {
     return (
-        <Block row flex={false} space="between" style={{paddingBottom: 5}}>
-            <Image source={{uri: item.image1}} style={styles.imagePost} resizeMode="stretch"/>
-            <Image source={{uri: item.image2}} style={styles.imagePost} resizeMode="stretch"/>
-            <Image source={{uri: item.image3}} style={styles.imagePost} resizeMode="stretch"/>
+        <Block row flex={false} space="between" style={{ paddingBottom: 5 }}>
+            <Image source={{ uri: item.image1 }} style={styles.imagePost} resizeMode="stretch" />
+            <Image source={{ uri: item.image2 }} style={styles.imagePost} resizeMode="stretch" />
+            <Image source={{ uri: item.image3 }} style={styles.imagePost} resizeMode="stretch" />
         </Block>
     )
 }
 
-export default function Profile({navigation}) {
+export default function Profile({ navigation }) {
+    const [userName, setUserName] = React.useState("");
+
+    React.useEffect(() => {
+        // console.log("userName")
+        // console.log(userName)
+        getUserInfo()
+    }, [])
+
+    const getUserInfo = async () => {
+        let result = await AsyncStorage.getItem("userName");
+        console.log(result)
+        setUserName(result);
+    }
 
     const goToFollowers = () => {
         navigation.navigate("Followers", {
@@ -160,18 +188,18 @@ export default function Profile({navigation}) {
                     <Block flex={false} color="white">
                         <Block flex={false}>
                             <Image
-                                source={{uri: mocks.profile.avatar}}
+                                source={{ uri: mocks.profile.avatar }}
                                 style={styles.cover}
                                 resizeMode="cover"
                                 blurRadius={2}
                             />
                         </Block>
                         <Block flex={false} style={styles.avatarContainer}>
-                            <Image source={{uri: mocks.profile.avatar}} style={styles.avatar} />
+                            <Image source={{ uri: mocks.profile.avatar }} style={styles.avatar} />
                         </Block>
                     </Block>
                     <Block flex={false} style={{ paddingTop: width / 8 + 20 }} center >
-                        <Text h2 bold>Phạm Hoàng Nam</Text>
+                        <Text h2 bold>{userName}</Text>
                     </Block>
                     <Block row middle padding={10} style={{ paddingTop: 5 }} flex={false}>
                         <Block flex={false} row style={{ paddingRight: 10 }}>
@@ -230,6 +258,35 @@ export default function Profile({navigation}) {
                         }}
                     ></FlatList>
                 </Block>
+                <Block flex={false}
+                    style={{
+                        marginBottom: 5
+                    }}
+                    color="white">
+                    <Block flex={false} row space="between"
+                        style={{
+                            paddingTop: 5,
+                            paddingLeft: 20,
+                            paddingRight: 20
+                        }}>
+                        <Text bold>Following</Text>
+                        <TouchableOpacity onPress={goToFollowers}>
+                            <Text bold color={theme.colors.blue}>View All</Text>
+                        </TouchableOpacity>
+
+                    </Block>
+                    <FlatList
+                        showsHorizontalScrollIndicator={false}
+                        data={followers}
+                        renderItem={renderFollowing}
+                        horizontal={true}
+                        style={{
+                            marginTop: 10,
+                            paddingBottom: 10,
+                            marginBottom: 5
+                        }}
+                    ></FlatList>
+                </Block>
                 <Block flex={false} color="white">
                     <Block flex={false} style={{
                         paddingLeft: 20,
@@ -273,9 +330,9 @@ const styles = StyleSheet.create({
         borderRightColor: theme.colors.gray
     },
     imagePost: {
-        width: width/3 - 3,
-        height: width/3 - 3,
+        width: width / 3 - 3,
+        height: width / 3 - 3,
         resizeMode: "stretch",
-        aspectRatio: 1.5, 
+        aspectRatio: 1.5,
     }
 })
