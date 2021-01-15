@@ -17,6 +17,7 @@ import { theme, mocks } from "../constants"
 import Icon from "react-native-vector-icons/MaterialIcons"
 import { ScrollView } from "react-native-gesture-handler"
 import navigation from "../navigation"
+import { getUserInfo } from "../services/GetInfoService";
 
 const { width, height } = Dimensions.get("window");
 
@@ -171,8 +172,10 @@ export default function Profile({ navigation }) {
 
     const getUserInfo = async () => {
         let result = await AsyncStorage.getItem("userName");
+        let userId = await AsyncStorage.getItem("userId");
         console.log(result)
         setUserName(result);
+        getUserInfo(userId);
     }
 
     const goToFollowers = () => {
