@@ -3,13 +3,16 @@ import { POST, GET } from "./PostWithToken";
 
 const axios = require('axios');
 
-export async function getUserInfo(userId) {
+export async function getUserProfile(userId) {
     console.log('get user info')
-    const path = API.root + API.user.getUserInfo + userId;
+    const path = API.root + API.user.getInfo + userId;
     GET(path).then(response => {
-        console.log(response.data)
+        if(response.data.status == status.SUCCESS) {
+            return response.data.data;
+        }
+        else return null;
     }).catch(e => {
-
+        return null;
     })
 }
 

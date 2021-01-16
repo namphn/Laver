@@ -17,6 +17,8 @@ export async function POST(path, data) {
 }
 
 export async function GET(path) {
+    console.log(path)
+    console.log("get")
     const token = await AsyncStorage.getItem("token");
     let options = {
         "Method": "GET",
@@ -25,5 +27,5 @@ export async function GET(path) {
         }
     }
 
-    return axios.GET(path, options);
+    return axios.get(path, options);
 }

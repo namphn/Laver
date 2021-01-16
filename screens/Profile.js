@@ -1,4 +1,4 @@
-import React from "react"
+import * as React from "react"
 import {
     SafeAreaView,
     StyleSheet,
@@ -10,14 +10,19 @@ import {
 } from "react-native"
 import {
     Block,
-    Text,
-    Button
+    Text
 } from "../components"
 import { theme, mocks } from "../constants"
 import Icon from "react-native-vector-icons/MaterialIcons"
 import { ScrollView } from "react-native-gesture-handler"
-import navigation from "../navigation"
-import { getUserInfo } from "../services/GetInfoService";
+import { getUserProfile } from "../services/GetInfoService";
+
+import {
+    Placeholder,
+    PlaceholderLine,
+    PlaceholderMedia,
+    Fade
+} from "rn-placeholder";
 
 const { width, height } = Dimensions.get("window");
 
@@ -162,20 +167,22 @@ const renderPosts = ({ item }) => {
 }
 
 export default function Profile({ navigation }) {
-    const [userName, setUserName] = React.useState("");
+    const [userName] = React.useState("");
+    const [loading, setLoading] = React.useState(true);
+    const [userInfo, setUserInfo] = React.useState();
 
     React.useEffect(() => {
-        // console.log("userName")
-        // console.log(userName)
         getUserInfo()
     }, [])
 
     const getUserInfo = async () => {
-        let result = await AsyncStorage.getItem("userName");
         let userId = await AsyncStorage.getItem("userId");
-        console.log(result)
-        setUserName(result);
-        getUserInfo(userId);
+
+        console.log("user info")
+        await getUserProfile(userId).then(response => {
+            setUserInfo(response)
+            setLoading(false);
+        });
     }
 
     const goToFollowers = () => {
@@ -186,6 +193,262 @@ export default function Profile({ navigation }) {
 
     return (
         <SafeAreaView>
+            <Placeholder
+                Animation={Fade}
+            >
+                {/* <PlaceholderMedia/>
+                <PlaceholderLine/>
+                <PlaceholderLine/>
+                <PlaceholderLine/>
+                <PlaceholderLine/>
+                <PlaceholderLine/> */}
+                <Block flex={false} color="white" style={{ paddingBottom: 20, marginBottom: 5 }}>
+                    <Block flex={false} color="white">
+                        <PlaceholderMedia
+                            color="black"
+                            style={[styles.cover, { height: height / 7 }]}
+                        />
+                        <Block flex={false} style={styles.avatarContainer}>
+                            <PlaceholderMedia style={styles.avatar} />
+                        </Block>
+                    </Block>
+                    <Block flex={false} style={{ paddingTop: width / 8 + 20 }} center >
+                        <PlaceholderLine width={30} />
+                    </Block>
+                    <Block row middle padding={10}
+                        style={{
+                            paddingTop: 5,
+                            paddingLeft: 60
+                        }}
+                        flex={false}>
+                        <Block flex={false} row style={{ paddingRight: 10 }}>
+                            <Icon name="location-on" size={17} color="#0dd686" style={{ paddingRight: 4 }} />
+                            <PlaceholderLine width={20} />
+                        </Block>
+                        <Block flex={false} style={{ paddingLeft: 5 }} row>
+                            <Icon name="location-city" size={17} color="#0dd686" style={{ paddingRight: 4 }} />
+                            <PlaceholderLine width={20} />
+                        </Block>
+                    </Block>
+                    <Block flex={false}
+                        style={{
+                            paddingRight: 40,
+                            paddingLeft: 40,
+                            paddingTop: 10
+                        }}
+                        middle>
+                        <PlaceholderLine width={100} />
+                        <PlaceholderLine width={100} />
+                    </Block>
+                    <Block flex={false} row space="between" style={{ paddingTop: 20 }}>
+                        <Block center style={styles.partition}>
+                            <PlaceholderLine width={50} />
+                            <Text>Following</Text>
+                        </Block>
+                        <Block center style={styles.partition}>
+                            <PlaceholderLine width={50} />
+                            <Text>Folowers</Text>
+                        </Block>
+                        <Block center>
+                            <PlaceholderLine width={50} />
+                            <Text>Posts</Text>
+                        </Block>
+                    </Block>
+                </Block>
+                <Block flex={false}
+                    style={{
+                        marginBottom: 5
+                    }}
+                    color="white">
+                    <Block flex={false} row space="between"
+                        style={{
+                            paddingTop: 5,
+                            paddingLeft: 20,
+                            paddingRight: 20
+                        }}>
+                        <Text bold>Followers</Text>
+                        <TouchableOpacity onPress={goToFollowers}>
+                            <Text bold color={theme.colors.blue}>View All</Text>
+                        </TouchableOpacity>
+
+                    </Block>
+                    <Block row flex={false}>
+                        <PlaceholderMedia
+                            style={{
+                                width: 50,
+                                height: 50,
+                                borderRadius: 50,
+                                marginLeft: 10,
+                                marginTop: 5,
+                                marginBottom: 5,
+                            }}
+                        />
+                        <PlaceholderMedia
+                            style={{
+                                width: 50,
+                                height: 50,
+                                borderRadius: 50,
+                                marginLeft: 10,
+                                marginTop: 5,
+                                marginBottom: 5,
+                            }}
+                        />
+                        <PlaceholderMedia
+                            style={{
+                                width: 50,
+                                height: 50,
+                                borderRadius: 50,
+                                marginLeft: 10,
+                                marginTop: 5,
+                                marginBottom: 5,
+                            }}
+                        />
+                        <PlaceholderMedia
+                            style={{
+                                width: 50,
+                                height: 50,
+                                borderRadius: 50,
+                                marginLeft: 10,
+                                marginTop: 5,
+                                marginBottom: 5,
+                            }}
+                        />
+                        <PlaceholderMedia
+                            style={{
+                                width: 50,
+                                height: 50,
+                                borderRadius: 50,
+                                marginLeft: 10,
+                                marginTop: 5,
+                                marginBottom: 5,
+                            }}
+                        />
+                        <PlaceholderMedia
+                            style={{
+                                width: 50,
+                                height: 50,
+                                borderRadius: 50,
+                                marginLeft: 10,
+                                marginTop: 5,
+                                marginBottom: 5,
+                            }}
+                        />
+                        <PlaceholderMedia
+                            style={{
+                                width: 50,
+                                height: 50,
+                                borderRadius: 50,
+                                marginLeft: 10,
+                                marginTop: 5,
+                                marginBottom: 5,
+                            }}
+                        />
+                    </Block>
+                </Block>
+                <Block flex={false}
+                    style={{
+                        marginBottom: 5
+                    }}
+                    color="white">
+                    <Block flex={false} row space="between"
+                        style={{
+                            paddingTop: 5,
+                            paddingLeft: 20,
+                            paddingRight: 20
+                        }}>
+                        <Text bold>Following</Text>
+                        <TouchableOpacity onPress={goToFollowers}>
+                            <Text bold color={theme.colors.blue}>View All</Text>
+                        </TouchableOpacity>
+
+                    </Block>
+                    <Block row flex={false}>
+                        <PlaceholderMedia
+                            style={{
+                                width: 50,
+                                height: 50,
+                                borderRadius: 50,
+                                marginLeft: 10,
+                                marginTop: 5,
+                                marginBottom: 5,
+                            }}
+                        />
+                        <PlaceholderMedia
+                            style={{
+                                width: 50,
+                                height: 50,
+                                borderRadius: 50,
+                                marginLeft: 10,
+                                marginTop: 5,
+                                marginBottom: 5,
+                            }}
+                        />
+                        <PlaceholderMedia
+                            style={{
+                                width: 50,
+                                height: 50,
+                                borderRadius: 50,
+                                marginLeft: 10,
+                                marginTop: 5,
+                                marginBottom: 5,
+                            }}
+                        />
+                        <PlaceholderMedia
+                            style={{
+                                width: 50,
+                                height: 50,
+                                borderRadius: 50,
+                                marginLeft: 10,
+                                marginTop: 5,
+                                marginBottom: 5,
+                            }}
+                        />
+                        <PlaceholderMedia
+                            style={{
+                                width: 50,
+                                height: 50,
+                                borderRadius: 50,
+                                marginLeft: 10,
+                                marginTop: 5,
+                                marginBottom: 5,
+                            }}
+                        />
+                        <PlaceholderMedia
+                            style={{
+                                width: 50,
+                                height: 50,
+                                borderRadius: 50,
+                                marginLeft: 10,
+                                marginTop: 5,
+                                marginBottom: 5,
+                            }}
+                        />
+                        <PlaceholderMedia
+                            style={{
+                                width: 50,
+                                height: 50,
+                                borderRadius: 50,
+                                marginLeft: 10,
+                                marginTop: 5,
+                                marginBottom: 5,
+                            }}
+                        />
+                    </Block>
+                </Block>
+                <Block flex={false} color="white" row >
+                    <Block flex={false} style={{
+                        paddingLeft: 20,
+                        paddingBottom: 20
+                    }}>
+                        <Text bold>Pots</Text>
+                    </Block>
+                    <Block>
+                        <PlaceholderMedia style={styles.imagePost} />
+                        <PlaceholderMedia style={styles.imagePost} />
+                    </Block>
+
+                </Block>
+            </Placeholder>
             <ScrollView showsVerticalScrollIndicator={false}>
                 <Block flex={false} color="white" style={{ paddingBottom: 20, marginBottom: 5 }}>
                     <Block flex={false} color="white">
