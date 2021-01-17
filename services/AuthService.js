@@ -9,7 +9,7 @@ export function loginApi(email, password) {
     let response = axios.post(API.root + API.user.login, {
         email: email,
         password: password
-    }, {timeout: 10000})
+    }, {timeout: 100000})
         .then(function (response) {
             console.log(response.data);
             if (response.data.status == status.ACCEPT) {

@@ -31,6 +31,8 @@ const HAVE_NOT_ACCOUNT = {
     content: "Check your email address or create a new account"
 }
 
+const SUCCESS = "SUCCESS";
+
 export {
     SENT_MAIL,
     ERROR,
@@ -40,5 +42,6 @@ export {
     INVALID_PASSWORD,
     ACCOUNT_IS_INACTIVE,
     INTERNAL_SERVER,
-    HAVE_NOT_ACCOUNT
+    HAVE_NOT_ACCOUNT,
+    SUCCESS
 }
