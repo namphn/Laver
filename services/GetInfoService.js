@@ -4,9 +4,8 @@ import { POST, GET } from "./PostWithToken";
 const axios = require('axios');
 
 export async function getUserProfile(userId) {
-    console.log('get user info')
     const path = API.root + API.user.getInfo + userId;
-    GET(path).then(response => {
+    let userInfo = await GET(path).then(response => {
         if(response.data.status == status.SUCCESS) {
             return response.data.data;
         }
@@ -14,6 +13,8 @@ export async function getUserProfile(userId) {
     }).catch(e => {
         return null;
     })
+    
+    return userInfo;
 }
 
 
