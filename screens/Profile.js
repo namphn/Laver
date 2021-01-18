@@ -23,6 +23,7 @@ import {
     PlaceholderMedia,
     Fade
 } from "rn-placeholder";
+import API from "../constants/api"
 
 const { width, height } = Dimensions.get("window");
 
@@ -129,9 +130,10 @@ const post = [
 ]
 
 const renderFollowers = ({ item }) => {
+    console.log(API.root + item)
     return (
         <Image
-            source={{ uri: item }}
+            source={{ uri: API.root + item }}
             style={{
                 width: 50,
                 height: 50,
@@ -457,14 +459,14 @@ export default function Profile({ navigation }) {
                                 <Block flex={false} color="white">
                                     <Block flex={false}>
                                         <Image
-                                            source={{ uri: userInfo?.avatar }}
+                                            source={{ uri: API.root + "/" + userInfo?.avatar }}
                                             style={styles.cover}
                                             resizeMode="cover"
                                             blurRadius={2}
                                         />
                                     </Block>
                                     <Block flex={false} style={styles.avatarContainer}>
-                                        <Image source={{ uri: userInfo?.avatar }} style={styles.avatar} />
+                                        <Image source={{ uri: API.root + "/" + userInfo?.avatar }} style={styles.avatar} />
                                     </Block>
                                 </Block>
                                 <Block flex={false} style={{ paddingTop: width / 8 + 20 }} center >
@@ -473,11 +475,11 @@ export default function Profile({ navigation }) {
                                 <Block row middle padding={10} style={{ paddingTop: 5 }} flex={false}>
                                     <Block flex={false} row style={{ paddingRight: 10 }}>
                                         <Icon name="location-on" size={17} color="#0dd686" style={{ paddingRight: 4 }} />
-                                        <Text bold color={theme.colors.brow}>{userInfo?.city}</Text>
+                                        <Text bold color={theme.colors.brow}>{userInfo.city ? userInfo.city : "undefine"}</Text>
                                     </Block>
                                     <Block flex={false} row>
                                         <Icon name="location-city" size={17} color="#0dd686" style={{ paddingRight: 4 }} />
-                                        <Text bold color={theme.colors.brow}>{userInfo?.country}</Text>
+                                        <Text bold color={theme.colors.brow}>{userInfo.country ? userInfo.country : "undefine"}</Text>
                                     </Block>
                                 </Block>
                                 <Block flex={false} style={{ paddingRight: 40, paddingLeft: 40, paddingTop: 10 }} middle>
