@@ -23,6 +23,7 @@ import {
     PlaceholderMedia,
     Fade
 } from "rn-placeholder";
+import API from "../constants/api"
 
 const { width, height } = Dimensions.get("window");
 
@@ -131,7 +132,7 @@ const post = [
 const renderFollowers = ({ item }) => {
     return (
         <Image
-            source={{ uri: item }}
+            source={{ uri: API.root + item }}
             style={{
                 width: 50,
                 height: 50,
@@ -157,12 +158,22 @@ const renderFollowing = ({ item }) => {
 }
 
 const renderPosts = ({ item }) => {
+    console.log("item: " , item.image)
+    let imageUrl = API.root + "/images/" + item.image;
+    console.log(imageUrl);
     return (
-        <Block row flex={false} space="between" style={{ paddingBottom: 5 }}>
-            <Image source={{ uri: item.image1 }} style={styles.imagePost} resizeMode="stretch" />
-            <Image source={{ uri: item.image2 }} style={styles.imagePost} resizeMode="stretch" />
-            <Image source={{ uri: item.image3 }} style={styles.imagePost} resizeMode="stretch" />
+        // <Block row flex={false} space="between" style={{ paddingBottom: 5 }}>
+        <Block flex={1}
+            style={
+                [{
+                    paddingBottom: 5,
+                    paddingLeft: 2,
+                    paddingRight: 2
+                },
+                ]}>
+            <Image source={{ uri: imageUrl }} style={styles.imagePost} resizeMode="stretch" />
         </Block>
+
     )
 }
 
@@ -170,17 +181,33 @@ export default function Profile({ navigation }) {
     const [userName] = React.useState("");
     const [loading, setLoading] = React.useState(true);
     const [userInfo, setUserInfo] = React.useState();
+    const [images, setImages] = React.useState([]);
 
     React.useEffect(() => {
-        getUserInfo()
+        getUserInfo();
+        console.log(images)
     }, [])
+
+    React.useEffect(() => {
+        let userPostConvert = [];
+        if (userInfo) {
+            userInfo.posts.forEach((element) => {
+                    if(element != "") {
+                        userPostConvert.push(element);
+                    }
+                }
+            )
+            setImages(userPostConvert);
+        }
+    }, [userInfo])
+
+    React.useEffect(() => {
+        console.log(images)
+    })
 
     const getUserInfo = async () => {
         let userId = await AsyncStorage.getItem("userId");
-
-        console.log("user info")
         let response = await getUserProfile(userId);
-        console.log(response)
         setUserInfo(response);
         setLoading(false);
     }
@@ -437,7 +464,7 @@ export default function Profile({ navigation }) {
                                 paddingLeft: 20,
                                 paddingBottom: 20
                             }}>
-                                <Text bold>Pots</Text>
+                                <Text bold>Posts</Text>
                             </Block>
                             <Block row flex={false} space="between" style={{ paddingBottom: 5 }}>
                                 <PlaceholderMedia style={styles.imagePost} />
@@ -457,14 +484,14 @@ export default function Profile({ navigation }) {
                                 <Block flex={false} color="white">
                                     <Block flex={false}>
                                         <Image
-                                            source={{ uri: userInfo?.avatar }}
+                                            source={{ uri: API.root + "/" + userInfo?.avatar }}
                                             style={styles.cover}
                                             resizeMode="cover"
                                             blurRadius={2}
                                         />
                                     </Block>
                                     <Block flex={false} style={styles.avatarContainer}>
-                                        <Image source={{ uri: userInfo?.avatar }} style={styles.avatar} />
+                                        <Image source={{ uri: API.root + "/" + userInfo?.avatar }} style={styles.avatar} />
                                     </Block>
                                 </Block>
                                 <Block flex={false} style={{ paddingTop: width / 8 + 20 }} center >
@@ -473,11 +500,11 @@ export default function Profile({ navigation }) {
                                 <Block row middle padding={10} style={{ paddingTop: 5 }} flex={false}>
                                     <Block flex={false} row style={{ paddingRight: 10 }}>
                                         <Icon name="location-on" size={17} color="#0dd686" style={{ paddingRight: 4 }} />
-                                        <Text bold color={theme.colors.brow}>{userInfo?.city}</Text>
+                                        <Text bold color={theme.colors.brow}>{userInfo.city ? userInfo.city : "undefine"}</Text>
                                     </Block>
                                     <Block flex={false} row>
                                         <Icon name="location-city" size={17} color="#0dd686" style={{ paddingRight: 4 }} />
-                                        <Text bold color={theme.colors.brow}>{userInfo?.country}</Text>
+                                        <Text bold color={theme.colors.brow}>{userInfo.country ? userInfo.country : "undefine"}</Text>
                                     </Block>
                                 </Block>
                                 <Block flex={false} style={{ paddingRight: 40, paddingLeft: 40, paddingTop: 10 }} middle>
@@ -493,7 +520,7 @@ export default function Profile({ navigation }) {
                                         <Text>Folowers</Text>
                                     </Block>
                                     <Block center>
-                                        <Text bold h2>{userInfo?.pots.length}</Text>
+                                        <Text bold h2>{userInfo?.posts.length}</Text>
                                         <Text>Posts</Text>
                                     </Block>
                                 </Block>
@@ -564,8 +591,9 @@ export default function Profile({ navigation }) {
                                     <Text bold>Pots</Text>
                                 </Block>
                                 <FlatList
+                                    numColumns={3}
                                     showsVerticalScrollIndicator={false}
-                                    data={post}
+                                    data={images}
                                     renderItem={renderPosts}
                                     style={{
                                         paddingBottom: 10,
@@ -602,9 +630,12 @@ const styles = StyleSheet.create({
         borderRightColor: theme.colors.gray
     },
     imagePost: {
-        width: width / 3 - 3,
-        height: width / 3 - 3,
+        width: width / 3 - 5,
         resizeMode: "stretch",
         aspectRatio: 1.5,
+    },
+    middleItemPost: {
+        paddingRight: 5,
+        paddingLeft: 5,
     }
 })
