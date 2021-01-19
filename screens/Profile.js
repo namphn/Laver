@@ -130,7 +130,6 @@ const post = [
 ]
 
 const renderFollowers = ({ item }) => {
-    console.log(API.root + item)
     return (
         <Image
             source={{ uri: API.root + item }}
@@ -159,12 +158,22 @@ const renderFollowing = ({ item }) => {
 }
 
 const renderPosts = ({ item }) => {
+    console.log("item: " , item.image)
+    let imageUrl = API.root + "/images/" + item.image;
+    console.log(imageUrl);
     return (
-        <Block row flex={false} space="between" style={{ paddingBottom: 5 }}>
-            <Image source={{ uri: item.image1 }} style={styles.imagePost} resizeMode="stretch" />
-            <Image source={{ uri: item.image2 }} style={styles.imagePost} resizeMode="stretch" />
-            <Image source={{ uri: item.image3 }} style={styles.imagePost} resizeMode="stretch" />
+        // <Block row flex={false} space="between" style={{ paddingBottom: 5 }}>
+        <Block flex={1}
+            style={
+                [{
+                    paddingBottom: 5,
+                    paddingLeft: 2,
+                    paddingRight: 2
+                },
+                ]}>
+            <Image source={{ uri: imageUrl }} style={styles.imagePost} resizeMode="stretch" />
         </Block>
+
     )
 }
 
@@ -172,17 +181,33 @@ export default function Profile({ navigation }) {
     const [userName] = React.useState("");
     const [loading, setLoading] = React.useState(true);
     const [userInfo, setUserInfo] = React.useState();
+    const [images, setImages] = React.useState([]);
 
     React.useEffect(() => {
-        getUserInfo()
+        getUserInfo();
+        console.log(images)
     }, [])
+
+    React.useEffect(() => {
+        let userPostConvert = [];
+        if (userInfo) {
+            userInfo.posts.forEach((element) => {
+                    if(element != "") {
+                        userPostConvert.push(element);
+                    }
+                }
+            )
+            setImages(userPostConvert);
+        }
+    }, [userInfo])
+
+    React.useEffect(() => {
+        console.log(images)
+    })
 
     const getUserInfo = async () => {
         let userId = await AsyncStorage.getItem("userId");
-
-        console.log("user info")
         let response = await getUserProfile(userId);
-        console.log(response)
         setUserInfo(response);
         setLoading(false);
     }
@@ -439,7 +464,7 @@ export default function Profile({ navigation }) {
                                 paddingLeft: 20,
                                 paddingBottom: 20
                             }}>
-                                <Text bold>Pots</Text>
+                                <Text bold>Posts</Text>
                             </Block>
                             <Block row flex={false} space="between" style={{ paddingBottom: 5 }}>
                                 <PlaceholderMedia style={styles.imagePost} />
@@ -495,7 +520,7 @@ export default function Profile({ navigation }) {
                                         <Text>Folowers</Text>
                                     </Block>
                                     <Block center>
-                                        <Text bold h2>{userInfo?.pots.length}</Text>
+                                        <Text bold h2>{userInfo?.posts.length}</Text>
                                         <Text>Posts</Text>
                                     </Block>
                                 </Block>
@@ -566,8 +591,9 @@ export default function Profile({ navigation }) {
                                     <Text bold>Pots</Text>
                                 </Block>
                                 <FlatList
+                                    numColumns={3}
                                     showsVerticalScrollIndicator={false}
-                                    data={post}
+                                    data={images}
                                     renderItem={renderPosts}
                                     style={{
                                         paddingBottom: 10,
@@ -604,9 +630,12 @@ const styles = StyleSheet.create({
         borderRightColor: theme.colors.gray
     },
     imagePost: {
-        width: width / 3 - 3,
-        height: width / 3 - 3,
+        width: width / 3 - 5,
         resizeMode: "stretch",
         aspectRatio: 1.5,
+    },
+    middleItemPost: {
+        paddingRight: 5,
+        paddingLeft: 5,
     }
 })
