@@ -99,9 +99,11 @@ export default function Home({ navigation, route }) {
         if (posts != null) {
             console.log(posts)
             setPosts(posts)
+            setLoading(false);
         }
         else {
             setError(true);
+            setLoading(false);
         }
     }
 
@@ -127,11 +129,11 @@ export default function Home({ navigation, route }) {
 
     const renderPost = ({ item }) => {
         return (
-            <Post avatar={item.avatar}
-                name={item.name}
-                status={item.status}
-                image={item.image}
-                likeCount={item.likeCount}
+            <Post avatar={API.root + "/" + item.userAvatar}
+                name={item.userName}
+                status={item.content}
+                image={API.root + "/" + item.image}
+                likeCount={item.likes.length}
                 comment={item.comment}
                 liked={item.liked}
                 navigation={navigation}
@@ -303,7 +305,7 @@ export default function Home({ navigation, route }) {
                                         [{ nativeEvent: { contentOffset: { y: scrollY } } }]
                                     )}
                                     showsVerticalScrollIndicator={false}
-                                    data={data}
+                                    data={posts}
                                     renderItem={renderPost}
                                     style={{ marginTop: 10 }}
                                 >
