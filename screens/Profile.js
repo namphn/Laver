@@ -27,108 +27,6 @@ import API from "../constants/api"
 
 const { width, height } = Dimensions.get("window");
 
-const followers = [
-    {
-        id: "1",
-        avatar: mocks.images.image1,
-        name: "Phạm Hoàng Nam",
-    },
-    {
-        id: "2",
-        avatar: mocks.images.image2,
-        name: "Phạm Hoàng Nam",
-    },
-    {
-        id: "3",
-        avatar: mocks.images.image3,
-        name: "Phạm Hoàng Nam",
-    },
-    {
-        id: "4",
-        avatar: mocks.images.image4,
-        name: "Phạm Hoàng Nam",
-    },
-    {
-        id: "5",
-        avatar: mocks.images.image5,
-        name: "Phạm Hoàng Nam",
-    },
-    {
-        id: "6",
-        avatar: mocks.images.image6,
-        name: "Phạm Hoàng Nam",
-    },
-    {
-        id: "1",
-        avatar: mocks.images.image1,
-        name: "Phạm Hoàng Nam",
-    },
-    {
-        id: "2",
-        avatar: mocks.images.image2,
-        name: "Phạm Hoàng Nam",
-    },
-    {
-        id: "3",
-        avatar: mocks.images.image3,
-        name: "Phạm Hoàng Nam",
-    },
-    {
-        id: "4",
-        avatar: mocks.images.image4,
-        name: "Phạm Hoàng Nam",
-    },
-    {
-        id: "5",
-        avatar: mocks.images.image5,
-        name: "Phạm Hoàng Nam",
-    },
-    {
-        id: "6",
-        avatar: mocks.images.image6,
-        name: "Phạm Hoàng Nam",
-    },
-]
-
-const post = [
-    {
-        image1: mocks.images.image1,
-        image2: mocks.images.image2,
-        image3: mocks.images.image3,
-    },
-    {
-        image1: mocks.images.image4,
-        image2: mocks.images.image5,
-        image3: mocks.images.image6,
-    },
-    {
-        image1: mocks.images.image1,
-        image2: mocks.images.image2,
-        image3: mocks.images.image3,
-    },
-    {
-        image1: mocks.images.image4,
-        image2: mocks.images.image5,
-        image3: mocks.images.image6,
-    },
-    {
-        image1: mocks.images.image1,
-        image2: mocks.images.image2,
-        image3: mocks.images.image3,
-    },
-    {
-        image1: mocks.images.image4,
-        image2: mocks.images.image5,
-        image3: mocks.images.image6,
-    },
-    {
-        image1: mocks.images.image1,
-        image2: mocks.images.image1,
-        image3: mocks.images.image1,
-    },
-
-]
-
 const renderFollowers = ({ item }) => {
     return (
         <Image
@@ -146,7 +44,7 @@ const renderFollowers = ({ item }) => {
 const renderFollowing = ({ item }) => {
     return (
         <Image
-            source={{ uri: item }}
+            source={{ uri: API.root + item }}
             style={{
                 width: 50,
                 height: 50,
@@ -158,9 +56,7 @@ const renderFollowing = ({ item }) => {
 }
 
 const renderPosts = ({ item }) => {
-    console.log("item: " , item.image)
     let imageUrl = API.root + "/images/" + item.image;
-    console.log(imageUrl);
     return (
         // <Block row flex={false} space="between" style={{ paddingBottom: 5 }}>
         <Block flex={1}
@@ -178,7 +74,6 @@ const renderPosts = ({ item }) => {
 }
 
 export default function Profile({ navigation }) {
-    const [userName] = React.useState("");
     const [loading, setLoading] = React.useState(true);
     const [userInfo, setUserInfo] = React.useState();
     const [images, setImages] = React.useState([]);

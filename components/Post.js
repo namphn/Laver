@@ -96,7 +96,6 @@ export default function Post(props) {
             </Block>
             <Block flex={false} style={styles.imageContainer} >
                 <Image resizeMode="contain" source={{ uri: props.image }}
-                // {/* <Image resizeMode="contain" source={props.image} */}
                     style={{
                         ...styles.image,
                         height: imgHeight * ratio

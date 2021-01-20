@@ -19,6 +19,7 @@ import Animated, { Easing } from "react-native-reanimated"
 import { TapGestureHandler, State } from "react-native-gesture-handler"
 import { loginApi } from "../services/AuthService"
 import { useDispatch, useSelector } from "react-redux"
+import * as ActionType from '../constants/actionstype';
 
 const { width, height } = Dimensions.get("window");
 
@@ -144,7 +145,7 @@ export default function Login({ navigation }) {
         setLoading(false);
         if (resposne != null) {
             console.log(resposne)
-            switch (resposne) {
+            switch (resposne.status) {
 
                 case status.ERROR.header:
                     setErrorContent(status.ERROR.content);
@@ -153,6 +154,16 @@ export default function Login({ navigation }) {
                 case status.ACCEPT:
                     dispatch({
                         type: "LOGIN",
+                    })
+
+                    dispatch({
+                        type: ActionType.SET_USERNAME,
+                        payload: resposne.data.userName
+                    })
+
+                    dispatch({
+                        type: ActionType.SET_USERID,
+                        payload: resposne.data.userId
                     })
                     break;
 

@@ -1,6 +1,7 @@
 import { API, status } from "../constants"
 import { AsyncStorage } from "react-native"
 import { uploadStart, uploadEnd } from "../actions/postAction";
+import { GET } from './PostWithToken'
 
 const axios = require("axios");
 
@@ -30,3 +31,20 @@ export async function postToNewsFeed(data) {
     return response;
 }
 
+export async function getPostList(userId) {
+    let path = API.root + API.posts.post + "/" + userId;
+    console.log("path get new:", path)
+    let data = GET(path)
+        .then(response => {
+            if (response.data.status == status.SUCCESS) {
+                return response.data.data;
+            }
+            else return null;
+        })
+        .catch(exception => {
+            console.log(exception)
+            return null;
+        })
+
+        return data;
+}

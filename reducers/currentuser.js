@@ -1,7 +1,7 @@
-import { actionType } from "../constants"   
+import { actionType } from "../constants"
 import { AsyncStorage } from "react-native"
 
-const currenUser = (state, action) => {
+const currentUser = (state, action) => {
     switch (action.type) {
         case actionType.LOGIN:
             return {
@@ -28,4 +28,41 @@ const currenUser = (state, action) => {
     }
 }
 
-export default currenUser;
+const userInformationReducer = (state, action) => {
+    switch (action.type) {
+        case actionType.SET_USER_INFO:
+            return {
+                ...state,
+                username: action.payload.userName,
+                avatar: action.payload.userAvatar
+            }
+
+        case actionType.SET_USERNAME:
+            return {
+                ...state,
+                userName: action.payload
+            }
+
+        case actionType.SET_USER_AVATAR:
+            return {
+                ...state,
+                userAvatar: action.payload
+            }
+
+        case actionType.SET_USERID:
+            return {
+                ...state,
+                userId: action.payload
+            }
+
+        default:
+            return {
+                ...state
+            }
+    }
+}
+
+export {
+    currentUser,
+    userInformationReducer
+};
