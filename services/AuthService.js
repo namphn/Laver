@@ -26,9 +26,9 @@ export function loginApi(email, password) {
                     "userName",
                     response.data.data.userName
                 );
-                return response.data.status;
+                return response.data;
             }
-            if (response != null) return response.data.status;
+            if (response != null) return response.data;
         })
         .catch(function (error) {
             console.log(error)

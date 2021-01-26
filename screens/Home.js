@@ -9,7 +9,8 @@ import {
     FlatList,
     ScrollView,
     Animated,
-    ProgressBarAndroid
+    ProgressBarAndroid,
+    AsyncStorage
 } from "react-native"
 import {
     Text,
@@ -17,10 +18,19 @@ import {
     Block,
     Post
 } from "../components"
-import { theme, mocks } from "../constants"
+import { theme, mocks, actionType } from "../constants"
 import { useSelector } from "react-redux"
 import { useDispatch } from "react-redux"
 import { uploadEnd } from "../actions/postAction"
+import { getUserAvatar } from "../services/GetInfoService"
+import API from "../constants/api"
+import { getPostList } from '../services/PostService'
+import {
+    Placeholder,
+    PlaceholderLine,
+    PlaceholderMedia,
+    Fade
+} from "rn-placeholder";
 
 const { width, height } = Dimensions.get("window");
 const axios = require("axios");
@@ -46,46 +56,6 @@ const data = [
         liked: false,
         me: false,
     },
-    {
-        name: "Phạm Hoàng Nam",
-        avatar: mocks.profile.avatar,
-        status: "Thành cổ Oosaka, Nhật Bản let's Go.... 日本へ行きましょう！！",
-        image: mocks.images.image3,
-        likeCount: 87,
-        comment: 15,
-        liked: false,
-        me: true,
-    },
-    {
-        name: "Phạm Hoàng Nam",
-        avatar: mocks.profile.avatar,
-        status: "Xinh vchuong huhu T.T",
-        image: mocks.images.image4,
-        likeCount: 78,
-        comment: 15,
-        liked: false,
-        me: true,
-    },
-    {
-        name: "Phạm Hoàng Nam",
-        avatar: mocks.profile.avatar,
-        status: "Tiên sư chúng m",
-        image: mocks.images.image5,
-        likeCount: 45,
-        comment: 15,
-        liked: true,
-        me: true,
-    },
-    {
-        name: "Phạm Hoàng Nam",
-        avatar: mocks.profile.avatar,
-        status: "Ohhhh!",
-        image: mocks.images.image6,
-        likeCount: 58,
-        comment: 15,
-        liked: false,
-        me: true,
-    }
 ]
 
 export default function Home({ navigation, route }) {
@@ -95,16 +65,47 @@ export default function Home({ navigation, route }) {
     })
     const [uploadingProcess, setUploadingProcess] = useState(1);
     const dispatch = useDispatch();
+    const uploading = useSelector(state => state.postState.postUploading);
+    const userAvatar = useSelector(state => state.userInformation.userAvatar);
+    const [posts, setPosts] = React.useState();
+    const [error, setError] = React.useState(false);
+    const [loading, setLoading] = React.useState(true);
 
-    const uploading = useSelector(state => state.postState.postUploading)
     useEffect(() => {
-        if(uploading) {
-            const { postdata }  = route.params
-            console.log(postdata)
+        if (uploading) {
+            const { postdata } = route.params
             postToNewsFeed(postdata);
         }
 
     }, [uploading]);
+
+    React.useEffect(() => {
+        fetchUserAvatar();
+        fetchPostList();
+    }, [])
+
+    const fetchUserAvatar = async () => {
+        const userId = await AsyncStorage.getItem("userId");
+        let userAvatar = await getUserAvatar(userId);
+        dispatch({
+            type: actionType.SET_USER_AVATAR,
+            payload: API.root + userAvatar
+        })
+    }
+
+    const fetchPostList = async () => {
+        const userId = await AsyncStorage.getItem("userId");
+        let posts = await getPostList(userId);
+        if (posts != null) {
+            console.log(posts)
+            setPosts(posts)
+            setLoading(false);
+        }
+        else {
+            setError(true);
+            setLoading(false);
+        }
+    }
 
     const scrollY = new Animated.Value(0);
 
@@ -128,11 +129,11 @@ export default function Home({ navigation, route }) {
 
     const renderPost = ({ item }) => {
         return (
-            <Post avatar={item.avatar}
-                name={item.name}
-                status={item.status}
-                image={item.image}
-                likeCount={item.likeCount}
+            <Post avatar={API.root + "/" + item.userAvatar}
+                name={item.userName}
+                status={item.content}
+                image={API.root + "/" + item.image}
+                likeCount={item.likes.length}
                 comment={item.comment}
                 liked={item.liked}
                 navigation={navigation}
@@ -141,8 +142,74 @@ export default function Home({ navigation, route }) {
         )
     }
 
+    const renderLoadingEffect = ({ item }) => {
+        return (
+            <Placeholder
+                Animation={Fade}
+            >
+                <Block flex={false} color="white" style={{
+                    marginBottom: 7
+                }} >
+                    <Block row style={{
+                        flexDirection: "row",
+                        alignItems: 'center',
+                        paddingLeft: 10,
+                        paddingTop: 10
+                    }}>
+                        <PlaceholderMedia
+                            style={{
+                                height: width / 10,
+                                width: width / 10,
+                                borderRadius: width / 20
+                            }} />
+                        <PlaceholderLine
+                            style={{
+                                width: 70,
+                                fontWeight: "bold",
+                                alignContent: "center",
+                                marginLeft: 10,
+                            }}
+                        />
+                    </Block>
+                    <Block style={{
+                        paddingTop: 10,
+                        paddingBottom: 10,
+                        paddingLeft: 10
+                    }}>
+                        <PlaceholderLine
+                            style={{
+                                width: 300,
+                                fontWeight: "bold",
+                                alignContent: "center",
+                                marginLeft: 10,
+                            }}
+                        />
+                        <PlaceholderLine
+                            style={{
+                                width: 200,
+                                fontWeight: "bold",
+                                alignContent: "center",
+                                marginLeft: 10,
+                            }}
+                        />
+                    </Block>
+                    <Block flex={false} style={{
+                        width: width,
+                        alignItems: "center"
+                    }} >
+                        <PlaceholderMedia
+                            style={{
+                                flex: 1,
+                                width: width,
+                                height: 200
+                            }} />
+                    </Block>
+                </Block>
+            </Placeholder>
+        )
+    }
+
     function postToNewsFeed(data) {
-        console.log("Post data")
         let options = {
             "Method": "POST",
             headers: {
@@ -154,10 +221,10 @@ export default function Home({ navigation, route }) {
                 let percent = parseFloat(loaded / total);
                 console.log(percent);
                 setUploadingProcess(percent);
-                if(percent == 1) dispatch(uploadEnd());
+                if (percent == 1) dispatch(uploadEnd());
             }
         }
-    
+
         let path = API.root + API.posts.post;
         let response = axios.post(path, data, options)
             .then(function (response) {
@@ -185,7 +252,7 @@ export default function Home({ navigation, route }) {
                         Laver
                 </Text>
                     <Button onPress={() => navigation.navigate("Profile")}>
-                        <Image source={{ uri: mocks.profile.avatar }} style={styles.avatar} />
+                        <Image source={{ uri: userAvatar }} style={styles.avatar} />
                     </Button>
                 </Block>
             </Animated.View>
@@ -198,7 +265,7 @@ export default function Home({ navigation, route }) {
                             alignItems: "center",
                             paddingLeft: 10
                         }}>
-                            <Image source={{ uri: mocks.profile.avatar }} style={styles.postAvatar} />
+                            <Image source={{ uri: userAvatar }} style={styles.postAvatar} />
                             <Block style={styles.postStatusButton}>
                                 <TouchableOpacity onPress={() => navigation.navigate("Upload")}>
                                     <Text style={{
@@ -209,28 +276,43 @@ export default function Home({ navigation, route }) {
                             </Block>
                         </Block>
                         {
-                            uploading && uploadingProcess != 1&& 
+                            uploading && uploadingProcess != 1 &&
                             <Block>
-                            <ProgressBarAndroid
-                                styleAttr="Horizontal"
-                                indeterminate={false}
-                                progress={uploadingProcess}
-                                color={theme.colors.green}
-                            />
-                        </Block>
+                                <ProgressBarAndroid
+                                    styleAttr="Horizontal"
+                                    indeterminate={false}
+                                    progress={uploadingProcess}
+                                    color={theme.colors.green}
+                                />
+                            </Block>
                         }
-                        
+
                     </ScrollView>
-                    <FlatList
-                        onScroll={Animated.event(
-                            [{ nativeEvent: { contentOffset: { y: scrollY } } }]
-                        )}
-                        showsVerticalScrollIndicator={false}
-                        data={data}
-                        renderItem={renderPost}
-                        style={{ marginTop: 10 }}
-                    >
-                    </FlatList>
+                    {
+                        loading ? (
+                            <FlatList
+                                onScroll={Animated.event(
+                                    [{ nativeEvent: { contentOffset: { y: scrollY } } }]
+                                )}
+                                showsVerticalScrollIndicator={false}
+                                data={[1, 2, 3, 4]}
+                                renderItem={renderLoadingEffect}
+                                style={{ marginTop: 10 }}
+                            ></FlatList>
+                        ) : (
+                                <FlatList
+                                    onScroll={Animated.event(
+                                        [{ nativeEvent: { contentOffset: { y: scrollY } } }]
+                                    )}
+                                    showsVerticalScrollIndicator={false}
+                                    data={posts}
+                                    renderItem={renderPost}
+                                    style={{ marginTop: 10 }}
+                                >
+                                </FlatList>
+                            )
+                    }
+
                 </Block>
             </Block>
         </SafeAreaView>

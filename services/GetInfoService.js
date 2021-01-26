@@ -17,4 +17,17 @@ export async function getUserProfile(userId) {
     return userInfo;
 }
 
+export async function getUserAvatar(userId) {
+    const path = API.root + API.user.getInfo + userId + "/avatar";
+    let userAvatar = await GET(path).then(response => {
+        if(response.data.status == status.SUCCESS) {
+            return response.data.data;
+        }
+        else return null;
+    }).catch(e => {
+        return null;
+    })
+    
+    return userAvatar;
+}
 
