@@ -23,6 +23,8 @@ import { postToNewsFeed } from "../services/PostService"
 import { useDispatch } from "react-redux"
 import { uploadStart } from "../actions/postAction"
 import { useSelector } from "react-redux"
+import SockJS from 'sockjs-client'
+import Stomp from 'stompjs'
 
 const { width, height } = Dimensions.get("window");
 
@@ -34,6 +36,7 @@ export default function Upload({ navigation }) {
     const [keyBoardIsShowing, setKeyBoardIsShowing] = useState(false);
     const [optionOpacity, setOptionOpacity] = useState(new Animated.Value(1));
     const [rowOptionOpacity, setrowOptionOpacity] = useState(new Animated.Value(1));
+    var formData = null;
 
     Keyboard.addListener("keyboardDidShow", () => {
         Animated.timing(optionOpacity, {
@@ -69,7 +72,7 @@ export default function Upload({ navigation }) {
     }
 
     const postSubmit = async () => {
-        
+
         var data = new FormData();
         let userId = await AsyncStorage.getItem("userId");
         if (image) data.append("image", {
@@ -79,8 +82,8 @@ export default function Upload({ navigation }) {
         });
         data.append("userId", userId);
         data.append("content", status);
-      
-        navigation.navigate("Home", {postdata: data});
+
+        navigation.navigate("Home", { postdata: data });
         dispatch(uploadStart());
     }
 
