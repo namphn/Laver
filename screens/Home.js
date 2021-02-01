@@ -31,6 +31,8 @@ import {
     PlaceholderMedia,
     Fade
 } from "rn-placeholder";
+import SockJS from 'sockjs-client'
+import Stomp from 'stompjs';
 
 const { width, height } = Dimensions.get("window");
 const axios = require("axios");
@@ -70,6 +72,22 @@ export default function Home({ navigation, route }) {
     const [posts, setPosts] = React.useState();
     const [error, setError] = React.useState(false);
     const [loading, setLoading] = React.useState(true);
+    
+    const ws = new SockJS("https://21e26cad96ee.ngrok.io/ws");
+    const stompClient = Stomp.over(ws);
+
+    React.useEffect(() => {
+        stompClient.connect('', '', () => {
+            stompClient.subscribe(
+                '/topic/public', function (message) {
+                    console.log("recive message")
+                    console.log(message.body)
+                    setPosts([...posts, message.body])
+                    console.log(posts)
+                }
+            );
+        });
+    }, [])
 
     useEffect(() => {
         if (uploading) {
@@ -97,7 +115,6 @@ export default function Home({ navigation, route }) {
         const userId = await AsyncStorage.getItem("userId");
         let posts = await getPostList(userId);
         if (posts != null) {
-            console.log(posts)
             setPosts(posts)
             setLoading(false);
         }
@@ -133,7 +150,7 @@ export default function Home({ navigation, route }) {
                 name={item.userName}
                 status={item.content}
                 image={API.root + "/" + item.image}
-                likeCount={item.likes.length}
+                likeCount={item.likes == null ? 0 : item.likes.length}
                 comment={item.comment}
                 liked={item.liked}
                 navigation={navigation}
@@ -208,7 +225,7 @@ export default function Home({ navigation, route }) {
             </Placeholder>
         )
     }
-
+    
     function postToNewsFeed(data) {
         let options = {
             "Method": "POST",
@@ -219,7 +236,6 @@ export default function Home({ navigation, route }) {
             onUploadProgress: (progressEvent) => {
                 const { loaded, total } = progressEvent;
                 let percent = parseFloat(loaded / total);
-                console.log(percent);
                 setUploadingProcess(percent);
                 if (percent == 1) dispatch(uploadEnd());
             }
