@@ -1,5 +1,5 @@
 export default API = {
-    root: "https://ede962a8c8f4.ngrok.io",
+    root: "https://4d0f26172f4c.ngrok.io",
     user: {
         login: "/user/login",
         sigup: "/user/register",
@@ -7,6 +7,7 @@ export default API = {
     },
     posts: {
         post: "/posts",
+        socket: "/app/newsfeed",
     }
 }
 
