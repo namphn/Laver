@@ -37,29 +37,6 @@ import Stomp from 'stompjs';
 const { width, height } = Dimensions.get("window");
 const axios = require("axios");
 
-const data = [
-    {
-        name: "Phạm Hoàng Nam",
-        avatar: mocks.profile.avatar,
-        status: "Đây là lí do người ta gọi anh là Lươn, Cao Bằng thế này thì không lươn mới lạ",
-        image: mocks.images.image1,
-        likeCount: 99,
-        comment: 15,
-        liked: true,
-        me: true,
-    },
-    {
-        name: "Nguyễn Hữu Thanh",
-        avatar: mocks.images.image1,
-        status: "Đường tình anh thua, đường đua anh chấp!",
-        image: mocks.images.image2,
-        likeCount: 53,
-        comment: 15,
-        liked: false,
-        me: false,
-    },
-]
-
 export default function Home({ navigation, route }) {
     const [state, setState] = useState({
         active: "Products",
@@ -73,7 +50,7 @@ export default function Home({ navigation, route }) {
     const [error, setError] = React.useState(false);
     const [loading, setLoading] = React.useState(true);
 
-    const ws = new SockJS("https://4d0f26172f4c.ngrok.io/ws");
+    const ws = new SockJS("https://56e053cc0049.ngrok.io/ws");
     const stompClient = Stomp.over(ws);
 
     useEffect(() => {
@@ -89,7 +66,7 @@ export default function Home({ navigation, route }) {
         fetchPostList();
     }, [])
 
-    
+
 
     React.useEffect(() => {
         stompClient.connect('', '', () => {
@@ -103,7 +80,7 @@ export default function Home({ navigation, route }) {
                 }
             );
         });
-    },[])
+    }, [])
 
     React.useEffect(() => {
         console.log(posts)
@@ -114,7 +91,7 @@ export default function Home({ navigation, route }) {
         let userAvatar = await getUserAvatar(userId);
         dispatch({
             type: actionType.SET_USER_AVATAR,
-            payload: API.root + userAvatar
+            payload: API.root + "/" + userAvatar
         })
     }
 

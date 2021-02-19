@@ -33,7 +33,10 @@ export default function Post(props) {
     const { navigation } = props;
 
     useEffect(() => {
-    }, [likeCountState])
+        setLikeCountState(likeCount);
+        setShareCountState(share);
+        setCommentCountState(commentCount);
+    }, [])
 
     const onChangeLike = () => {
         if (active) {
@@ -50,15 +53,6 @@ export default function Post(props) {
             setImgHeight(imgHeight);
         })
     })
-
-    // useEffect(() => {
-    //     const imgProps = Image.resolveAssetSource(props.image);
-    //     const imgWidth  = imgProps.width;
-    //     const imgHeight = imgProps.height;
-    //     setRatio(width / imgWidth);
-    //     setImgHeight(imgHeight);
-    // })
-
 
     const navigateToCommentScreen = () => {
         navigation.navigate("Comment", {
@@ -107,9 +101,9 @@ export default function Post(props) {
                     <Text>Likes</Text>
                 </Text>
                 <Text>
-                    <Text>10 </Text>
+                    <Text>{commentCountState ? commentCountState : 0} </Text>
                     <Text>Comment</Text>
-                    <Text>. 10 </Text>
+                    <Text>. {shareCountState ? shareCountState : 0} </Text>
                     <Text>Share</Text>
                 </Text>
             </TouchableOpacity>
